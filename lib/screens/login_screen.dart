@@ -1,31 +1,48 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_project/screens/screen1.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+  String? _userName;
+  late String _password;
+
+  bool _validateInputs() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      return true;
+    } else {
+      setState(() {
+        _autoValidateMode = AutovalidateMode.always;
+      });
+      return false;
+    }
+  }
 
   List<Widget> getLoginForm(BuildContext context) {
     return [
       Padding(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 35),
         child: TextFormField(
-          // validator: (val) {
-          //   if (regex.hasMatch(val!.trim()) || val.trim() == '') {
-          //     return null;
-          //   } else {
-          //     return 'Enter only numbers!';
-          //   }
-          // },
-          // onSaved: (val) {
-          //   if (val!.trim() != '') {
-          //     machineData[i]['metrics'][widget.fields[j]['fieldName']] =
-          //         val.trim();
-          //   }
-          // },
+          validator: (val) {
+            if (val!.trim() != '') {
+              return null;
+            } else {
+              return 'Enter Username';
+            }
+          },
+          onSaved: (val) {
+            _userName = val!.trim();
+          },
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: "Email",
+            labelText: "Username",
             labelStyle: TextStyle(
               color: Color(0xFF8B97A2),
               fontWeight: FontWeight.normal,
@@ -47,8 +64,8 @@ class LoginScreen extends StatelessWidget {
                 8,
               ),
             ),
-            // filled: true,
-            // fillColor: Colors.orangeAccent,
+            filled: true,
+            fillColor: Colors.white,
             contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
           ),
           style: TextStyle(
@@ -60,23 +77,16 @@ class LoginScreen extends StatelessWidget {
       Padding(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 35),
         child: TextFormField(
-          // validator: (val) {
-          //   if (widget.fields[j]['fieldType'] == "numeric") {
-          //     if (regex.hasMatch(val!.trim()) || val.trim() == '') {
-          //       return null;
-          //     } else {
-          //       return 'Enter only numbers!';
-          //     }
-          //   } else {
-          //     return null;
-          //   }
-          // },
-          // onSaved: (val) {
-          //   if (val!.trim() != '') {
-          //     machineData[i]['metrics'][widget.fields[j]['fieldName']] =
-          //         val.trim();
-          //   }
-          // },
+          validator: (val) {
+            if (val!.trim() != '' && val.trim().length >= 8) {
+              return null;
+            } else {
+              return 'Enter a valid Password';
+            }
+          },
+          onSaved: (val) {
+            _password = val!.trim();
+          },
           obscureText: true,
           keyboardType: TextInputType.visiblePassword,
           decoration: InputDecoration(
@@ -102,8 +112,8 @@ class LoginScreen extends StatelessWidget {
                 8,
               ),
             ),
-            // filled: true,
-            // fillColor: Colors.orangeAccent,
+            filled: true,
+            fillColor: Colors.white,
             contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
           ),
           style: TextStyle(
@@ -120,160 +130,27 @@ class LoginScreen extends StatelessWidget {
           horizontal: 55,
         ),
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => Screen1(
-                  screenBackgroundColor: Colors.grey[300]!,
-                  titleCards: [
-                    TitleCard(
-                      cardTitle: "Placeholder 1",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                    TitleCard(
-                      cardTitle: "Placeholder 2",
-                      cardColor: Colors.white,
-                      subCardsColor: Colors.green,
-                      subCards: [
-                        SubCard(
-                            icon: Icons.ac_unit_outlined, name: "Subcard 1"),
-                        SubCard(
-                            icon: Icons.airline_seat_legroom_extra_rounded,
-                            name: "Subcard 2"),
-                        SubCard(icon: Icons.water, name: "Subcard 3"),
-                        SubCard(icon: Icons.house, name: "Subcard 4"),
-                        SubCard(icon: Icons.card_travel, name: "Subcard 5"),
-                        SubCard(
-                            icon: Icons.account_tree_outlined,
-                            name: "Subcard 6"),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
+          onPressed: () async {
+            FocusScope.of(context).requestFocus(new FocusNode());
+
+            if (_validateInputs()) {
+              await FirebaseFirestore.instance
+                  .collection("users")
+                  .where("userName", isEqualTo: _userName)
+                  .limit(1)
+                  .get()
+                  .then((value) async {
+                if (value.docs.isEmpty) {
+                  print("no user");
+                  //todo: popup user not registered
+                } else {
+                  String _email = value.docs[0]['email'];
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _email, password: _password);
+                  print(FirebaseAuth.instance.currentUser);
+                }
+              });
+            }
           },
           child: Text(
             "Login",
@@ -293,7 +170,7 @@ class LoginScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 5,
             ),
             Text(
-              "Warehouse",
+              "NWarehouse",
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(

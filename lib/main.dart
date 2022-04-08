@@ -1,9 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/screens/login_screen.dart';
 import 'package:iot_project/screens/screen2.dart';
 import 'package:iot_project/screens/screen4.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey[200],
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'screen4',
+      initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
         'screen2': (context) => Screen2(),
