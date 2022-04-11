@@ -1,17 +1,67 @@
+import 'dart:io' show Platform;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_project/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+enum DialogType { invalidUsername, invalidCredentials }
+
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   String? _userName;
   late String _password;
+
+  void showNoUserDialog(DialogType dialogType) {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text("Not Authorized!"),
+          content: Text(
+            dialogType == DialogType.invalidUsername
+                ? "Invalid Username / Username not registered yet"
+                : "Incorrect Username or Password",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Close"),
+            ),
+          ],
+        ),
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text("Not Authorized!"),
+          content: Text(
+            dialogType == DialogType.invalidUsername
+                ? "Invalid Username / Username not registered yet"
+                : "Incorrect Username or Password",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Close"),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   bool _validateInputs() {
     if (_formKey.currentState!.validate()) {
@@ -141,13 +191,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   .get()
                   .then((value) async {
                 if (value.docs.isEmpty) {
-                  print("no user");
-                  //todo: popup user not registered
+                  showNoUserDialog(DialogType.invalidUsername);
                 } else {
                   String _email = value.docs[0]['email'];
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _email, password: _password);
-                  print(FirebaseAuth.instance.currentUser);
+                  try {
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: _email, password: _password);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                          username: _userName,
+                        ),
+                      ),
+                    );
+                  } catch (e) {
+                    showNoUserDialog(DialogType.invalidCredentials);
+                  }
                 }
               });
             }

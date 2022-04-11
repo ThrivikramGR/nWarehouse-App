@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Screen1 extends StatelessWidget {
-  final Color screenBackgroundColor;
   final List<TitleCard> titleCards;
-  Screen1({required this.screenBackgroundColor, required this.titleCards});
+  Screen1({required this.titleCards});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: screenBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
