@@ -184,6 +184,8 @@ class _LoginScreenState extends State<LoginScreen> {
             FocusScope.of(context).requestFocus(new FocusNode());
 
             if (_validateInputs()) {
+              //todo:loadingSpinner
+              //todo: fix error not running in oneplus
               await FirebaseFirestore.instance
                   .collection("users")
                   .where("userName", isEqualTo: _userName)
