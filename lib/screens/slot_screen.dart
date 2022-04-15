@@ -160,7 +160,11 @@ class SlotScreen extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(8),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => NodesScreen()),
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -171,7 +175,7 @@ class SlotScreen extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "Slot 1",
+                          "Slot 2",
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
@@ -192,7 +196,11 @@ class SlotScreen extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(8),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => NodesScreen()),
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -203,7 +211,7 @@ class SlotScreen extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "Slot 1",
+                          "Slot 3",
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
@@ -224,7 +232,11 @@ class SlotScreen extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(8),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => NodesScreen()),
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -235,7 +247,7 @@ class SlotScreen extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "Slot 1",
+                          "Slot 4",
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
