@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/screens/home_screen.dart';
 import 'package:iot_project/screens/login_screen.dart';
+import 'package:iot_project/screens/newHomePage.dart';
 import 'package:iot_project/screens/screen2.dart';
 import 'package:iot_project/screens/screen4.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey[200],
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: 'newHome',
       routes: {
         '/': (context) => LoginScreen(),
         'screen2': (context) => Screen2(),
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         'home': (context) => HomeScreen(
               username: "Guest",
             ),
+        'newHome': (context) => NewHomeScreen(),
       },
     );
   }
