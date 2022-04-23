@@ -1,3 +1,7 @@
+import 'dart:io' show Platform;
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/custom_widgets/dropdown_button.dart';
 import 'package:iot_project/custom_widgets/inkwell_container.dart';
@@ -312,7 +316,63 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 17,
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          if (Platform.isAndroid) {
+            showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: const Text("Logout"),
+                content: Text(
+                  "Confirm logout?",
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      FirebaseAuth _auth = FirebaseAuth.instance;
+                      _auth.signOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "/", (Route<dynamic> route) => false);
+                    },
+                    child: const Text("Logout"),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            showCupertinoDialog(
+              context: context,
+              builder: (_) => CupertinoAlertDialog(
+                title: const Text("Logout"),
+                content: Text(
+                  "Confirm logout?",
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      FirebaseAuth _auth = FirebaseAuth.instance;
+                      _auth.signOut();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "/", (Route<dynamic> route) => false);
+                    },
+                    child: const Text("Logout"),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
       ),
     ];
   }
