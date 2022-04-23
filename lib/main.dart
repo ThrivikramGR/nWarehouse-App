@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_project/screens/home_screen.dart';
-import 'package:iot_project/screens/login_screen.dart';
-import 'package:iot_project/screens/newHomePage.dart';
+import 'package:iot_project/new_screens/login_screen.dart';
+import 'package:iot_project/new_screens/newHomePage.dart';
 import 'package:iot_project/screens/screen2.dart';
 import 'package:iot_project/screens/screen4.dart';
+import 'package:iot_project/services/color_config.dart';
+
+import 'new_screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,18 +31,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'IoT Project App',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: Colors.grey[200],
+        primaryColor: ColorConfig.primaryBlue,
+        scaffoldBackgroundColor: ColorConfig.backgroundLightBlue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'newHome',
+      initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
         'screen2': (context) => Screen2(),
         'screen4': (context) => Screen4(),
-        'home': (context) => HomeScreen(
-              username: "Guest",
-            ),
+        'home': (context) => HomeScreen(),
         'newHome': (context) => NewHomeScreen(),
       },
     );

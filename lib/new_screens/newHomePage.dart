@@ -12,17 +12,19 @@ class NewHomeScreen extends StatelessWidget {
       ),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Builder(builder: (context) {
-          return IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: Icon(
-              Icons.menu,
-              color: Colors.blue,
-            ),
-          );
-        }),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(
+                Icons.menu,
+                color: Colors.blue,
+              ),
+            );
+          },
+        ),
         centerTitle: true,
         title: Text(
           "Warehouse",
