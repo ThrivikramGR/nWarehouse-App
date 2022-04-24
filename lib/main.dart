@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: ColorConfig.backgroundLightBlue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
         'screen2': (context) => Screen2(),

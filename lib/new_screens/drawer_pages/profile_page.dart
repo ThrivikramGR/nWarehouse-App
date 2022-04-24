@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 46,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
