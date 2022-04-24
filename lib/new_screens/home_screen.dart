@@ -18,9 +18,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
-  late Map<int, Widget> drawerPages = {
-    0: SelectWarehousePage(),
-    1: ProfilePage()
+  late Map<int, Map<String, dynamic>> drawerPages = {
+    0: {
+      "widget": SelectWarehousePage(),
+      "appBarTitle": "Select Warehouse",
+    },
+    1: {
+      "widget": ProfilePage(
+        username: widget.userName!,
+      ),
+      "appBarTitle": "My Profile",
+    },
   };
 
   void drawerItemOnTapHandler(int page) {
@@ -98,13 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {
                 drawerItemOnTapHandler(1);
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => ProfileScreen(),
-                //   ),
-                // );
               },
             ),
             ListTile(
@@ -219,8 +220,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      appBar: CustomScaffoldElements.getAppBar("Select Warehouse"),
-      body: drawerPages[currentPage],
+      appBar: CustomScaffoldElements.getAppBar(
+          drawerPages[currentPage]!["appBarTitle"]),
+      body: drawerPages[currentPage]!["widget"],
     );
   }
 }
