@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomInkwellContainer extends StatelessWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundColor;
   final double height;
   final double borderRadius;
   final Color? splashColor;
 
   CustomInkwellContainer(
-      {required this.onPressed,
+      {this.onPressed,
       this.backgroundColor = Colors.white,
       this.height = 75,
       required this.child,

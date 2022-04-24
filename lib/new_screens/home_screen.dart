@@ -3,7 +3,10 @@ import 'dart:io' show Platform;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_project/custom_widgets/scaffoldElements.dart';
+import 'package:iot_project/custom_widgets/scaffold_elements.dart';
+import 'package:iot_project/new_screens/drawer_pages/alerts_page.dart';
+import 'package:iot_project/new_screens/drawer_pages/help_page.dart';
+import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/profile_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart';
 import 'package:iot_project/services/color_config.dart';
@@ -20,7 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
   late Map<int, Map<String, dynamic>> drawerPages = {
     0: {
-      "widget": SelectWarehousePage(),
+      "widget": SelectWarehousePage(
+        username: widget.userName!,
+      ),
       "appBarTitle": "Select Warehouse",
     },
     1: {
@@ -28,6 +33,18 @@ class _HomeScreenState extends State<HomeScreen> {
         username: widget.userName!,
       ),
       "appBarTitle": "My Profile",
+    },
+    2: {
+      "widget": NotificationsPage(),
+      "appBarTitle": "Notifications",
+    },
+    3: {
+      "widget": AlertsPage(),
+      "appBarTitle": "Alerts",
+    },
+    4: {
+      "widget": HelpPage(),
+      "appBarTitle": "Help",
     },
   };
 
@@ -119,7 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 17,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                drawerItemOnTapHandler(2);
+              },
             ),
             ListTile(
               leading: Icon(
@@ -132,7 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 17,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                drawerItemOnTapHandler(3);
+              },
             ),
             ListTile(
               leading: Icon(
@@ -145,7 +166,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 17,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                drawerItemOnTapHandler(4);
+              },
             ),
             ListTile(
               leading: Icon(

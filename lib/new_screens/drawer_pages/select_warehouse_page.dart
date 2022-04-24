@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:iot_project/new_screens/warehouseHomePage.dart';
 
 import '../../custom_widgets/dropdown_button.dart';
 import '../../custom_widgets/inkwell_container.dart';
 import '../../services/color_config.dart';
 
 class SelectWarehousePage extends StatefulWidget {
+  final String username;
+  SelectWarehousePage({required this.username});
   @override
   State<SelectWarehousePage> createState() => _SelectWarehousePageState();
 }
@@ -99,11 +102,16 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (dropdownValue != "default") {
-                        print(dropdownValue);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WarehouseHomePage(
+                              warehouseName: dropdownValue,
+                              username: widget.username,
+                            ),
+                          ),
+                        );
                       }
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(builder: (context) => SlotScreen()),
-                      // );
                     },
                     child: Text(
                       "View Warehouse",

@@ -222,8 +222,8 @@ class CustomScaffoldElements {
                 print("Settings Selected");
                 break;
               case 1:
-                //Second item (Sign out) selected
-                print("Sign out Selected");
+                //Second item (Help) selected
+                print("Help Selected");
                 break;
               default:
                 print("Case not defined");
@@ -243,7 +243,7 @@ class CustomScaffoldElements {
               PopupMenuItem(
                 value: 1,
                 child: Text(
-                  "Sign out",
+                  "Help",
                   style: TextStyle(
                     color: Colors.black,
                   ),
