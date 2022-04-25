@@ -12,8 +12,9 @@ import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart'
 import 'package:iot_project/services/color_config.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String? userName;
-  HomeScreen({this.userName = "Guest"});
+  final String? username;
+  final List warehouseList;
+  HomeScreen({required this.username, required this.warehouseList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,13 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   late Map<int, Map<String, dynamic>> drawerPages = {
     0: {
       "widget": SelectWarehousePage(
-        username: widget.userName!,
+        username: widget.username!,
+        warehouseList: widget.warehouseList,
       ),
       "appBarTitle": "Select Warehouse",
     },
     1: {
       "widget": ProfilePage(
-        username: widget.userName!,
+        username: widget.username!,
       ),
       "appBarTitle": "My Profile",
     },
@@ -84,8 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 15,
                     ),
                     Text(
-                      widget.userName![0].toUpperCase() +
-                          widget.userName!.substring(1),
+                      widget.username![0].toUpperCase() +
+                          widget.username!.substring(1),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,

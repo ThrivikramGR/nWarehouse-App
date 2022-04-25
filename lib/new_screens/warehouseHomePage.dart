@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iot_project/custom_widgets/inkwell_container.dart';
+import 'package:iot_project/new_screens/select_nodeType_screen.dart';
 import 'package:iot_project/services/color_config.dart';
 
 class WarehouseHomePage extends StatelessWidget {
@@ -48,18 +49,18 @@ class WarehouseHomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Material(
-                      color: Colors.white,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.account_circle,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
+                    // Material(
+                    //   color: Colors.white,
+                    //   child: IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(
+                    //       Icons.account_circle,
+                    //       color: Colors.blue,
+                    //     ),
+                    //   ),
+                    // ),
                     Text(
-                      "Good Day, $username",
+                      "Good Day, ${username[0].toUpperCase() + username.substring(1)}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -67,16 +68,16 @@ class WarehouseHomePage extends StatelessWidget {
                         color: Colors.blue,
                       ),
                     ),
-                    Material(
-                      color: Colors.white,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.notifications,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
+                    // Material(
+                    //   color: Colors.white,
+                    //   child: IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(
+                    //       Icons.notifications,
+                    //       color: Colors.blue,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -162,7 +163,7 @@ class WarehouseHomePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Nodes",
+                          "Slots",
                           style: TextStyle(
                             fontSize: 19,
                             color: ColorConfig.primaryBlue,
@@ -179,7 +180,7 @@ class WarehouseHomePage extends StatelessWidget {
                           childAspectRatio: 1,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 20,
-                          children: getGridViewChildren(),
+                          children: getGridViewChildren(context),
                         ),
                       ],
                     ),
@@ -193,11 +194,13 @@ class WarehouseHomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> getGridViewChildren() {
+  //
+
+  List<Widget> getGridViewChildren(BuildContext context) {
     List<GridViewChild> gridViewChildren = [
       GridViewChild(
         child: Text(
-          "Node 1",
+          "Slot 1",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -206,7 +209,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 2",
+          "Slot 2",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -215,7 +218,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 3",
+          "Slot 3",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -224,7 +227,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 4",
+          "Slot 4",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -233,7 +236,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 5",
+          "Slot 5",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -242,7 +245,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 6",
+          "Slot 6",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -251,7 +254,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 7",
+          "Slot 7",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -260,7 +263,7 @@ class WarehouseHomePage extends StatelessWidget {
       ),
       GridViewChild(
         child: Text(
-          "Node 8",
+          "Slot 8",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -273,7 +276,14 @@ class WarehouseHomePage extends StatelessWidget {
       (index) {
         return GestureDetector(
           onTap: () {
-            print("node clicked");
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => SelectNodeTypeScreen(
+                  warehouseName: warehouseName,
+                  slotName: "Slot 1",
+                ),
+              ),
+            );
           },
           child: Container(
             decoration: BoxDecoration(

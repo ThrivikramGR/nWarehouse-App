@@ -7,7 +7,8 @@ import '../../services/color_config.dart';
 
 class SelectWarehousePage extends StatefulWidget {
   final String username;
-  SelectWarehousePage({required this.username});
+  final List warehouseList;
+  SelectWarehousePage({required this.username, required this.warehouseList});
   @override
   State<SelectWarehousePage> createState() => _SelectWarehousePageState();
 }
@@ -41,20 +42,20 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
 
     items.addAll(
       List.generate(
-        dummyWarehouseList.length,
+        widget.warehouseList.length,
         (index) {
           return DropdownMenuItem<String>(
             child: Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                dummyWarehouseList[index],
+                widget.warehouseList[index],
                 style: TextStyle(
                   fontSize: 14,
                   color: ColorConfig.primaryBlue,
                 ),
               ),
             ),
-            value: dummyWarehouseList[index],
+            value: widget.warehouseList[index],
           );
         },
       ),
