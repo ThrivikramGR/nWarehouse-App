@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_project/new_screens/init_loading_screen.dart';
 import 'package:iot_project/services/color_config.dart';
+
+import 'init_loading_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iot_project/custom_widgets/inkwell_container.dart';
-import 'package:iot_project/new_screens/select_nodeType_screen.dart';
+import 'package:iot_project/new_screens/warehouse_flow/select_nodeType_screen.dart';
+import 'package:iot_project/new_screens/warehouse_flow/warehouse_alerts_screen.dart';
+import 'package:iot_project/new_screens/warehouse_flow/warehouse_profile_screen.dart';
 import 'package:iot_project/services/color_config.dart';
 
-class WarehouseHomePage extends StatelessWidget {
+class WarehouseHomeScreen extends StatelessWidget {
   final String warehouseName;
   final String username;
-  WarehouseHomePage({required this.warehouseName, required this.username});
+  WarehouseHomeScreen({required this.warehouseName, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +51,6 @@ class WarehouseHomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // Material(
-                    //   color: Colors.white,
-                    //   child: IconButton(
-                    //     onPressed: () {},
-                    //     icon: Icon(
-                    //       Icons.account_circle,
-                    //       color: Colors.blue,
-                    //     ),
-                    //   ),
-                    // ),
                     Text(
                       "Good Day, ${username[0].toUpperCase() + username.substring(1)}",
                       maxLines: 1,
@@ -68,16 +60,6 @@ class WarehouseHomePage extends StatelessWidget {
                         color: Colors.blue,
                       ),
                     ),
-                    // Material(
-                    //   color: Colors.white,
-                    //   child: IconButton(
-                    //     onPressed: () {},
-                    //     icon: Icon(
-                    //       Icons.notifications,
-                    //       color: Colors.blue,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -99,7 +81,15 @@ class WarehouseHomePage extends StatelessWidget {
                     ),
                     height: 75,
                     backgroundColor: ColorConfig.primaryBlue,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => WarehouseAlertsPage(
+                            warehouseName: warehouseName,
+                          ),
+                        ),
+                      );
+                    },
                     splashColor: Colors.blue[200],
                   ),
                   SizedBox(
@@ -131,7 +121,16 @@ class WarehouseHomePage extends StatelessWidget {
                         child: CustomInkwellContainer(
                           backgroundColor: ColorConfig.primaryBlue,
                           splashColor: Colors.blue[200],
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => WarehouseProfileScreen(
+                                  username: username,
+                                  warehouseName: warehouseName,
+                                ),
+                              ),
+                            );
+                          },
                           child: Center(
                             child: Text(
                               "Warehouse Profile",
@@ -193,8 +192,6 @@ class WarehouseHomePage extends StatelessWidget {
       ),
     );
   }
-
-  //
 
   List<Widget> getGridViewChildren(BuildContext context) {
     List<GridViewChild> gridViewChildren = [
@@ -276,7 +273,7 @@ class WarehouseHomePage extends StatelessWidget {
       (index) {
         return GestureDetector(
           onTap: () {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => SelectNodeTypeScreen(
                   warehouseName: warehouseName,

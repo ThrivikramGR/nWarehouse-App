@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:iot_project/services/color_config.dart';
 
-class ProfilePage extends StatelessWidget {
+class UserProfilePage extends StatelessWidget {
   final String username;
-  ProfilePage({required this.username});
+  UserProfilePage({required this.username});
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height / 2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

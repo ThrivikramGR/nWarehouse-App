@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iot_project/new_screens/warehouseHomePage.dart';
+import 'package:iot_project/new_screens/warehouse_flow/warehouse_home_screen.dart';
 
 import '../../custom_widgets/dropdown_button.dart';
 import '../../custom_widgets/inkwell_container.dart';
@@ -106,7 +106,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WarehouseHomePage(
+                            builder: (context) => WarehouseHomeScreen(
                               warehouseName: dropdownValue,
                               username: widget.username,
                             ),

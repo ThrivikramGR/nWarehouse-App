@@ -7,8 +7,8 @@ import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 import 'package:iot_project/new_screens/drawer_pages/alerts_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/help_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
-import 'package:iot_project/new_screens/drawer_pages/profile_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart';
+import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
 import 'package:iot_project/services/color_config.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "appBarTitle": "Select Warehouse",
     },
     1: {
-      "widget": ProfilePage(
+      "widget": UserProfilePage(
         username: widget.username!,
       ),
       "appBarTitle": "My Profile",
