@@ -1,14 +1,53 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:iot_project/custom_widgets/inkwell_container.dart';
+import 'package:http/http.dart' as http;
 import 'package:iot_project/new_screens/warehouse_flow/select_nodeType_screen.dart';
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_alerts_screen.dart';
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_profile_screen.dart';
 import 'package:iot_project/services/color_config.dart';
+import 'package:line_icons/line_icons.dart';
 
-class WarehouseHomeScreen extends StatelessWidget {
+class WarehouseHomeScreen extends StatefulWidget {
   final String warehouseName;
   final String username;
   WarehouseHomeScreen({required this.warehouseName, required this.username});
+
+  @override
+  State<WarehouseHomeScreen> createState() => _WarehouseHomeScreenState();
+}
+
+class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
+  bool slotsLoaded = false;
+  List<GridViewSlot> gridViewChildren = [];
+
+  @override
+  void initState() {
+    getSlots();
+    super.initState();
+  }
+
+  void getSlots() async {
+    final uri = Uri.https('node-js-new.herokuapp.com', '/api/warehouses/slots');
+    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+    final response = await http.get(uri, headers: headers);
+    deserializeSlots(json.decode(response.body));
+    setState(() {
+      slotsLoaded = true;
+    });
+  }
+
+  void deserializeSlots(List slotList) {
+    for (int i = 0; i < slotList.length; i++) {
+      gridViewChildren.add(
+        GridViewSlot(
+          slotID: slotList[i]['SlotID']!,
+          status: slotList[i]['SlotStatus']!,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +61,7 @@ class WarehouseHomeScreen extends StatelessWidget {
           color: ColorConfig.primaryBlue,
         ),
         title: Text(
-          warehouseName,
+          widget.warehouseName,
           style: TextStyle(
             color: Colors.blue,
           ),
@@ -31,7 +70,7 @@ class WarehouseHomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 15,
+            horizontal: 10,
           ),
           child: Column(
             children: [
@@ -39,112 +78,162 @@ class WarehouseHomeScreen extends StatelessWidget {
                 height: 15,
               ),
               Container(
-                decoration: BoxDecoration(
-                  // color: ColorConfig.backgroundLightBlue,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      8,
-                    ),
-                  ),
-                ),
-                height: 60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "Good Day, ${username[0].toUpperCase() + username.substring(1)}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
+                color: Color(0xFF06919B),
+                child: Column(
+                  children: [],
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CustomInkwellContainer(
-                    child: Center(
-                      child: Text(
-                        "Alerts",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    height: 75,
-                    backgroundColor: ColorConfig.primaryBlue,
+                  TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => WarehouseAlertsPage(
-                            warehouseName: warehouseName,
+                            warehouseName: widget.warehouseName,
                           ),
                         ),
                       );
                     },
-                    splashColor: Colors.blue[200],
+                    child: Column(
+                      children: [
+                        Icon(
+                          LineIcons.bell,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Alerts",
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 25,
+                  TextButton(
+                    onPressed: () {},
+                    child: Column(
+                      children: [
+                        Icon(
+                          LineIcons.fileInvoice,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Report",
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomInkwellContainer(
-                          backgroundColor: ColorConfig.primaryBlue,
-                          splashColor: Colors.blue[200],
-                          onPressed: () {},
-                          child: Center(
-                            child: Text(
-                              "Detailed Report",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => WarehouseProfileScreen(
+                            username: widget.username,
+                            warehouseName: widget.warehouseName,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Expanded(
-                        child: CustomInkwellContainer(
-                          backgroundColor: ColorConfig.primaryBlue,
-                          splashColor: Colors.blue[200],
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => WarehouseProfileScreen(
-                                  username: username,
-                                  warehouseName: warehouseName,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Center(
-                            child: Text(
-                              "Warehouse Profile",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Icon(
+                          LineIcons.warehouse,
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Profile",
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // CustomInkwellContainer(
+                  //   child: Center(
+                  //     child: Text(
+                  //       "Alerts",
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 20,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   height: 75,
+                  //   backgroundColor: ColorConfig.primaryBlue,
+                  //   onPressed: () {
+                  //     Navigator.of(context).push(
+                  //       MaterialPageRoute(
+                  //         builder: (context) => WarehouseAlertsPage(
+                  //           warehouseName: widget.warehouseName,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   splashColor: Colors.blue[200],
+                  // ),
+                  // SizedBox(
+                  //   height: 25,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: CustomInkwellContainer(
+                  //         backgroundColor: ColorConfig.primaryBlue,
+                  //         splashColor: Colors.blue[200],
+                  //         onPressed: () {},
+                  //         child: Center(
+                  //           child: Text(
+                  //             "Detailed Report",
+                  //             textAlign: TextAlign.center,
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //               fontSize: 18,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 25,
+                  //     ),
+                  //     Expanded(
+                  //       child: CustomInkwellContainer(
+                  //         backgroundColor: ColorConfig.primaryBlue,
+                  //         splashColor: Colors.blue[200],
+                  //         onPressed: () {
+                  //           Navigator.of(context).push(
+                  //             MaterialPageRoute(
+                  //               builder: (context) => WarehouseProfileScreen(
+                  //                 username: widget.username,
+                  //                 warehouseName: widget.warehouseName,
+                  //               ),
+                  //             ),
+                  //           );
+                  //         },
+                  //         child: Center(
+                  //           child: Text(
+                  //             "Warehouse Profile",
+                  //             textAlign: TextAlign.center,
+                  //             style: TextStyle(
+                  //               color: Colors.white,
+                  //               fontSize: 18,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(
                     height: 45,
                   ),
@@ -157,7 +246,7 @@ class WarehouseHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    padding: EdgeInsets.fromLTRB(15, 15, 15, 25),
+                    padding: EdgeInsets.fromLTRB(12, 15, 12, 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -172,15 +261,23 @@ class WarehouseHomeScreen extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        GridView.count(
-                          physics: BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          crossAxisCount: 4,
-                          childAspectRatio: 1,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                          children: getGridViewChildren(context),
-                        ),
+                        slotsLoaded
+                            ? GridView.count(
+                                physics: BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                crossAxisCount: 3,
+                                childAspectRatio: 2,
+                                crossAxisSpacing: 13,
+                                mainAxisSpacing: 15,
+                                children: getGridViewSlots(context),
+                              )
+                            : Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width / 3,
+                                ),
+                                child: CircularProgressIndicator(),
+                              ),
                       ],
                     ),
                   ),
@@ -193,81 +290,7 @@ class WarehouseHomeScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> getGridViewChildren(BuildContext context) {
-    List<GridViewChild> gridViewChildren = [
-      GridViewChild(
-        child: Text(
-          "Slot 1",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.red,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 2",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.green,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 3",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.green,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 4",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.green,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 5",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.green,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 6",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.green,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 7",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.red,
-      ),
-      GridViewChild(
-        child: Text(
-          "Slot 8",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.orange,
-      ),
-    ];
+  List<Widget> getGridViewSlots(BuildContext context) {
     return List.generate(
       gridViewChildren.length,
       (index) {
@@ -276,8 +299,8 @@ class WarehouseHomeScreen extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => SelectNodeTypeScreen(
-                  warehouseName: warehouseName,
-                  slotName: "Slot 1",
+                  warehouseName: widget.warehouseName,
+                  slotID: gridViewChildren[index].slotID,
                 ),
               ),
             );
@@ -301,9 +324,30 @@ class WarehouseHomeScreen extends StatelessWidget {
   }
 }
 
-class GridViewChild {
-  final Widget child;
-  final Color backgroundColor;
+class GridViewSlot {
+  late final String slotID;
+  late final Widget child;
+  late final Color backgroundColor;
+  late final String status;
 
-  GridViewChild({required this.child, required this.backgroundColor});
+  GridViewSlot({required String status, required String slotID}) {
+    this.slotID = slotID;
+    this.child = Text(
+      slotID,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+      ),
+    );
+    this.status = status;
+    if (this.status.length < 4) {
+      this.backgroundColor = Colors.orange;
+    } else if (this.status.toLowerCase().substring(0, 4) == "good") {
+      this.backgroundColor = Colors.green;
+    } else if (this.status.toLowerCase() == "degraded") {
+      this.backgroundColor = Colors.red;
+    } else {
+      this.backgroundColor = Colors.orange;
+    }
+  }
 }

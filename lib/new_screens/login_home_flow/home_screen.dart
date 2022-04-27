@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 import 'package:iot_project/new_screens/drawer_pages/alerts_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/help_page.dart';
@@ -10,11 +11,12 @@ import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
 import 'package:iot_project/services/color_config.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? username;
-  final List warehouseList;
-  HomeScreen({required this.username, required this.warehouseList});
+
+  HomeScreen({this.username = "martin"});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -26,27 +28,26 @@ class _HomeScreenState extends State<HomeScreen> {
     0: {
       "widget": SelectWarehousePage(
         username: widget.username!,
-        warehouseList: widget.warehouseList,
       ),
-      "appBarTitle": "Select Warehouse",
+      "appBarTitle": "nWarehouse",
     },
     1: {
       "widget": UserProfilePage(
         username: widget.username!,
       ),
-      "appBarTitle": "My Profile",
+      "appBarTitle": "",
     },
     2: {
       "widget": NotificationsPage(),
-      "appBarTitle": "Notifications",
+      "appBarTitle": "",
     },
     3: {
       "widget": AlertsPage(),
-      "appBarTitle": "Alerts",
+      "appBarTitle": "",
     },
     4: {
       "widget": HelpPage(),
-      "appBarTitle": "Help",
+      "appBarTitle": "6",
     },
   };
 
@@ -61,6 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Drawer(
@@ -78,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   children: [
                     Icon(
-                      Icons.account_circle,
+                      LineIcons.userCircle,
                       color: Colors.white,
                       size: 45,
                     ),
@@ -99,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.house_siding,
+                LineIcons.warehouse,
               ),
               title: Text(
                 "Warehouse",
@@ -114,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.account_circle,
+                LineIcons.user,
               ),
               title: Text(
                 "Profile",
@@ -129,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.notifications,
+                LineIcons.bell,
               ),
               title: Text(
                 "Notifications",
@@ -143,9 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.warning_amber_outlined,
-              ),
+              leading: Icon(LineIcons.exclamation),
               title: Text(
                 "Alerts",
                 style: TextStyle(
@@ -159,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.help,
+                LineIcons.question,
               ),
               title: Text(
                 "Help",
@@ -174,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: Icon(
-                Icons.logout,
+                LineIcons.alternateSignOut,
                 color: Colors.red,
               ),
               title: Text(

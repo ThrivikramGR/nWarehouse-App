@@ -188,7 +188,7 @@ class CustomScaffoldElements {
   static AppBar getAppBar(String title) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF06919B),
       leading: Builder(
         builder: (context) {
           return IconButton(
@@ -197,7 +197,7 @@ class CustomScaffoldElements {
             },
             icon: Icon(
               Icons.menu,
-              color: Colors.blue,
+              color: Colors.white,
             ),
           );
         },
@@ -206,14 +206,16 @@ class CustomScaffoldElements {
       title: Text(
         title,
         style: TextStyle(
-          color: Colors.blue,
+          fontFamily: "NunitoSans",
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
       actions: [
         PopupMenuButton(
           icon: Icon(
             Icons.more_vert,
-            color: Colors.blue,
+            color: Colors.white,
           ),
           onSelected: (items) {
             switch (items) {

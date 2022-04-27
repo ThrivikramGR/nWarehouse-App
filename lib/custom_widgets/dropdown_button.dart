@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomDropdownButton extends StatelessWidget {
   final Color fillColor;
   final String value;
-  final List<DropdownMenuItem<String>> items;
+  final List<DropdownMenuItem<String>>? items;
   final ValueSetter<String?> onChanged;
   final double borderWidth;
   final Color borderColor;

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:iot_project/new_screens/login_home_flow/login_screen.dart';
 import 'package:iot_project/screens/screen2.dart';
 import 'package:iot_project/screens/screen4.dart';
-import 'package:iot_project/services/color_config.dart';
 
+import 'new_screens/login_home_flow/home_screen.dart';
 import 'new_screens/login_home_flow/init_loading_screen.dart';
 
 void main() async {
@@ -32,8 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'IoT Project App',
       theme: ThemeData(
-        primaryColor: ColorConfig.primaryBlue,
-        scaffoldBackgroundColor: ColorConfig.backgroundLightBlue,
+        primaryColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
         'screen2': (context) => Screen2(),
         'screen4': (context) => Screen4(),
         'initLoading': (context) => InitLoadingScreen(),
-        // 'home': (context) => HomeScreen(warehouseList: '',),
+        'home': (context) => HomeScreen(),
         //'newHome': (context) => WarehouseHomePage(),
       },
     );

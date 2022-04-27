@@ -40,12 +40,15 @@ class WarehouseProfileScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  username[0].toUpperCase() + username.substring(1),
-                  style: TextStyle(
-                    fontSize: 35,
-                    color: ColorConfig.primaryBlue,
-                    fontWeight: FontWeight.w400,
+                Hero(
+                  tag: "username",
+                  child: Text(
+                    username[0].toUpperCase() + username.substring(1),
+                    style: TextStyle(
+                      fontSize: 35,
+                      color: ColorConfig.primaryBlue,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 SizedBox(

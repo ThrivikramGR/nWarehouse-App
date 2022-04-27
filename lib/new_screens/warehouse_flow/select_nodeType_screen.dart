@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:iot_project/custom_widgets/inkwell_container.dart';
 import 'package:iot_project/services/color_config.dart';
 
+import 'nodes_screen.dart';
+
 class SelectNodeTypeScreen extends StatelessWidget {
   final String warehouseName;
-  final String slotName;
+  final String slotID;
 
-  SelectNodeTypeScreen({required this.warehouseName, required this.slotName});
+  SelectNodeTypeScreen({required this.warehouseName, required this.slotID});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class SelectNodeTypeScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          warehouseName + " - " + slotName,
+          warehouseName + " - " + slotID,
           style: TextStyle(
             color: ColorConfig.primaryBlue,
           ),
@@ -38,7 +40,17 @@ class SelectNodeTypeScreen extends StatelessWidget {
             ),
             child: CustomInkwellContainer(
               height: 100,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => NodesScreen(
+                      nodeTypeDisplayName: 'Fixed Node',
+                      slotID: slotID,
+                      nodeType: 'F',
+                    ),
+                  ),
+                );
+              },
               splashColor: Colors.blue[200],
               backgroundColor: ColorConfig.backgroundLightBlue,
               child: Center(

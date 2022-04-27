@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iot_project/services/color_config.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'init_loading_screen.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,8 +18,15 @@ class LoginScreen extends StatefulWidget {
 enum DialogType { invalidUsername, invalidCredentials }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -80,18 +89,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 40,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: login,
-                        child: Text(
-                          "Continue",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 1.5,
+                    //   height: 50,
+                    //   child: ElevatedButton(
+                    //     onPressed: login,
+                    //     child: Text(
+                    //       "Continue",
+                    //       style: TextStyle(
+                    //         fontSize: 16,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    RoundedLoadingButton(
+                      child: Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
+                      successColor: Colors.green,
+                      controller: _btnController,
+                      onPressed: login,
                     ),
                   ],
                 ),
@@ -308,7 +328,6 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusScope.of(context).requestFocus(new FocusNode());
 
     if (_validateInputs()) {
-      //todo:loadingSpinner
       await FirebaseFirestore.instance
           .collection("users")
           .where("userName", isEqualTo: _userName)
@@ -317,6 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .then(
         (value) async {
           if (value.docs.isEmpty) {
+            buttonErrorReset();
             showNoUserDialog(DialogType.invalidUsername);
           } else {
             String _email = value.docs[0]['email'];
@@ -325,17 +345,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   email: _email, password: _password);
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => InitLoadingScreen(
+                  builder: (context) => HomeScreen(
                     username: _userName,
                   ),
                 ),
               );
             } catch (e) {
+              buttonErrorReset();
               showNoUserDialog(DialogType.invalidCredentials);
             }
           }
         },
       );
+    } else {
+      buttonErrorReset();
     }
+  }
+
+  void buttonErrorReset() async {
+    _btnController.error();
+    await Future.delayed(
+      Duration(seconds: 2),
+    );
+    _btnController.reset();
   }
 }
