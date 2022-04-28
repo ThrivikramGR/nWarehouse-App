@@ -7,4 +7,7 @@ class ColorConfig {
   static Color lightGreenBackground = Color(0xFFF1F8FE);
   static Color primaryGreenAlt = Color(0xFF21A0A8);
   static Color fadedGreen = Color(0xFF7FBDC6);
+  static Color pinkPrimary = Color(0xFFFEDBD0);
+  static Color pinkSecondary = Color(0xFFFEEAE6);
+  static Color pinkText = Color(0xFF442C2E);
 }

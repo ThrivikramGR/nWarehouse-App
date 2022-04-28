@@ -95,7 +95,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
         Container(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 20),
           decoration: BoxDecoration(
-            color: Color(0xFF06919B),
+            color: ColorConfig.pinkPrimary,
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(20),
             ),

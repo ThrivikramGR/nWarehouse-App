@@ -6,7 +6,7 @@ class CustomScaffoldElements {
   static AppBar getAppBar(String title) {
     return AppBar(
       elevation: 0,
-      backgroundColor: ColorConfig.primaryGreen,
+      backgroundColor: ColorConfig.pinkPrimary,
       leading: Builder(
         builder: (context) {
           return IconButton(
