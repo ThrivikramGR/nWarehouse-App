@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/services/color_config.dart';
 
@@ -6,7 +5,7 @@ class CustomScaffoldElements {
   static AppBar getAppBar(String title) {
     return AppBar(
       elevation: 0,
-      backgroundColor: ColorConfig.pinkPrimary,
+      backgroundColor: Color(0xFF92A65F),
       leading: Builder(
         builder: (context) {
           return IconButton(
@@ -15,7 +14,7 @@ class CustomScaffoldElements {
             },
             icon: Icon(
               Icons.menu,
-              color: Colors.white,
+              color: ColorConfig.pinkText,
             ),
           );
         },
@@ -26,14 +25,14 @@ class CustomScaffoldElements {
         style: TextStyle(
           fontFamily: "NunitoSans",
           fontWeight: FontWeight.w700,
-          color: Colors.white,
+          color: Color(0xFF323232),
         ),
       ),
       actions: [
         PopupMenuButton(
           icon: Icon(
             Icons.more_vert,
-            color: Colors.white,
+            color: ColorConfig.pinkText,
           ),
           onSelected: (items) {
             switch (items) {

@@ -28,29 +28,33 @@ class CustomDropdownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(this.borderRadius),
-        border: Border.all(
-          color: this.borderColor,
-          width: this.borderWidth,
+    return Material(
+      elevation: 1,
+      borderRadius: BorderRadius.circular(8),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(this.borderRadius),
+          border: Border.all(
+            color: this.borderColor,
+            width: this.borderWidth,
+          ),
+          color: this.fillColor,
         ),
-        color: this.fillColor,
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 3,
-        ),
-        child: DropdownButton<String>(
-          underline: SizedBox(),
-          value: this.value,
-          items: this.items,
-          elevation: 5,
-          onChanged: this.onChanged,
-          icon: this.trailingIcon,
-          isExpanded: true,
-          dropdownColor: this.dropdownColor,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 3,
+          ),
+          child: DropdownButton<String>(
+            underline: SizedBox(),
+            value: this.value,
+            items: this.items,
+            elevation: 5,
+            onChanged: this.onChanged,
+            icon: this.trailingIcon,
+            isExpanded: true,
+            dropdownColor: this.dropdownColor,
+          ),
         ),
       ),
     );
