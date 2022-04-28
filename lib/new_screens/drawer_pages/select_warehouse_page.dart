@@ -269,7 +269,9 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
         ),
         Expanded(
           child: Material(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(30),
+            ),
             elevation: 10,
             color: Colors.transparent,
             child: Padding(
@@ -277,7 +279,9 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Color(0xFFFAF9F9),
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(30),
+                  ),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
