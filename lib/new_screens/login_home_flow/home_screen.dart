@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     },
     4: {
       "widget": HelpPage(),
-      "appBarTitle": "6",
+      "appBarTitle": "",
     },
   };
 

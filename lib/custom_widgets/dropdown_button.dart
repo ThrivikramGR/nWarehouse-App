@@ -38,7 +38,10 @@ class CustomDropdownButton extends StatelessWidget {
         color: this.fillColor,
       ),
       child: Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 3,
+        ),
         child: DropdownButton<String>(
           underline: SizedBox(),
           value: this.value,

@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_home_screen.dart';
 
 import '../../custom_widgets/dropdown_button.dart';
-import '../../custom_widgets/inkwell_container.dart';
 import '../../services/color_config.dart';
 
 class SelectWarehousePage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
             "Warehouse...",
             style: TextStyle(
               fontFamily: "NunitoSans",
-              color: Colors.blue[400],
+              color: ColorConfig.primaryGreenAlt,
               fontSize: 14,
             ),
           ),
@@ -51,7 +50,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                 style: TextStyle(
                   fontFamily: "NunitoSans",
                   fontSize: 14,
-                  color: ColorConfig.primaryBlue,
+                  color: ColorConfig.primaryGreenAlt,
                 ),
               ),
             ),
@@ -108,10 +107,10 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Good Day, ",
+                    "Good day, ",
                     style: TextStyle(
                       fontFamily: "NunitoSans",
-                      fontSize: 25,
+                      fontSize: 22,
                       color: Colors.white,
                     ),
                   ),
@@ -150,12 +149,12 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 0),
                 child: CustomDropdownButton(
-                  dropdownColor: ColorConfig.backgroundLightBlue,
+                  dropdownColor: ColorConfig.lightGreenBackground,
                   trailingIcon: Icon(
                     Icons.keyboard_arrow_down_sharp,
-                    color: ColorConfig.primaryBlue,
+                    color: ColorConfig.primaryGreenAlt,
                   ),
-                  borderColor: ColorConfig.primaryBlue,
+                  borderColor: ColorConfig.lightGreenBackground,
                   borderWidth: 1,
                   value: dropdownValue,
                   items: warehouseListLoaded ? getDropdownItems() : null,
@@ -201,15 +200,17 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                       }
                     },
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 12,
+                      ),
                       child: warehouseListLoaded
                           ? Text(
                               "View Warehouse",
                               style: TextStyle(
                                 fontFamily: "NunitoSans",
-                                color: Colors.black,
-                                fontSize: 18,
+                                color: ColorConfig.primaryGreenAlt,
+                                fontSize: 16,
                               ),
                             )
                           : SpinKitWave(
@@ -226,63 +227,63 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 15,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Recently Viewed",
-                style: TextStyle(
-                  fontFamily: "NunitoSans",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              CustomInkwellContainer(
-                splashColor: Colors.blue[200],
-                height: 60,
-                onPressed: () {},
-                backgroundColor: ColorConfig.backgroundLightBlue,
-                child: Center(
-                  child: Text(
-                    "Warehouse - NW1001",
-                    style: TextStyle(
-                      fontFamily: "NunitoSans",
-                      fontSize: 20,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CustomInkwellContainer(
-                splashColor: Colors.blue[200],
-                height: 60,
-                onPressed: () {},
-                backgroundColor: ColorConfig.backgroundLightBlue,
-                child: Center(
-                  child: Text(
-                    "Warehouse - NW1002",
-                    style: TextStyle(
-                      fontFamily: "NunitoSans",
-                      fontSize: 20,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(
+        //     horizontal: 15,
+        //     vertical: 15,
+        //   ),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       Text(
+        //         "Recently Viewed",
+        //         style: TextStyle(
+        //           fontFamily: "NunitoSans",
+        //           fontWeight: FontWeight.bold,
+        //           fontSize: 20,
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         height: 15,
+        //       ),
+        //       CustomInkwellContainer(
+        //         splashColor: Colors.blue[200],
+        //         height: 60,
+        //         onPressed: () {},
+        //         backgroundColor: ColorConfig.lightGreenBackground,
+        //         child: Center(
+        //           child: Text(
+        //             "Warehouse - NW1001",
+        //             style: TextStyle(
+        //               fontFamily: "NunitoSans",
+        //               fontSize: 20,
+        //               color: ColorConfig.primaryGreenAlt,
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //       SizedBox(
+        //         height: 10,
+        //       ),
+        //       CustomInkwellContainer(
+        //         splashColor: Colors.blue[200],
+        //         height: 60,
+        //         onPressed: () {},
+        //         backgroundColor: ColorConfig.lightGreenBackground,
+        //         child: Center(
+        //           child: Text(
+        //             "Warehouse - NW1002",
+        //             style: TextStyle(
+        //               fontFamily: "NunitoSans",
+        //               fontSize: 20,
+        //               color: ColorConfig.primaryGreenAlt,
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }

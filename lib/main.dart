@@ -5,7 +5,6 @@ import 'package:iot_project/screens/screen2.dart';
 import 'package:iot_project/screens/screen4.dart';
 
 import 'new_screens/login_home_flow/home_screen.dart';
-import 'new_screens/login_home_flow/init_loading_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,9 +39,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginScreen(),
         'screen2': (context) => Screen2(),
         'screen4': (context) => Screen4(),
-        'initLoading': (context) => InitLoadingScreen(),
         'home': (context) => HomeScreen(),
-        //'newHome': (context) => WarehouseHomePage(),
       },
     );
   }

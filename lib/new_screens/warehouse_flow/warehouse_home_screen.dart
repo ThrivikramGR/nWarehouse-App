@@ -239,7 +239,7 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: ColorConfig.backgroundLightBlue,
+                      color: ColorConfig.fadedGreen,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           8,
@@ -253,9 +253,10 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
                         Text(
                           "Slots",
                           style: TextStyle(
-                            fontSize: 19,
-                            color: ColorConfig.primaryBlue,
-                            fontWeight: FontWeight.bold,
+                            fontFamily: "NunitoSans",
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                         SizedBox(
@@ -305,21 +306,35 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
               ),
             );
           },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  5,
-                ),
-              ),
-              color: gridViewChildren[index].backgroundColor,
-            ),
-            child: Center(
-              child: gridViewChildren[index].child,
-            ),
-          ),
+          child: CustomStatusColorContainer(
+              gridViewChildren: gridViewChildren, index: index),
         );
       },
+    );
+  }
+}
+
+class CustomStatusColorContainer extends StatelessWidget {
+  const CustomStatusColorContainer(
+      {required this.gridViewChildren, required this.index});
+
+  final List<GridViewSlot> gridViewChildren;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            5,
+          ),
+        ),
+        color: Colors.white,
+      ),
+      child: Center(
+        child: gridViewChildren[index].child,
+      ),
     );
   }
 }
@@ -327,27 +342,48 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
 class GridViewSlot {
   late final String slotID;
   late final Widget child;
-  late final Color backgroundColor;
+  late final Color statusColor;
   late final String status;
 
   GridViewSlot({required String status, required String slotID}) {
     this.slotID = slotID;
-    this.child = Text(
-      slotID,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-      ),
-    );
+
     this.status = status;
     if (this.status.length < 4) {
-      this.backgroundColor = Colors.orange;
+      this.statusColor = Colors.yellow[600]!;
     } else if (this.status.toLowerCase().substring(0, 4) == "good") {
-      this.backgroundColor = Colors.green;
+      this.statusColor = Colors.lightGreen;
     } else if (this.status.toLowerCase() == "degraded") {
-      this.backgroundColor = Colors.red;
+      this.statusColor = Colors.red;
     } else {
-      this.backgroundColor = Colors.orange;
+      this.statusColor = Colors.yellow[600]!;
     }
+    this.child = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          slotID,
+          style: TextStyle(
+            fontFamily: "NunitoSans",
+            color: ColorConfig.primaryGreenAlt,
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(
+          height: 7,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: this.statusColor,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          height: 2,
+          width: 25,
+        ),
+      ],
+    );
   }
 }
