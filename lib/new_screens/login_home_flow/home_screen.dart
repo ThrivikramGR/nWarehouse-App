@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       appBar: CustomScaffoldElements.getAppBar(
-          drawerPages[currentPage]!["appBarTitle"]),
+          drawerPages[currentPage]!["appBarTitle"], context),
       body: drawerPages[currentPage]!["widget"],
     );
   }

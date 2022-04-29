@@ -29,6 +29,12 @@ class CustomInkwellContainer extends StatelessWidget {
         splashColor: this.splashColor,
         onTap: this.onPressed,
         child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(this.borderRadius),
+            border: Border.all(
+              color: Color(0xFF92A65F),
+            ),
+          ),
           height: this.height,
           child: this.child,
         ),

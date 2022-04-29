@@ -1,20 +1,87 @@
+import 'dart:io' show Platform;
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/services/color_config.dart';
 
 class CustomScaffoldElements {
-  static AppBar getAppBar(String title) {
+  static AppBar getAppBar(String title, BuildContext context) {
     return AppBar(
       elevation: 0,
       backgroundColor: Color(0xFF92A65F),
       leading: Builder(
         builder: (context) {
+          // return IconButton(
+          //   onPressed: () {
+          //     Scaffold.of(context).openDrawer();
+          //   },
+          //   icon: Icon(
+          //     Icons.menu,
+          //     color: ColorConfig.pinkText,
+          //   ),
+          // );
           return IconButton(
             onPressed: () {
-              Scaffold.of(context).openDrawer();
+              if (Platform.isAndroid) {
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Text("Logout"),
+                    content: Text(
+                      "Confirm logout?",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          FirebaseAuth _auth = FirebaseAuth.instance;
+                          _auth.signOut();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "/", (Route<dynamic> route) => false);
+                        },
+                        child: const Text("Logout"),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                showCupertinoDialog(
+                  context: context,
+                  builder: (_) => CupertinoAlertDialog(
+                    title: const Text("Logout"),
+                    content: Text(
+                      "Confirm logout?",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          FirebaseAuth _auth = FirebaseAuth.instance;
+                          _auth.signOut();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "/", (Route<dynamic> route) => false);
+                        },
+                        child: const Text("Logout"),
+                      ),
+                    ],
+                  ),
+                );
+              }
             },
             icon: Icon(
-              Icons.menu,
-              color: ColorConfig.pinkText,
+              Icons.logout,
+              color: Color(0xFF323232),
             ),
           );
         },
@@ -37,15 +104,66 @@ class CustomScaffoldElements {
           onSelected: (items) {
             switch (items) {
               case 0:
-                //First item (settings) selected
-                print("Settings Selected");
                 break;
               case 1:
-                //Second item (Help) selected
-                print("Help Selected");
+                if (Platform.isAndroid) {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text("Logout"),
+                      content: Text(
+                        "Confirm logout?",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            FirebaseAuth _auth = FirebaseAuth.instance;
+                            _auth.signOut();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/", (Route<dynamic> route) => false);
+                          },
+                          child: const Text("Logout"),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (_) => CupertinoAlertDialog(
+                      title: const Text("Logout"),
+                      content: Text(
+                        "Confirm logout?",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            FirebaseAuth _auth = FirebaseAuth.instance;
+                            _auth.signOut();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/", (Route<dynamic> route) => false);
+                          },
+                          child: const Text("Logout"),
+                        ),
+                      ],
+                    ),
+                  );
+                }
                 break;
               default:
-                print("Case not defined");
+                break;
             }
           },
           itemBuilder: (context) {
@@ -53,7 +171,7 @@ class CustomScaffoldElements {
               PopupMenuItem(
                 value: 0,
                 child: Text(
-                  "Settings",
+                  "Help",
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -62,7 +180,7 @@ class CustomScaffoldElements {
               PopupMenuItem(
                 value: 1,
                 child: Text(
-                  "Help",
+                  "Logout",
                   style: TextStyle(
                     color: Colors.black,
                   ),

@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
+import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../services/color_config.dart';
@@ -134,7 +136,13 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationsPage()),
+                      );
+                    },
                     child: Icon(
                       LineIcons.bell,
                       color: Color(0xFF323232),
@@ -156,7 +164,16 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                     width: 10,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserProfilePage(
+                            username: widget.username,
+                          ),
+                        ),
+                      );
+                    },
                     child: Icon(
                       LineIcons.userCircle,
                       color: Color(0xFF323232),
@@ -301,7 +318,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                       ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 20,
                     ),
                     Text(
                       "Warehouses",
@@ -312,108 +329,189 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     GridView.count(
+                      physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
                       crossAxisCount: 2,
+                      childAspectRatio: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 15,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            //primary: Color(0xFFDCDE9F),
+                            primary: Color(0xFFE5EAD9),
+                            onPrimary: Color(0xFF92A65F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            side: BorderSide(
+                              color: Color(0xFF92A65F),
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+
+                            elevation: 0,
                           ),
-                          child: Column(
-                            children: [
-                              Text(
-                                "NW100101",
+                          child: Center(
+                            child: Text(
+                              "NW100101",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF323232),
                               ),
-                              Text(
-                                "Slots: 8",
-                              ),
-                              Text(
-                                "Good: 5",
-                              ),
-                              Text(
-                                "Alert: 2",
-                              ),
-                              Text(
-                                "Degraded: 1",
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                "NW100101",
-                              ),
-                              Text(
-                                "Slots: 8",
-                              ),
-                              Text(
-                                "Good: 5",
-                              ),
-                              Text(
-                                "Alert: 2",
-                              ),
-                              Text(
-                                "Degraded: 1",
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            //primary: Color(0xFFDCDE9F),
+                            primary: Color(0xFFE5EAD9),
+                            onPrimary: Color(0xFF92A65F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            side: BorderSide(
+                              color: Color(0xFF92A65F),
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+
+                            elevation: 0,
                           ),
-                          child: Column(
-                            children: [
-                              Text(
-                                "NW100101",
+                          child: Center(
+                            child: Text(
+                              "NW100102",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF323232),
                               ),
-                              Text(
-                                "Slots: 8",
-                              ),
-                              Text(
-                                "Good: 5",
-                              ),
-                              Text(
-                                "Alert: 2",
-                              ),
-                              Text(
-                                "Degraded: 1",
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            //primary: Color(0xFFDCDE9F),
+                            primary: Color(0xFFE5EAD9),
+                            onPrimary: Color(0xFF92A65F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            side: BorderSide(
+                              color: Color(0xFF92A65F),
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+
+                            elevation: 0,
                           ),
-                          child: Column(
-                            children: [
-                              Text(
-                                "NW100101",
+                          child: Center(
+                            child: Text(
+                              "NW100103",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF323232),
                               ),
-                              Text(
-                                "Slots: 8",
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            //primary: Color(0xFFDCDE9F),
+                            primary: Color(0xFFE5EAD9),
+                            onPrimary: Color(0xFF92A65F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            side: BorderSide(
+                              color: Color(0xFF92A65F),
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+
+                            elevation: 0,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "NW100104",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF323232),
                               ),
-                              Text(
-                                "Good: 5",
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            //primary: Color(0xFFDCDE9F),
+                            primary: Color(0xFFE5EAD9),
+                            onPrimary: Color(0xFF92A65F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            side: BorderSide(
+                              color: Color(0xFF92A65F),
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+
+                            elevation: 0,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "NW100105",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF323232),
                               ),
-                              Text(
-                                "Alert: 2",
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            //primary: Color(0xFFDCDE9F),
+                            primary: Color(0xFFE5EAD9),
+                            onPrimary: Color(0xFF92A65F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            side: BorderSide(
+                              color: Color(0xFF92A65F),
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+
+                            elevation: 0,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "NW100106",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF323232),
                               ),
-                              Text(
-                                "Degraded: 1",
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
