@@ -114,17 +114,14 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                       color: Color(0xFF323232),
                     ),
                   ),
-                  Hero(
-                    tag: "username",
-                    child: Text(
-                      "${widget.username[0].toUpperCase() + widget.username.substring(1)}.",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: "NunitoSans",
-                        fontWeight: FontWeight.w700,
-                        fontSize: 25,
-                        color: Color(0xFF323232),
-                      ),
+                  Text(
+                    "${widget.username[0].toUpperCase() + widget.username.substring(1)}.",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                      color: Color(0xFF323232),
                     ),
                   ),
                 ],
@@ -174,9 +171,12 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                         ),
                       );
                     },
-                    child: Icon(
-                      LineIcons.userCircle,
-                      color: Color(0xFF323232),
+                    child: Hero(
+                      tag: "userIcon",
+                      child: Icon(
+                        LineIcons.userCircle,
+                        color: Color(0xFF323232),
+                      ),
                     ),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iot_project/services/color_config.dart';
+import 'package:line_icons/line_icons.dart';
+
+import '../../custom_widgets/inkwell_container.dart';
 
 class UserProfilePage extends StatelessWidget {
   final String username;
@@ -7,7 +9,22 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Color(0xFFFAF9F9),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF92A65F),
+        centerTitle: true,
+        title: Text(
+          "Profile",
+          style: TextStyle(
+            fontFamily: "NunitoSans",
+            color: Color(0xFF323232),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF323232),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -16,166 +33,176 @@ class UserProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.account_circle,
-                  color: ColorConfig.primaryBlue,
-                  size: 50,
+                Hero(
+                  tag: "userIcon",
+                  child: Icon(
+                    LineIcons.userCircle,
+                    color: Color(0xFF323232),
+                    size: 50,
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Hero(
-                  tag: "username",
-                  child: Text(
-                    username[0].toUpperCase() + username.substring(1),
-                    style: TextStyle(
-                      fontSize: 35,
-                      color: ColorConfig.primaryBlue,
-                      fontWeight: FontWeight.w400,
-                    ),
+                Text(
+                  username[0].toUpperCase() + username.substring(1),
+                  style: TextStyle(
+                    fontFamily: "NunitoSans",
+                    fontSize: 35,
+                    color: Color(0xFF323232),
                   ),
                 ),
                 SizedBox(
                   height: 46,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          "13",
-                          style: TextStyle(
-                            color: ColorConfig.primaryBlue,
-                            fontSize: 30,
-                          ),
-                        ),
-                        Text(
-                          "Warehouses",
-                          style: TextStyle(
-                            color: ColorConfig.primaryBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 25,
-                      width: 1,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "4000",
-                          style: TextStyle(
-                            color: ColorConfig.primaryBlue,
-                            fontSize: 30,
-                          ),
-                        ),
-                        Text(
-                          "Slots",
-                          style: TextStyle(
-                            color: ColorConfig.primaryBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 25,
-                      width: 1,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "24000",
-                          style: TextStyle(
-                            color: ColorConfig.primaryBlue,
-                            fontSize: 30,
-                          ),
-                        ),
-                        Text(
-                          "Nodes",
-                          style: TextStyle(
-                            color: ColorConfig.primaryBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-            margin: EdgeInsets.symmetric(
-              horizontal: 25,
-            ),
-            decoration: BoxDecoration(
-              color: ColorConfig.backgroundLightBlue,
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  8,
-                ),
-              ),
-            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "User Info",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: ColorConfig.primaryBlue,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  child: CustomInkwellContainer(
+                    height: 85,
+                    backgroundColor: Color(0xFFE5EAD9),
+                    splashColor: Color(0xFF92A65F),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "4",
+                                style: TextStyle(
+                                  fontFamily: "NunitoSans",
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF323232),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                "Warehouses",
+                                style: TextStyle(
+                                  fontFamily: "NunitoSans",
+                                  color: Color(0xFF323232),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            LineIcons.warehouse,
+                            color: Color(0xFF323232),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 15,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  child: CustomInkwellContainer(
+                    height: 85,
+                    backgroundColor: Color(0xFFE5EAD9),
+                    splashColor: Color(0xFF92A65F),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Developer",
+                                style: TextStyle(
+                                  fontFamily: "NunitoSans",
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF323232),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                "Designation",
+                                style: TextStyle(
+                                  fontFamily: "NunitoSans",
+                                  color: Color(0xFF323232),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            LineIcons.userTie,
+                            color: Color(0xFF323232),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                ListTile(
-                  title: Text(
-                    "vikramthiru02@gmail.com",
-                    style: TextStyle(
-                      color: ColorConfig.primaryBlue,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  child: CustomInkwellContainer(
+                    height: 85,
+                    backgroundColor: Color(0xFFE5EAD9),
+                    splashColor: Color(0xFF92A65F),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "vikramthiru02@gmail.com",
+                                style: TextStyle(
+                                  fontFamily: "NunitoSans",
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF323232),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                "Email",
+                                style: TextStyle(
+                                  fontFamily: "NunitoSans",
+                                  color: Color(0xFF323232),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            LineIcons.envelope,
+                            color: Color(0xFF323232),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    "Email",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.email,
-                    color: ColorConfig.primaryBlue,
-                  ),
-                ),
-                ListTile(
-                  title: Text(
-                    "+91 9994818238",
-                    style: TextStyle(
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ),
-                  subtitle: Text(
-                    "Mobile",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.phone,
-                    color: ColorConfig.primaryBlue,
                   ),
                 ),
               ],
