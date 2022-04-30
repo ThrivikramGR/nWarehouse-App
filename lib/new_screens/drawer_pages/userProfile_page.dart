@@ -157,7 +157,6 @@ class UserProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
                   child: CustomInkwellContainer(
