@@ -94,13 +94,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
       children: [
         Container(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 20),
-          decoration: BoxDecoration(
-            color: Color(0xFF92A65F),
-            // color: Color(0xFFDCDE9F),
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(20),
-            ),
-          ),
+
           child: Column(
             children: [
               Row(
@@ -144,21 +138,18 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                       LineIcons.bell,
                       color: Color(0xFF323232),
                     ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        // Color(0xFF92A65F),
-                        Color(0xFFDCDE9F),
+                    style: ElevatedButton.styleFrom(
+                      //primary: Color(0xFFDCDE9F),
+                      primary: Color(0xFFFFFCF3),
+                      //onPrimary: Color(0xFF92A65F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      shape: MaterialStateProperty.all<CircleBorder>(
-                        CircleBorder(),
-                      ),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(10),
-                      ),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                     ),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 25,
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -178,16 +169,15 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                         color: Color(0xFF323232),
                       ),
                     ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        Color(0xFFDCDE9F),
+                    style: ElevatedButton.styleFrom(
+                      //primary: Color(0xFFDCDE9F),
+                      //primary: Color(0xFFE6E3C0),
+                      primary: Color(0xFFFFFCF3),
+                      //onPrimary: Color(0xFF92A65F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      shape: MaterialStateProperty.all<CircleBorder>(
-                        CircleBorder(),
-                      ),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(10),
-                      ),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                     ),
                   ),
                 ],
@@ -289,13 +279,13 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(30),
             ),
-            elevation: 10,
+            elevation: 30,
             color: Colors.transparent,
             child: Padding(
               padding: EdgeInsets.only(top: 5),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFFFAF9F9),
+                  color: Color(0xFFFFFCF3),
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(30),
                   ),
@@ -305,23 +295,10 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 15,
-                    ),
-                    Center(
-                      child: Container(
-                        height: 2,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          color: Color(0xAA323232),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
                       height: 20,
                     ),
                     Text(
-                      "Warehouses",
+                      " Warehouses",
                       style: TextStyle(
                         fontFamily: "NunitoSans",
                         color: Color(0xFF323232),
@@ -330,42 +307,33 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     GridView.count(
+                      padding: EdgeInsets.only(top: 5, bottom: 20),
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       childAspectRatio: 2,
-                      crossAxisSpacing: 10,
+                      crossAxisSpacing: 11,
                       mainAxisSpacing: 15,
                       children: [
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             //primary: Color(0xFFDCDE9F),
-                            primary: Color(0xFFE5EAD9),
-                            onPrimary: Color(0xFF92A65F),
+                            primary: color,
+                            //onPrimary: Color(0xFF92A65F),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFF92A65F),
-                              width: 1,
-                              style: BorderStyle.solid,
+                              borderRadius: BorderRadius.circular(radius),
                             ),
 
-                            elevation: 0,
+                            elevation: 1,
                           ),
                           child: Center(
                             child: Text(
                               "NW100101",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF323232),
-                              ),
+                              style: textStyle,
                             ),
                           ),
                         ),
@@ -373,28 +341,18 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             //primary: Color(0xFFDCDE9F),
-                            primary: Color(0xFFE5EAD9),
-                            onPrimary: Color(0xFF92A65F),
+                            primary: color,
+                            //onPrimary: Color(0xFF92A65F),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFF92A65F),
-                              width: 1,
-                              style: BorderStyle.solid,
+                              borderRadius: BorderRadius.circular(radius),
                             ),
 
-                            elevation: 0,
+                            elevation: 1,
                           ),
                           child: Center(
                             child: Text(
-                              "NW100102",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF323232),
-                              ),
+                              "NW100101",
+                              style: textStyle,
                             ),
                           ),
                         ),
@@ -402,28 +360,18 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             //primary: Color(0xFFDCDE9F),
-                            primary: Color(0xFFE5EAD9),
-                            onPrimary: Color(0xFF92A65F),
+                            primary: color,
+                            //onPrimary: Color(0xFF92A65F),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFF92A65F),
-                              width: 1,
-                              style: BorderStyle.solid,
+                              borderRadius: BorderRadius.circular(radius),
                             ),
 
-                            elevation: 0,
+                            elevation: 1,
                           ),
                           child: Center(
                             child: Text(
-                              "NW100103",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF323232),
-                              ),
+                              "NW100101",
+                              style: textStyle,
                             ),
                           ),
                         ),
@@ -431,86 +379,18 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             //primary: Color(0xFFDCDE9F),
-                            primary: Color(0xFFE5EAD9),
-                            onPrimary: Color(0xFF92A65F),
+                            primary: color,
+                            //onPrimary: Color(0xFF92A65F),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFF92A65F),
-                              width: 1,
-                              style: BorderStyle.solid,
+                              borderRadius: BorderRadius.circular(radius),
                             ),
 
-                            elevation: 0,
+                            elevation: 1,
                           ),
                           child: Center(
                             child: Text(
-                              "NW100104",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF323232),
-                              ),
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            //primary: Color(0xFFDCDE9F),
-                            primary: Color(0xFFE5EAD9),
-                            onPrimary: Color(0xFF92A65F),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFF92A65F),
-                              width: 1,
-                              style: BorderStyle.solid,
-                            ),
-
-                            elevation: 0,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "NW100105",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF323232),
-                              ),
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            //primary: Color(0xFFDCDE9F),
-                            primary: Color(0xFFE5EAD9),
-                            onPrimary: Color(0xFF92A65F),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFF92A65F),
-                              width: 1,
-                              style: BorderStyle.solid,
-                            ),
-
-                            elevation: 0,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "NW100106",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF323232),
-                              ),
+                              "NW100101",
+                              style: textStyle,
                             ),
                           ),
                         ),
@@ -525,4 +405,13 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
       ],
     );
   }
+
+  double radius = 10;
+  TextStyle textStyle = TextStyle(
+    fontFamily: "NunitoSans",
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Color(0xFF323232),
+  );
+  Color color = Color(0xFFf0ecc7);
 }

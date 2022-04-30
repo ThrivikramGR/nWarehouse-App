@@ -10,4 +10,8 @@ class ColorConfig {
   static Color pinkPrimary = Color(0xFFFEDBD0);
   static Color pinkSecondary = Color(0xFFFEEAE6);
   static Color pinkText = Color(0xFF442C2E);
+  // static Color newCreamLight = Color();
+  // static Color newCreamDark = Color();
+  // static Color newCreamContainer = Color();
+  // static Color newCreamText = Color();
 }

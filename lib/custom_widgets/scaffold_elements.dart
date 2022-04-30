@@ -9,79 +9,73 @@ class CustomScaffoldElements {
   static AppBar getAppBar(String title, BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Color(0xFF92A65F),
+      backgroundColor: Color(0xFFE8E6D1),
       leading: Builder(
         builder: (context) {
-          // return IconButton(
-          //   onPressed: () {
-          //     Scaffold.of(context).openDrawer();
-          //   },
-          //   icon: Icon(
-          //     Icons.menu,
-          //     color: ColorConfig.pinkText,
-          //   ),
-          // );
-          return IconButton(
-            onPressed: () {
-              if (Platform.isAndroid) {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: const Text("Logout"),
-                    content: Text(
-                      "Confirm logout?",
+          return Transform.scale(
+            scaleX: -1,
+            child: IconButton(
+              onPressed: () {
+                if (Platform.isAndroid) {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text("Logout"),
+                      content: Text(
+                        "Confirm logout?",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            FirebaseAuth _auth = FirebaseAuth.instance;
+                            _auth.signOut();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/", (Route<dynamic> route) => false);
+                          },
+                          child: const Text("Logout"),
+                        ),
+                      ],
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("Cancel"),
+                  );
+                } else {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (_) => CupertinoAlertDialog(
+                      title: const Text("Logout"),
+                      content: Text(
+                        "Confirm logout?",
                       ),
-                      TextButton(
-                        onPressed: () {
-                          FirebaseAuth _auth = FirebaseAuth.instance;
-                          _auth.signOut();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/", (Route<dynamic> route) => false);
-                        },
-                        child: const Text("Logout"),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                showCupertinoDialog(
-                  context: context,
-                  builder: (_) => CupertinoAlertDialog(
-                    title: const Text("Logout"),
-                    content: Text(
-                      "Confirm logout?",
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            FirebaseAuth _auth = FirebaseAuth.instance;
+                            _auth.signOut();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, "/", (Route<dynamic> route) => false);
+                          },
+                          child: const Text("Logout"),
+                        ),
+                      ],
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("Cancel"),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          FirebaseAuth _auth = FirebaseAuth.instance;
-                          _auth.signOut();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/", (Route<dynamic> route) => false);
-                        },
-                        child: const Text("Logout"),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            },
-            icon: Icon(
-              Icons.logout,
-              color: Color(0xFF323232),
+                  );
+                }
+              },
+              icon: Icon(
+                Icons.logout,
+                color: Color(0xFF323232),
+              ),
             ),
           );
         },
