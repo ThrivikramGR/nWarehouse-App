@@ -7,6 +7,7 @@ class CustomInkwellContainer extends StatelessWidget {
   final double height;
   final double borderRadius;
   final Color? splashColor;
+  final double elevation;
 
   CustomInkwellContainer(
       {this.onPressed,
@@ -14,7 +15,8 @@ class CustomInkwellContainer extends StatelessWidget {
       this.height = 75,
       required this.child,
       this.borderRadius = 8,
-      this.splashColor});
+      this.splashColor,
+      this.elevation = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CustomInkwellContainer extends StatelessWidget {
           this.borderRadius,
         ),
       ),
+      elevation: this.elevation,
       child: InkWell(
         splashColor: this.splashColor,
         onTap: this.onPressed,

@@ -9,7 +9,7 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAF9F9),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,

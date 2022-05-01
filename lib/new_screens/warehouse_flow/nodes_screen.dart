@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../services/color_config.dart';
-
 class NodesScreen extends StatefulWidget {
   final String slotID;
   final String nodeTypeDisplayName;
@@ -71,17 +69,18 @@ class _NodesScreenState extends State<NodesScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: ColorConfig.primaryBlue,
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
+        backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
           widget.slotID + " - " + widget.nodeTypeDisplayName,
           style: TextStyle(
-            color: ColorConfig.primaryBlue,
+            fontFamily: "NunitoSans",
+            color: Color(0xFF323232),
+            fontWeight: FontWeight.w700,
           ),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF323232),
         ),
       ),
       body: nodesLoaded

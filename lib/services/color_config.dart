@@ -14,4 +14,5 @@ class ColorConfig {
   // static Color newCreamDark = Color();
   // static Color newCreamContainer = Color();
   // static Color newCreamText = Color();
+
 }

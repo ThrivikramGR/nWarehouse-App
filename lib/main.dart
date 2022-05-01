@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart';
 import 'package:iot_project/new_screens/login_home_flow/login_screen.dart';
 import 'package:iot_project/screens/screen2.dart';
 import 'package:iot_project/screens/screen4.dart';
@@ -34,12 +35,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: 'sel',
       routes: {
         '/': (context) => LoginScreen(),
         'screen2': (context) => Screen2(),
         'screen4': (context) => Screen4(),
         'home': (context) => HomeScreen(),
+        'sel': (context) => SelectWarehousePage(),
       },
     );
   }

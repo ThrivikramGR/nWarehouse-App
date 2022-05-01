@@ -54,238 +54,189 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
-        iconTheme: IconThemeData(
-          color: ColorConfig.primaryBlue,
-        ),
         title: Text(
           widget.warehouseName,
           style: TextStyle(
-            color: Colors.blue,
+            fontFamily: "NunitoSans",
+            color: Color(0xFF323232),
+            fontWeight: FontWeight.w700,
           ),
         ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF323232),
+        ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                color: Color(0xFF06919B),
-                child: Column(
-                  children: [],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => WarehouseAlertsPage(
-                            warehouseName: widget.warehouseName,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Icon(
-                          LineIcons.bell,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Alerts",
-                        ),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      children: [
-                        Icon(
-                          LineIcons.fileInvoice,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Report",
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => WarehouseProfileScreen(
-                            username: widget.username,
-                            warehouseName: widget.warehouseName,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Icon(
-                          LineIcons.warehouse,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Profile",
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // CustomInkwellContainer(
-                  //   child: Center(
-                  //     child: Text(
-                  //       "Alerts",
-                  //       style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontSize: 20,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   height: 75,
-                  //   backgroundColor: ColorConfig.primaryBlue,
-                  //   onPressed: () {
-                  //     Navigator.of(context).push(
-                  //       MaterialPageRoute(
-                  //         builder: (context) => WarehouseAlertsPage(
-                  //           warehouseName: widget.warehouseName,
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  //   splashColor: Colors.blue[200],
-                  // ),
-                  // SizedBox(
-                  //   height: 25,
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: CustomInkwellContainer(
-                  //         backgroundColor: ColorConfig.primaryBlue,
-                  //         splashColor: Colors.blue[200],
-                  //         onPressed: () {},
-                  //         child: Center(
-                  //           child: Text(
-                  //             "Detailed Report",
-                  //             textAlign: TextAlign.center,
-                  //             style: TextStyle(
-                  //               color: Colors.white,
-                  //               fontSize: 18,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 25,
-                  //     ),
-                  //     Expanded(
-                  //       child: CustomInkwellContainer(
-                  //         backgroundColor: ColorConfig.primaryBlue,
-                  //         splashColor: Colors.blue[200],
-                  //         onPressed: () {
-                  //           Navigator.of(context).push(
-                  //             MaterialPageRoute(
-                  //               builder: (context) => WarehouseProfileScreen(
-                  //                 username: widget.username,
-                  //                 warehouseName: widget.warehouseName,
-                  //               ),
-                  //             ),
-                  //           );
-                  //         },
-                  //         child: Center(
-                  //           child: Text(
-                  //             "Warehouse Profile",
-                  //             textAlign: TextAlign.center,
-                  //             style: TextStyle(
-                  //               color: Colors.white,
-                  //               fontSize: 18,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: ColorConfig.fadedGreen,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          8,
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.only(bottom: 30, top: 25),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => WarehouseAlertsPage(
+                          warehouseName: widget.warehouseName,
                         ),
                       ),
-                    ),
-                    padding: EdgeInsets.fromLTRB(12, 15, 12, 25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Slots",
-                          style: TextStyle(
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        LineIcons.bell,
+                        color: Color(0xFF323232),
+                      ),
+                      Text(
+                        "Alerts",
+                        style: TextStyle(
                             fontFamily: "NunitoSans",
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
-                          ),
+                            color: Color(0xFF323232),
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    //primary: Color(0xFFDCDE9F),
+                    primary: Color(0xFFE5EAD9),
+                    //onPrimary: Color(0xFF92A65F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Column(
+                    children: [
+                      Icon(
+                        LineIcons.fileInvoice,
+                        color: Color(0xFF323232),
+                      ),
+                      Text(
+                        "Report",
+                        style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    //primary: Color(0xFFDCDE9F),
+                    primary: Color(0xFFE5EAD9),
+                    //onPrimary: Color(0xFF92A65F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => WarehouseProfileScreen(
+                          username: widget.username,
+                          warehouseName: widget.warehouseName,
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        slotsLoaded
-                            ? GridView.count(
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                crossAxisCount: 3,
-                                childAspectRatio: 2,
-                                crossAxisSpacing: 13,
-                                mainAxisSpacing: 15,
-                                children: getGridViewSlots(context),
-                              )
-                            : Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width / 3,
-                                ),
-                                child: CircularProgressIndicator(),
-                              ),
-                      ],
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        LineIcons.warehouse,
+                        color: Color(0xFF323232),
+                      ),
+                      Text(
+                        "Profile",
+                        style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    //primary: Color(0xFFDCDE9F),
+                    primary: Color(0xFFE5EAD9),
+                    //onPrimary: Color(0xFF92A65F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE5EAD9),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        8,
+                      ),
+                    ),
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0xFF92A65F),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                  padding: EdgeInsets.fromLTRB(12, 15, 12, 25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Slots",
+                        style: TextStyle(
+                          fontFamily: "NunitoSans",
+                          fontSize: 25,
+                          color: Color(0xFF323232),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      slotsLoaded
+                          ? GridView.count(
+                              physics: BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              childAspectRatio: 2,
+                              crossAxisSpacing: 13,
+                              mainAxisSpacing: 15,
+                              children: getGridViewSlots(context),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width / 3,
+                              ),
+                              child: CircularProgressIndicator(),
+                            ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

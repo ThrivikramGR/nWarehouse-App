@@ -9,10 +9,11 @@ class CustomScaffoldElements {
   static AppBar getAppBar(String title, BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Color(0xFFE8E6D1),
+      backgroundColor: Color(0xFF92A65F),
       leading: Builder(
         builder: (context) {
           return Transform.scale(
+            //mirroring the icon
             scaleX: -1,
             child: IconButton(
               onPressed: () {

@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
-      backgroundColor: Color(0xFFE8E6D1),
+      backgroundColor: Color(0xFF92A65F),
       drawer: Drawer(
         backgroundColor: ColorConfig.backgroundLightBlue,
         child: Column(

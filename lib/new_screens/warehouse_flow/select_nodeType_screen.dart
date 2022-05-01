@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iot_project/custom_widgets/inkwell_container.dart';
-import 'package:iot_project/services/color_config.dart';
 
 import 'nodes_screen.dart';
 
@@ -15,17 +14,18 @@ class SelectNodeTypeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: ColorConfig.primaryBlue,
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
+        backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          warehouseName + " - " + slotID,
+          slotID + " - Node Type",
           style: TextStyle(
-            color: ColorConfig.primaryBlue,
+            fontFamily: "NunitoSans",
+            color: Color(0xFF323232),
+            fontWeight: FontWeight.w700,
           ),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF323232),
         ),
       ),
       body: Column(
@@ -35,82 +35,108 @@ class SelectNodeTypeScreen extends StatelessWidget {
             height: 25,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: CustomInkwellContainer(
-              height: 100,
+              height: 85,
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Center(
+                  child: Text(
+                    "Fixed Node",
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFF323232),
+                    ),
+                  ),
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => NodesScreen(
-                      nodeTypeDisplayName: 'Fixed Node',
+                      nodeTypeDisplayName: 'Fixed Nodes',
                       slotID: slotID,
                       nodeType: 'F',
                     ),
                   ),
                 );
               },
-              splashColor: Colors.blue[200],
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              child: Center(
-                child: Text(
-                  "Fixed Node",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: ColorConfig.primaryBlue,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
             ),
-          ),
-          SizedBox(
-            height: 25,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: CustomInkwellContainer(
-              height: 100,
-              onPressed: () {},
-              splashColor: Colors.blue[200],
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              child: Center(
-                child: Text(
-                  "Mobile Node",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: ColorConfig.primaryBlue,
-                    fontWeight: FontWeight.w700,
+              height: 85,
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Center(
+                  child: Text(
+                    "Mobile Node",
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFF323232),
+                    ),
                   ),
                 ),
               ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => NodesScreen(
+                      nodeTypeDisplayName: 'Mobile Nodes',
+                      slotID: slotID,
+                      nodeType: 'M',
+                    ),
+                  ),
+                );
+              },
             ),
-          ),
-          SizedBox(
-            height: 25,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: CustomInkwellContainer(
-              height: 100,
-              onPressed: () {},
-              splashColor: Colors.blue[200],
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              child: Center(
-                child: Text(
-                  "Probe Node",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: ColorConfig.primaryBlue,
-                    fontWeight: FontWeight.w700,
+              height: 85,
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Center(
+                  child: Text(
+                    "Probe Node",
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFF323232),
+                    ),
                   ),
                 ),
               ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => NodesScreen(
+                      nodeTypeDisplayName: 'Probe Nodes',
+                      slotID: slotID,
+                      nodeType: 'P',
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
