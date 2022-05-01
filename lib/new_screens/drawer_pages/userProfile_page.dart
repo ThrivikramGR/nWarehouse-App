@@ -14,7 +14,7 @@ class UserProfilePage extends StatelessWidget {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          "Profile",
+          "User Profile",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),

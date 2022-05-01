@@ -5,10 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart';
 import 'package:iot_project/services/color_config.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-
-import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -345,7 +344,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   email: _email, password: _password);
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => HomeScreen(
+                  builder: (context) => SelectWarehousePage(
                     username: _userName,
                   ),
                 ),

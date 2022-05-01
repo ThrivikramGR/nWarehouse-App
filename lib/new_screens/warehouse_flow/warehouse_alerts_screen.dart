@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 import '../../custom_widgets/inkwell_container.dart';
-import '../../services/color_config.dart';
 
 class WarehouseAlertsPage extends StatelessWidget {
   final String warehouseName;
@@ -11,17 +11,18 @@ class WarehouseAlertsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
-        iconTheme: IconThemeData(
-          color: ColorConfig.primaryBlue,
-        ),
         title: Text(
-          warehouseName + " - " + "Alerts",
+          warehouseName + " - Alerts",
           style: TextStyle(
-            color: Colors.blue,
+            fontFamily: "NunitoSans",
+            color: Color(0xFF323232),
+            fontWeight: FontWeight.w700,
           ),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xFF323232),
         ),
       ),
       body: ListView(
@@ -32,8 +33,8 @@ class WarehouseAlertsPage extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: CustomInkwellContainer(
               height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
@@ -47,24 +48,29 @@ class WarehouseAlertsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Node Status",
+                          "Node Alert",
                           style: TextStyle(
+                            fontFamily: "NunitoSans",
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF323232),
                           ),
                         ),
                         SizedBox(
                           height: 4,
                         ),
                         Text(
-                          "12 hours ago",
+                          "15 mins ago",
+                          style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
+                          ),
                         ),
                       ],
                     ),
                     Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
+                      LineIcons.exclamation,
+                      color: Color(0xFF323232),
                     ),
                   ],
                 ),
@@ -75,8 +81,8 @@ class WarehouseAlertsPage extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: CustomInkwellContainer(
               height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
@@ -90,24 +96,29 @@ class WarehouseAlertsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Node Status",
+                          "Node Degraded",
                           style: TextStyle(
+                            fontFamily: "NunitoSans",
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF323232),
                           ),
                         ),
                         SizedBox(
                           height: 4,
                         ),
                         Text(
-                          "12 hours ago",
+                          "13 hours ago",
+                          style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
+                          ),
                         ),
                       ],
                     ),
                     Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
+                      LineIcons.exclamation,
+                      color: Color(0xFF323232),
                     ),
                   ],
                 ),
@@ -118,8 +129,8 @@ class WarehouseAlertsPage extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: CustomInkwellContainer(
               height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
@@ -133,282 +144,29 @@ class WarehouseAlertsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Node Status",
+                          "Node degraded",
                           style: TextStyle(
+                            fontFamily: "NunitoSans",
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF323232),
                           ),
                         ),
                         SizedBox(
                           height: 4,
                         ),
                         Text(
-                          "12 hours ago",
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Status",
+                          "2 days ago",
                           style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
                           ),
                         ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "12 hours ago",
-                        ),
                       ],
                     ),
                     Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Status",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "12 hours ago",
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Status",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "12 hours ago",
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Status",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "12 hours ago",
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Status",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "12 hours ago",
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: ColorConfig.backgroundLightBlue,
-              splashColor: Colors.blue[200],
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Status",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConfig.primaryBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "12 hours ago",
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      color: ColorConfig.primaryBlue,
+                      LineIcons.exclamation,
+                      color: Color(0xFF323232),
                     ),
                   ],
                 ),

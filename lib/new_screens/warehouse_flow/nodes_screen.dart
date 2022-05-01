@@ -45,14 +45,8 @@ class _NodesScreenState extends State<NodesScreen> {
     for (int i = 0; i < slotList.length; i++) {
       gridViewChildren.add(
         GridViewNode(
-          child: Text(
-            slotList[i]['NodeID']!,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
-          ),
           status: slotList[i]['NodeStatus']!,
+          nodeID: slotList[i]['NodeID']!,
         ),
       );
     }
@@ -102,93 +96,119 @@ class _NodesScreenState extends State<NodesScreen> {
 
   List<Widget> getGridViewNodes(BuildContext context) {
     List<GridViewNode> gridViewChildren = [
-      GridViewNode(
-          child: Text(
-            "Node 1",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-          status: "good"),
-      GridViewNode(
-          child: Text(
-            "Node 2",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-          status: "bad"),
-      GridViewNode(
-          child: Text(
-            "Node 3",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-          status: "degraded"),
-      GridViewNode(
-          child: Text(
-            "Node 4",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-          status: "good"),
+      GridViewNode(status: "good", nodeID: 'Node 1'),
+      GridViewNode(status: "bad", nodeID: "Node 2"),
+      GridViewNode(status: "degraded", nodeID: "Node 3"),
+      GridViewNode(status: "good", nodeID: 'Node 4'),
     ];
 
     return List.generate(
       gridViewChildren.length,
       (index) {
         return GestureDetector(
-          onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => SelectNodeTypeScreen(
-            //       warehouseName: widget.warehouseName,
-            //       slotName: "Slot 1",
-            //     ),
-            //   ),
-            // );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  5,
-                ),
-              ),
-              color: gridViewChildren[index].backgroundColor,
-            ),
-            child: Center(
-              child: gridViewChildren[index].child,
-            ),
-          ),
+          onTap: () {},
+          child: CustomStatusColorContainer(
+              gridViewChildren: gridViewChildren, index: index),
         );
       },
     );
   }
 }
 
+// class GridViewNode {
+//   late final Widget child;
+//   late final Color backgroundColor;
+//   late final String status;
+//
+//   GridViewNode({required Widget child, required String status}) {
+//     this.child = child;
+//     this.status = status;
+//     if (this.status.length < 4) {
+//       this.backgroundColor = Colors.orange;
+//     } else if (this.status.toLowerCase().substring(0, 4) == "good") {
+//       this.backgroundColor = Colors.green;
+//     } else if (this.status.toLowerCase() == "degraded") {
+//       this.backgroundColor = Colors.red;
+//     } else {
+//       this.backgroundColor = Colors.orange;
+//     }
+//   }
+// }
+
 class GridViewNode {
+  late final String nodeID;
   late final Widget child;
-  late final Color backgroundColor;
+  late final Color statusColor;
   late final String status;
 
-  GridViewNode({required Widget child, required String status}) {
-    this.child = child;
+  GridViewNode({required String status, required String nodeID}) {
+    this.nodeID = nodeID;
+
     this.status = status;
     if (this.status.length < 4) {
-      this.backgroundColor = Colors.orange;
+      this.statusColor = Colors.orange;
     } else if (this.status.toLowerCase().substring(0, 4) == "good") {
-      this.backgroundColor = Colors.green;
+      this.statusColor = Colors.green;
     } else if (this.status.toLowerCase() == "degraded") {
-      this.backgroundColor = Colors.red;
+      this.statusColor = Colors.red;
     } else {
-      this.backgroundColor = Colors.orange;
+      this.statusColor = Colors.orange;
     }
+    this.child = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          nodeID,
+          style: TextStyle(
+            fontFamily: "NunitoSans",
+            color: Color(0xFF323232),
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(
+          height: 7,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: this.statusColor,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          height: 3,
+          width: 25,
+        ),
+      ],
+    );
+  }
+}
+
+class CustomStatusColorContainer extends StatelessWidget {
+  const CustomStatusColorContainer(
+      {required this.gridViewChildren, required this.index});
+
+  final List<GridViewNode> gridViewChildren;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            8,
+          ),
+        ),
+        border: Border.all(
+          width: 1,
+          color: Color(0xFF92A65F),
+        ),
+        color: Color(0xFFE5EAD9),
+      ),
+      child: Center(
+        child: gridViewChildren[index].child,
+      ),
+    );
   }
 }

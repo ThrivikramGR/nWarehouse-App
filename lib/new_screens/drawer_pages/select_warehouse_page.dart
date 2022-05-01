@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
-import 'package:iot_project/new_screens/warehouse_flow/warehouse_home_screen.dart';
+import 'package:iot_project/new_screens/warehouse_flow/warehouse_slots_screen.dart';
 import 'package:line_icons/line_icons.dart';
 
 class SelectWarehousePage extends StatefulWidget {
@@ -254,7 +254,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
     );
   }
 
-  double radius = 10;
+  double radius = 8;
   TextStyle textStyle = TextStyle(
     fontFamily: "NunitoSans",
     fontSize: 20,
