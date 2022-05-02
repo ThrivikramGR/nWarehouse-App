@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 30),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Color(0xFFE5EAD9),
                           borderRadius: BorderRadius.all(
                             Radius.circular(7),
                           ),
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               "Login",
                               style: TextStyle(
-                                color: ColorConfig.primaryBlue,
+                                color: Color(0xFF323232),
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -102,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   ),
                     // ),
                     RoundedLoadingButton(
+                      color: Color(0xFF92A65F),
                       child: Text(
                         'Continue',
                         style: TextStyle(
@@ -221,14 +222,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: ColorConfig.primaryBlue,
+              color: Color(0xFF92A65F),
               width: 1,
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: ColorConfig.primaryBlue,
+              color: Color(0xFF92A65F),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(
@@ -284,14 +285,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: ColorConfig.primaryBlue,
+              color: Color(0xFF92A65F),
               width: 1,
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: ColorConfig.primaryBlue,
+              color: Color(0xFF92A65F),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(

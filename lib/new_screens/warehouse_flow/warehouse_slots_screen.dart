@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:iot_project/new_screens/warehouse_flow/select_nodeType_screen.dart';
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_alerts_screen.dart';
+import 'package:iot_project/new_screens/warehouse_flow/warehouse_chooseDetailedReport_screen.dart';
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_profile_screen.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -123,7 +124,13 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ChooseDetailedReport(),
+                          ),
+                        );
+                      },
                       child: Column(
                         children: [
                           Icon(
