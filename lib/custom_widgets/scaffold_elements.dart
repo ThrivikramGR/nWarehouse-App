@@ -3,6 +3,8 @@ import 'dart:io' show Platform;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_project/new_screens/add_user_screen.dart';
+import 'package:iot_project/new_screens/add_warehouse_screen.dart';
 import 'package:iot_project/services/color_config.dart';
 
 class CustomScaffoldElements {
@@ -157,6 +159,22 @@ class CustomScaffoldElements {
                   );
                 }
                 break;
+              case 2:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddUserScreen(),
+                  ),
+                );
+                break;
+              case 3:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddWarehouseScreen(),
+                  ),
+                );
+                break;
               default:
                 break;
             }
@@ -176,6 +194,24 @@ class CustomScaffoldElements {
                 value: 1,
                 child: Text(
                   "Logout",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              PopupMenuItem(
+                value: 2,
+                child: Text(
+                  "Add User",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              PopupMenuItem(
+                value: 3,
+                child: Text(
+                  "Add Warehouse",
                   style: TextStyle(
                     color: Colors.black,
                   ),

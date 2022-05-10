@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
@@ -24,14 +21,10 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
   List warehouseList = [];
 
   void getWarehouseList() async {
-    final queryParameters = {'username': widget.username};
-    final uri = Uri.https(
-        'node-js-new.herokuapp.com', '/api/username', queryParameters);
-    final headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-    };
-    final response = await http.get(uri, headers: headers);
-    warehouseList = json.decode(response.body)['warehouses'];
+    var dio = Dio();
+    var response = await dio.get(
+        'http://node-js-new.herokuapp.com/api/username?username=${widget.username}');
+    warehouseList = response.data['warehouses'];
 
     setState(() {
       warehouseListLoaded = true;
@@ -48,7 +41,7 @@ class _SelectWarehousePageState extends State<SelectWarehousePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF92A65F),
-      appBar: CustomScaffoldElements.getAppBar("nWare", context),
+      appBar: CustomScaffoldElements.getAppBar("nWarehouse", context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

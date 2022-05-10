@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class NodesScreen extends StatefulWidget {
@@ -22,12 +21,14 @@ class _NodesScreenState extends State<NodesScreen> {
   List<GridViewNode> gridViewChildren = [];
 
   void getNodes() async {
-    final queryParameters = {'SlotID': 'S100101', 'Type': 'F'};
-    final uri = Uri.https('node-js-new.herokuapp.com',
-        '/api/warehouses/slots/nodes', queryParameters);
+    final queryParameters = {'SlotID': widget.slotID, 'Type': widget.nodeType};
 
-    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    // final response = await http.get(uri, headers: headers);
+    var dio = Dio();
+    var response = await dio.get(
+        'http://node-js-new.herokuapp.com/api/warehouses/slots/nodes',
+        queryParameters: queryParameters);
+
+    deserializeSlots(response.data);
 
     await Future.delayed(
       Duration(
@@ -95,13 +96,6 @@ class _NodesScreenState extends State<NodesScreen> {
   }
 
   List<Widget> getGridViewNodes(BuildContext context) {
-    List<GridViewNode> gridViewChildren = [
-      GridViewNode(status: "good", nodeID: 'Node 1'),
-      GridViewNode(status: "bad", nodeID: "Node 2"),
-      GridViewNode(status: "degraded", nodeID: "Node 3"),
-      GridViewNode(status: "good", nodeID: 'Node 4'),
-    ];
-
     return List.generate(
       gridViewChildren.length,
       (index) {

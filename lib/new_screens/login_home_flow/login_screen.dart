@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               "Login",
                               style: TextStyle(
+                                fontFamily: "NunitoSans",
                                 color: Color(0xFF323232),
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -88,24 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 40,
                     ),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width / 1.5,
-                    //   height: 50,
-                    //   child: ElevatedButton(
-                    //     onPressed: login,
-                    //     child: Text(
-                    //       "Continue",
-                    //       style: TextStyle(
-                    //         fontSize: 16,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     RoundedLoadingButton(
                       color: Color(0xFF92A65F),
                       child: Text(
                         'Continue',
                         style: TextStyle(
+                          fontFamily: "NunitoSans",
                           color: Colors.white,
                         ),
                       ),
@@ -216,6 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           labelText: "Username",
           labelStyle: TextStyle(
+            fontFamily: "NunitoSans",
             color: Color(0xFF8B97A2),
             fontWeight: FontWeight.normal,
             fontSize: 14,
@@ -241,6 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
         ),
         style: TextStyle(
+          fontFamily: "NunitoSans",
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
@@ -279,6 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           labelText: "Password",
           labelStyle: TextStyle(
+            fontFamily: "NunitoSans",
             color: Color(0xFF8B97A2),
             fontWeight: FontWeight.normal,
             fontSize: 14,
@@ -304,6 +296,7 @@ class _LoginScreenState extends State<LoginScreen> {
           contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
         ),
         style: TextStyle(
+          fontFamily: "NunitoSans",
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
@@ -316,6 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Text(
           "Forgot Password?",
           style: TextStyle(
+            fontFamily: "NunitoSans",
             color: ColorConfig.primaryBlue,
           ),
         ),

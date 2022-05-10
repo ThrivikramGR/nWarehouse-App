@@ -1,12 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
 import 'package:iot_project/new_screens/warehouse_flow/select_nodeType_screen.dart';
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_alerts_screen.dart';
-import 'package:iot_project/new_screens/warehouse_flow/warehouse_chooseDetailedReport_screen.dart';
 import 'package:iot_project/new_screens/warehouse_flow/warehouse_profile_screen.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -30,10 +26,10 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
   }
 
   void getSlots() async {
-    final uri = Uri.https('node-js-new.herokuapp.com', '/api/warehouses/slots');
-    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    final response = await http.get(uri, headers: headers);
-    deserializeSlots(json.decode(response.body));
+    var dio = Dio();
+    var response =
+        await dio.get('http://node-js-new.herokuapp.com/api/warehouses/slots');
+    deserializeSlots(response.data);
     setState(() {
       slotsLoaded = true;
     });
@@ -125,11 +121,11 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ChooseDetailedReport(),
-                          ),
-                        );
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => ChooseDetailedReport(),
+                        //   ),
+                        // );
                       },
                       child: Column(
                         children: [

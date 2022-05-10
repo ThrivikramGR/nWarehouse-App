@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 import 'package:iot_project/new_screens/drawer_pages/alerts_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/help_page.dart';
 import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
@@ -247,8 +246,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      appBar: CustomScaffoldElements.getAppBar(
-          drawerPages[currentPage]!["appBarTitle"], context),
       body: drawerPages[currentPage]!["widget"],
     );
   }
