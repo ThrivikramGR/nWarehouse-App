@@ -7,9 +7,9 @@
 // import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 // import 'package:iot_project/new_screens/drawer_pages/alerts_page.dart';
 // import 'package:iot_project/new_screens/drawer_pages/help_page.dart';
-// import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
-// import 'package:iot_project/new_screens/drawer_pages/select_warehouse_page.dart';
-// import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
+// import 'package:iot_project/new_screens/drawer_pages/notifications_screen.dart';
+// import 'package:iot_project/new_screens/drawer_pages/home_screen.dart';
+// import 'package:iot_project/new_screens/drawer_pages/user_profile_screen.dart';
 // import 'package:iot_project/services/color_config.dart';
 // import 'package:line_icons/line_icons.dart';
 //

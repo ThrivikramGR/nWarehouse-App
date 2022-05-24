@@ -3,9 +3,11 @@ import 'dart:io' show Platform;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_project/new_screens/add_user_screen.dart';
-import 'package:iot_project/new_screens/add_warehouse_screen.dart';
+import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
+import 'package:iot_project/screens/home/popup_menu/help_page.dart';
 import 'package:iot_project/services/color_config.dart';
+
+import '../screens/home/popup_menu/add_warehouse_screen.dart';
 
 class CustomScaffoldElements {
   static AppBar getAppBar(String title, BuildContext context) {
@@ -101,65 +103,15 @@ class CustomScaffoldElements {
           onSelected: (items) {
             switch (items) {
               case 0:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HelpPage(),
+                  ),
+                );
                 break;
+
               case 1:
-                if (Platform.isAndroid) {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: const Text("Logout"),
-                      content: Text(
-                        "Confirm logout?",
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("Cancel"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            FirebaseAuth _auth = FirebaseAuth.instance;
-                            _auth.signOut();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, "/", (Route<dynamic> route) => false);
-                          },
-                          child: const Text("Logout"),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  showCupertinoDialog(
-                    context: context,
-                    builder: (_) => CupertinoAlertDialog(
-                      title: const Text("Logout"),
-                      content: Text(
-                        "Confirm logout?",
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("Cancel"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            FirebaseAuth _auth = FirebaseAuth.instance;
-                            _auth.signOut();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, "/", (Route<dynamic> route) => false);
-                          },
-                          child: const Text("Logout"),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-                break;
-              case 2:
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -167,7 +119,7 @@ class CustomScaffoldElements {
                   ),
                 );
                 break;
-              case 3:
+              case 2:
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -193,15 +145,6 @@ class CustomScaffoldElements {
               PopupMenuItem(
                 value: 1,
                 child: Text(
-                  "Logout",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text(
                   "Add User",
                   style: TextStyle(
                     color: Colors.black,
@@ -209,7 +152,7 @@ class CustomScaffoldElements {
                 ),
               ),
               PopupMenuItem(
-                value: 3,
+                value: 2,
                 child: Text(
                   "Add Warehouse",
                   style: TextStyle(

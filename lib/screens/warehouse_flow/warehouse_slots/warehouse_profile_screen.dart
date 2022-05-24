@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../custom_widgets/inkwell_container.dart';
+import '../../../custom_widgets/inkwell_container.dart';
 
-class UserProfilePage extends StatelessWidget {
+class WarehouseProfileScreen extends StatelessWidget {
   final String username;
-  UserProfilePage({required this.username});
+  final String warehouseName;
+
+  WarehouseProfileScreen({required this.username, required this.warehouseName});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class UserProfilePage extends StatelessWidget {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          "User Profile",
+          "Warehouse Profile",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -34,9 +36,9 @@ class UserProfilePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Hero(
-                  tag: "userIcon",
+                  tag: "warehouseIcon",
                   child: Icon(
-                    LineIcons.userCircle,
+                    LineIcons.warehouse,
                     color: Color(0xFF323232),
                     size: 50,
                   ),
@@ -45,7 +47,7 @@ class UserProfilePage extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  username[0].toUpperCase() + username.substring(1),
+                  warehouseName,
                   style: TextStyle(
                     fontFamily: "NunitoSans",
                     fontSize: 35,
@@ -80,7 +82,7 @@ class UserProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "4",
+                                "8",
                                 style: TextStyle(
                                   fontFamily: "NunitoSans",
                                   fontSize: 17,
@@ -92,7 +94,7 @@ class UserProfilePage extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                "Warehouses",
+                                "Slots",
                                 style: TextStyle(
                                   fontFamily: "NunitoSans",
                                   color: Color(0xFF323232),
@@ -128,7 +130,7 @@ class UserProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Developer",
+                                "25",
                                 style: TextStyle(
                                   fontFamily: "NunitoSans",
                                   fontSize: 17,
@@ -140,7 +142,7 @@ class UserProfilePage extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                "Designation",
+                                "Nodes",
                                 style: TextStyle(
                                   fontFamily: "NunitoSans",
                                   color: Color(0xFF323232),
@@ -149,7 +151,7 @@ class UserProfilePage extends StatelessWidget {
                             ],
                           ),
                           Icon(
-                            LineIcons.userTie,
+                            Icons.sensors,
                             color: Color(0xFF323232),
                           ),
                         ],
@@ -176,7 +178,7 @@ class UserProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "vikramthiru02@gmail.com",
+                                "TNJ",
                                 style: TextStyle(
                                   fontFamily: "NunitoSans",
                                   fontSize: 17,
@@ -188,7 +190,7 @@ class UserProfilePage extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                "Email",
+                                "Location",
                                 style: TextStyle(
                                   fontFamily: "NunitoSans",
                                   color: Color(0xFF323232),
@@ -197,7 +199,7 @@ class UserProfilePage extends StatelessWidget {
                             ],
                           ),
                           Icon(
-                            LineIcons.envelope,
+                            Icons.location_on_outlined,
                             color: Color(0xFF323232),
                           ),
                         ],

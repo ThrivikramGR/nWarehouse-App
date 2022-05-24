@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iot_project/custom_widgets/inkwell_container.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../custom_widgets/inkwell_container.dart';
-
-class WarehouseAlertsPage extends StatelessWidget {
-  final String warehouseName;
-  WarehouseAlertsPage({required this.warehouseName});
+class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +11,7 @@ class WarehouseAlertsPage extends StatelessWidget {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          warehouseName + " - Alerts",
+          "Notifications",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -48,6 +45,54 @@ class WarehouseAlertsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          "Update Available!",
+                          style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF323232),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          "2 hours ago",
+                          style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Icon(
+                      LineIcons.bell,
+                      color: Color(0xFF323232),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            child: CustomInkwellContainer(
+              height: 85,
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           "Node Alert",
                           style: TextStyle(
                             fontFamily: "NunitoSans",
@@ -60,103 +105,7 @@ class WarehouseAlertsPage extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          "15 mins ago",
-                          style: TextStyle(
-                            fontFamily: "NunitoSans",
-                            color: Color(0xFF323232),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      LineIcons.exclamation,
-                      color: Color(0xFF323232),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: Color(0xFFE5EAD9),
-              splashColor: Color(0xFF92A65F),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node Degraded",
-                          style: TextStyle(
-                            fontFamily: "NunitoSans",
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF323232),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
                           "13 hours ago",
-                          style: TextStyle(
-                            fontFamily: "NunitoSans",
-                            color: Color(0xFF323232),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Icon(
-                      LineIcons.exclamation,
-                      color: Color(0xFF323232),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            child: CustomInkwellContainer(
-              height: 85,
-              backgroundColor: Color(0xFFE5EAD9),
-              splashColor: Color(0xFF92A65F),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Node degraded",
-                          style: TextStyle(
-                            fontFamily: "NunitoSans",
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF323232),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "2 days ago",
                           style: TextStyle(
                             fontFamily: "NunitoSans",
                             color: Color(0xFF323232),

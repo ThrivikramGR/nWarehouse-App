@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:iot_project/new_screens/warehouse_flow/select_nodeType_screen.dart';
-import 'package:iot_project/new_screens/warehouse_flow/warehouse_alerts_screen.dart';
-import 'package:iot_project/new_screens/warehouse_flow/warehouse_profile_screen.dart';
+import 'package:iot_project/screens/warehouse_flow/node_type_screen.dart';
+import 'package:iot_project/screens/warehouse_flow/warehouse_slots/alerts_screen.dart';
+import 'package:iot_project/screens/warehouse_flow/warehouse_slots/warehouse_profile_screen.dart';
 import 'package:line_icons/line_icons.dart';
 
 class WarehouseHomeScreen extends StatefulWidget {

@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
-import 'package:iot_project/new_screens/drawer_pages/notifications_page.dart';
-import 'package:iot_project/new_screens/drawer_pages/userProfile_page.dart';
-import 'package:iot_project/new_screens/warehouse_flow/warehouse_slots_screen.dart';
+import 'package:iot_project/screens/home/notifications_screen.dart';
+import 'package:iot_project/screens/home/user_profile_screen.dart';
+import 'package:iot_project/screens/warehouse_flow/warehouse_slots/slots_screen.dart';
 import 'package:line_icons/line_icons.dart';
 
 class SelectWarehousePage extends StatefulWidget {

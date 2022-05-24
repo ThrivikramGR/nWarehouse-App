@@ -109,26 +109,6 @@ class _NodesScreenState extends State<NodesScreen> {
   }
 }
 
-// class GridViewNode {
-//   late final Widget child;
-//   late final Color backgroundColor;
-//   late final String status;
-//
-//   GridViewNode({required Widget child, required String status}) {
-//     this.child = child;
-//     this.status = status;
-//     if (this.status.length < 4) {
-//       this.backgroundColor = Colors.orange;
-//     } else if (this.status.toLowerCase().substring(0, 4) == "good") {
-//       this.backgroundColor = Colors.green;
-//     } else if (this.status.toLowerCase() == "degraded") {
-//       this.backgroundColor = Colors.red;
-//     } else {
-//       this.backgroundColor = Colors.orange;
-//     }
-//   }
-// }
-
 class GridViewNode {
   late final String nodeID;
   late final Widget child;

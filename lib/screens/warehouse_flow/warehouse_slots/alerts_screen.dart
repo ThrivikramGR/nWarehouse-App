@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_project/custom_widgets/inkwell_container.dart';
 import 'package:line_icons/line_icons.dart';
 
-class NotificationsPage extends StatelessWidget {
+import '../../../custom_widgets/inkwell_container.dart';
+
+class WarehouseAlertsPage extends StatelessWidget {
+  final String warehouseName;
+  WarehouseAlertsPage({required this.warehouseName});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +14,7 @@ class NotificationsPage extends StatelessWidget {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          "Notifications",
+          warehouseName + " - Alerts",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -46,7 +48,7 @@ class NotificationsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Update Available!",
+                          "Node Alert",
                           style: TextStyle(
                             fontFamily: "NunitoSans",
                             fontSize: 20,
@@ -58,7 +60,7 @@ class NotificationsPage extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          "2 hours ago",
+                          "15 mins ago",
                           style: TextStyle(
                             fontFamily: "NunitoSans",
                             color: Color(0xFF323232),
@@ -67,7 +69,7 @@ class NotificationsPage extends StatelessWidget {
                       ],
                     ),
                     Icon(
-                      LineIcons.bell,
+                      LineIcons.exclamation,
                       color: Color(0xFF323232),
                     ),
                   ],
@@ -94,7 +96,7 @@ class NotificationsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Node Alert",
+                          "Node Degraded",
                           style: TextStyle(
                             fontFamily: "NunitoSans",
                             fontSize: 20,
@@ -107,6 +109,54 @@ class NotificationsPage extends StatelessWidget {
                         ),
                         Text(
                           "13 hours ago",
+                          style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            color: Color(0xFF323232),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Icon(
+                      LineIcons.exclamation,
+                      color: Color(0xFF323232),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            child: CustomInkwellContainer(
+              height: 85,
+              backgroundColor: Color(0xFFE5EAD9),
+              splashColor: Color(0xFF92A65F),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Node degraded",
+                          style: TextStyle(
+                            fontFamily: "NunitoSans",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF323232),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          "2 days ago",
                           style: TextStyle(
                             fontFamily: "NunitoSans",
                             color: Color(0xFF323232),

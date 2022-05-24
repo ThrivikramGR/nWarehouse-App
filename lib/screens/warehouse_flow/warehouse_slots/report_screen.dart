@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/color_config.dart';
+import '../../../services/color_config.dart';
 
 class ChooseDetailedReport extends StatefulWidget {
   @override
