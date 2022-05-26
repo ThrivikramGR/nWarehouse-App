@@ -339,7 +339,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   email: _email, password: _password);
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => SelectWarehousePage(
+                  builder: (context) => HomeScreen(
                     username: _userName,
                   ),
                 ),

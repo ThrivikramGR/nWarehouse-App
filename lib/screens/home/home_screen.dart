@@ -7,15 +7,15 @@ import 'package:iot_project/screens/home/user_profile_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/slots_screen.dart';
 import 'package:line_icons/line_icons.dart';
 
-class SelectWarehousePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final String? username;
 
-  SelectWarehousePage({this.username = "martin"});
+  HomeScreen({this.username = "martin"});
   @override
-  State<SelectWarehousePage> createState() => _SelectWarehousePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _SelectWarehousePageState extends State<SelectWarehousePage> {
+class _HomeScreenState extends State<HomeScreen> {
   bool warehouseListLoaded = false;
 
   List warehouseList = [];

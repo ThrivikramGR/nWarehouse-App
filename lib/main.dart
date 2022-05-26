@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginScreen(),
         'screen4': (context) => AddWarehouseScreen(),
         'addUser': (context) => AddUserScreen(),
-        'sel': (context) => SelectWarehousePage(),
+        'sel': (context) => HomeScreen(),
       },
     );
   }
