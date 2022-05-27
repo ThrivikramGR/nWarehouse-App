@@ -25,6 +25,17 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   String slotListSelectedItem = "SlotID";
   String nodeListSelectedItem = "NodeID";
 
+  String startDate = DateTime.now().day.toString() +
+      "-" +
+      DateTime.now().month.toString() +
+      "-" +
+      DateTime.now().year.toString();
+  String endDate = DateTime.now().day.toString() +
+      "-" +
+      DateTime.now().month.toString() +
+      "-" +
+      DateTime.now().year.toString();
+
   bool warehouseListLoaded = false;
   List warehouseList = [];
   String warehouseListSelectedItem = "default";
@@ -41,10 +52,15 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   }
 
   void getNodeItems() async {
-    final queryParameters = {"TypeOfNode": selectedNodeType, 'WarehouseID':warehouseListSelectedItem, "StartingDate":, "EndingDate": };
+    final queryParameters = {
+      "TypeOfNode": selectedNodeType,
+      'WarehouseID': warehouseListSelectedItem,
+      "StartingDate": startDate,
+      "EndingDate": endDate
+    };
     var dio = Dio();
-    var response =
-        await dio.get('https://heroku-boy.herokuapp.com/typeofnodes');
+    var response = await dio.get('https://heroku-boy.herokuapp.com/typeofnodes',
+        queryParameters: queryParameters);
     var arehouseList = response.data;
     print(arehouseList);
 
@@ -111,8 +127,25 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
               SizedBox(
                 height: 30,
               ),
-              Text(
-                "Warehouse ID",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Warehouse ID",
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  warehouseListLoaded
+                      ? Container()
+                      : SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        ),
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -153,8 +186,11 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2100),
                         dateLabelText: 'From',
-                        onChanged: (val) => print(val),
-                        onSaved: (val) => print(val),
+                        onChanged: (val) => startDate = val.substring(9) +
+                            "-" +
+                            val.substring(5, 7) +
+                            "-" +
+                            val.substring(0, 4),
                       ),
                     ),
                     SizedBox(
@@ -168,8 +204,11 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2100),
                         dateLabelText: 'To',
-                        onChanged: (val) => print(val),
-                        onSaved: (val) => print(val),
+                        onChanged: (val) => endDate = val.substring(9) +
+                            "-" +
+                            val.substring(5, 7) +
+                            "-" +
+                            val.substring(0, 4),
                       ),
                     ),
                   ],

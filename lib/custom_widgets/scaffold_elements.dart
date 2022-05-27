@@ -8,6 +8,7 @@ import 'package:iot_project/screens/home/popup_menu/help_page.dart';
 import 'package:iot_project/services/color_config.dart';
 
 import '../screens/home/popup_menu/add_warehouse_screen.dart';
+import '../screens/warehouse_flow/warehouse_slots/report_screen.dart';
 
 class CustomScaffoldElements {
   static AppBar getAppBar(String title, BuildContext context) {
@@ -127,6 +128,13 @@ class CustomScaffoldElements {
                   ),
                 );
                 break;
+              case 3:
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ChooseDetailedReport(),
+                  ),
+                );
+                break;
               default:
                 break;
             }
@@ -155,6 +163,15 @@ class CustomScaffoldElements {
                 value: 2,
                 child: Text(
                   "Add Warehouse",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              PopupMenuItem(
+                value: 3,
+                child: Text(
+                  "Detailed Report",
                   style: TextStyle(
                     color: Colors.black,
                   ),
