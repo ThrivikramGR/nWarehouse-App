@@ -12,7 +12,7 @@ class ChooseDetailedReport extends StatefulWidget {
 
 class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   String selectedNodeType = "F";
-  String selectedSensorType = "Gas";
+  String selectedSensorType = "G";
 
   int nodeTypeSelectedIndex = 0;
 
@@ -69,7 +69,6 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
     var response = await dio.get('https://heroku-boy.herokuapp.com/typeofnodes',
         queryParameters: queryParameters);
     var arehouseList = response.data;
-    print(arehouseList);
 
     setState(() {
       nodeListLoaded = true;
@@ -167,6 +166,7 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                   onChanged: (value) {
                     setState(() {
                       warehouseListSelectedItem = value!;
+                      slotsNodeAvailable = false;
                     });
                   },
                 ),
@@ -174,152 +174,137 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                "Dates",
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: DateTimePicker(
-                        type: DateTimePickerType.date,
-                        dateMask: 'd MMM, yyyy',
-                        initialValue: DateTime.now().toString(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                        dateLabelText: 'From',
-                        onChanged: (val) => startDate = val.substring(9) +
-                            "-" +
-                            val.substring(5, 7) +
-                            "-" +
-                            val.substring(0, 4),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Expanded(
-                      child: DateTimePicker(
-                        type: DateTimePickerType.date,
-                        dateMask: 'd MMM, yyyy',
-                        initialValue: DateTime.now().toString(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                        dateLabelText: 'To',
-                        onChanged: (val) => endDate = val.substring(9) +
-                            "-" +
-                            val.substring(5, 7) +
-                            "-" +
-                            val.substring(0, 4),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              GroupButton(
-                options: GroupButtonOptions(),
-                onSelected: (sensorType, index, isSelected) {
-                  selectedSensorType = sensorTypeNameConversion[sensorType]!;
-                },
-                isRadio: true,
-                controller: GroupButtonController(
-                  selectedIndex: 0,
-                ),
-                enableDeselect: false,
-                buttons: ["Gas Sensor", "CO2 Sensor"],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              GroupButton(
-                options: GroupButtonOptions(),
-                onSelected: (nodeType, index, isSelected) {
-                  setState(() {
-                    selectedNodeType = nodeTypeNameConversion[nodeType]!;
-                    nodeTypeSelectedIndex = index;
-                  });
-
-                  //if (isSelected) {
-                  //   nodeListLoaded = false;
-                  //   slotListLoaded = false;
-                  //   setState(() {
-                  //     selectedNodeType = nodeTypeNameConversion[nodeType]!;
-                  //   });
-                  //   if (selectedNodeType == "F") {
-                  //     //getSlotItems();
-                  //   } else {
-                  //     getNodeItems();
-                  //   }
-                  // } else {
-                  //   setState(() {
-                  //     selectedNodeType = "E";
-                  //   });
-                  //   slotListLoaded = true;
-                  //   nodeListLoaded = true;
-                  // }
-                },
-                controller: GroupButtonController(
-                  selectedIndex: nodeTypeSelectedIndex,
-                ),
-                isRadio: true,
-                enableDeselect: false,
-                buttons: ["Fixed Node", "Mobile Node", "Probe Node"],
-              ),
-              selectedNodeType == "F"
+              warehouseListSelectedItem != 'default'
                   ? Column(
                       children: [
+                        Text(
+                          "Dates",
+                        ),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: CustomDropdownButton(
-                            value: "0",
-                            items: [
-                              DropdownMenuItem(
-                                child: Text(
-                                  "Hi",
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 25,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: DateTimePicker(
+                                  type: DateTimePickerType.date,
+                                  dateMask: 'd MMM, yyyy',
+                                  initialValue: DateTime.now().toString(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                  dateLabelText: 'From',
+                                  onChanged: (val) => startDate =
+                                      val.substring(9) +
+                                          "-" +
+                                          val.substring(5, 7) +
+                                          "-" +
+                                          val.substring(0, 4),
                                 ),
-                                value: "0",
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Expanded(
+                                child: DateTimePicker(
+                                  type: DateTimePickerType.date,
+                                  dateMask: 'd MMM, yyyy',
+                                  initialValue: DateTime.now().toString(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                  dateLabelText: 'To',
+                                  onChanged: (val) => endDate =
+                                      val.substring(9) +
+                                          "-" +
+                                          val.substring(5, 7) +
+                                          "-" +
+                                          val.substring(0, 4),
+                                ),
                               ),
                             ],
-                            onChanged: (value) {},
                           ),
                         ),
                         SizedBox(
                           height: 15,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: CustomDropdownButton(
-                            value: "0",
-                            items: [
-                              DropdownMenuItem(
-                                child: Text(
-                                  "Hi",
-                                ),
-                                value: "0",
-                              ),
-                            ],
-                            onChanged: (value) {},
+                        GroupButton(
+                          options: GroupButtonOptions(),
+                          onSelected: (sensorType, index, isSelected) {
+                            selectedSensorType =
+                                sensorTypeNameConversion[sensorType]!;
+                            slotsNodeAvailable = false;
+                          },
+                          isRadio: true,
+                          controller: GroupButtonController(
+                            selectedIndex: 0,
+                          ),
+                          enableDeselect: false,
+                          buttons: ["Gas Sensor", "CO2 Sensor"],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        GroupButton(
+                          options: GroupButtonOptions(),
+                          onSelected: (nodeType, index, isSelected) {
+                            setState(() {
+                              selectedNodeType =
+                                  nodeTypeNameConversion[nodeType]!;
+                              nodeTypeSelectedIndex = index;
+                              slotsNodeAvailable = false;
+                            });
+                          },
+                          controller: GroupButtonController(
+                            selectedIndex: nodeTypeSelectedIndex,
+                          ),
+                          isRadio: true,
+                          enableDeselect: false,
+                          buttons: ["Fixed Node", "Mobile Node", "Probe Node"],
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              slotsNodeAvailable = true;
+                            });
+                          },
+                          child: Text(
+                            "Get Slots/Nodes",
                           ),
                         ),
+                        slotsNodeAvailable
+                            ? selectedNodeType == "F"
+                                ? Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      NodeTypeDropdowns(
+                                        sensorType: selectedSensorType,
+                                        nodeType: selectedNodeType,
+                                        warehouseID: warehouseListSelectedItem,
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      NodeTypeDropdowns(
+                                        sensorType: selectedSensorType,
+                                        nodeType: selectedNodeType,
+                                        warehouseID: warehouseListSelectedItem,
+                                      ),
+                                    ],
+                                  )
+                                : NodeTypeDropdowns(
+                                    sensorType: selectedSensorType,
+                                    nodeType: selectedNodeType,
+                                    warehouseID: warehouseListSelectedItem,
+                                  )
+                            : Container(),
                       ],
                     )
-                  : NodeTypeDropdowns(
-                      sensorType: selectedSensorType,
-                      nodeType: selectedNodeType,
-                      warehouseID: warehouseListSelectedItem,
-                    )
+                  : Container(),
             ],
           ),
           ElevatedButton(
@@ -332,6 +317,8 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
       ),
     );
   }
+
+  bool slotsNodeAvailable = false;
 }
 
 // class FixedNodeDropdowns extends StatefulWidget {
@@ -364,6 +351,7 @@ class NodeTypeDropdowns extends StatefulWidget {
 class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
   String selectedNode = "default";
   bool isLoaded = false;
+  String fetchedNode = "";
 
   List<DropdownMenuItem<String>> getDropdownItems() {
     List<DropdownMenuItem<String>> items = [
@@ -373,12 +361,13 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
           ),
           value: "default"),
     ];
+
     for (Map item in itemList) {
-      if (item["slotID"] != null)
+      if (item["SlotID"] != null)
         items.add(
           DropdownMenuItem(
             child: Text(
-              item["slotID"],
+              item["SlotID"],
             ),
           ),
         );
@@ -394,33 +383,31 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
     });
 
     Map<String, dynamic> params = {
-      // "typeofnode": "'${widget.nodeType}'",
-      // "sensortype": "'${widget.sensorType}'",
-      // "warehouseID": "'${widget.warehouseID}'",
-      "typeofnode": "'F'",
-      "sensortype": "'G'",
-      "warehouseID": "'NW1001'",
+      "typeofnode": "'${widget.nodeType}'",
+      "sensortype": "'${widget.sensorType}'",
+      "warehouseID": "'${widget.warehouseID}'",
+      // "typeofnode": "'F'",
+      // "sensortype": "'G'",
+      // "warehouseID": "'NW1001'",
       "firstDate": "'07-05-2022'",
       "secondDate": "'31-05-2022'"
     };
-    print("before");
-    print(params);
+
     var dio = Dio();
     var response = await dio.get(
       // 'https://mobileapi.n-warehouse.com/api/detailedreport/typeofnode',
-      "https://node-js-new.herokuapp.com/api/detailedreport/typeofnode?warehouseID='NW1001'&typeofnode='F'&sensortype='G'&firstDate='07-05-2022'&secondDate='31-05-2022'",
+      "https://node-js-new.herokuapp.com/api/detailedreport/typeofnode?warehouseID='${widget.warehouseID}'&typeofnode='${widget.nodeType}'&sensortype='${widget.sensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'",
     );
     itemList = response.data;
-    print(response.statusCode);
 
     setState(() {
       isLoaded = true;
     });
+    fetchedNode = widget.warehouseID;
   }
 
   @override
   void initState() {
-    print("here?");
     fetchDropdownItems();
 
     super.initState();
@@ -428,17 +415,47 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: CustomDropdownButton(
-        value: selectedNode,
-        items: isLoaded ? getDropdownItems() : null,
-        onChanged: (value) {
-          setState(() {
-            selectedNode = value!;
-          });
-        },
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Select Node",
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            isLoaded
+                ? Container()
+                : SizedBox(
+                    height: 15,
+                    width: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: CustomDropdownButton(
+            value: selectedNode,
+            items: isLoaded ? getDropdownItems() : null,
+            onChanged: (value) {
+              setState(() {
+                selectedNode = value!;
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 }
