@@ -81,8 +81,8 @@ class _AddWarehouseScreenState extends State<AddWarehouseScreen> {
 
     var dio = Dio();
     await dio.post(
-        'http://node-js-new.herokuapp.com/api/warehouses/slots/nodes',
-        queryParameters: queryParameters);
+        'http://node-js-new.herokuapp.com/api/warehouseprofileregistration',
+        data: queryParameters);
   }
 
   Map<String, String> textFieldValues = {};

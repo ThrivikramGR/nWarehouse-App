@@ -64,8 +64,8 @@ class _AddUserScreenState extends State<AddUserScreen> {
 
     var dio = Dio();
     await dio.post(
-        'http://node-js-new.herokuapp.com/api/warehouses/slots/nodes',
-        queryParameters: queryParameters);
+        'http://node-js-new.herokuapp.com/api/userprofileregistration',
+        data: queryParameters);
   }
 
   Map<String, String> textFieldValues = {};
@@ -165,7 +165,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
           onPressed: () {
             if (_validateInputs()) {
               print(textFieldValues);
-              //submitForm();
+              submitForm();
               Navigator.pop(context);
             }
           },

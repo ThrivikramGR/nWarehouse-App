@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 
 import '../../../backup/dropdown_button.dart';
-import '../../../services/color_config.dart';
 
 class ChooseDetailedReport extends StatefulWidget {
   @override
@@ -12,12 +11,20 @@ class ChooseDetailedReport extends StatefulWidget {
 }
 
 class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
-  String selectedNodeType = "E";
+  String selectedNodeType = "F";
+  String selectedSensorType = "Gas";
+
+  int nodeTypeSelectedIndex = 0;
 
   Map<String, String> nodeTypeNameConversion = {
     "Fixed Node": "F",
     "Mobile Node": "M",
-    "Probe Node": "P"
+    "Probe Node": "P",
+  };
+
+  Map<String, String> sensorTypeNameConversion = {
+    "Gas Sensor": "G",
+    "CO2 Sensor": "C",
   };
 
   bool nodeListLoaded = true;
@@ -39,12 +46,12 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   bool warehouseListLoaded = false;
   List warehouseList = [];
   String warehouseListSelectedItem = "default";
+
   void getWarehouseList() async {
     var dio = Dio();
-    var response =
-        await dio.get('https://heroku-boy.herokuapp.com/WarehouseList');
+    var response = await dio.get(
+        'https://mobileapi.n-warehouse.com/api/detailedreport/warehouselist');
     warehouseList = response.data;
-    print(warehouseList);
 
     setState(() {
       warehouseListLoaded = true;
@@ -82,14 +89,15 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
           value: "default"),
     ];
     for (Map warehouse in warehouseList) {
-      items.add(
-        DropdownMenuItem(
-          value: warehouse["WarehouseID"],
-          child: Text(
-            warehouse["WarehouseID"],
+      if (warehouse['WarehouseID'] != null)
+        items.add(
+          DropdownMenuItem(
+            value: warehouse["WarehouseID"],
+            child: Text(
+              warehouse["WarehouseID"],
+            ),
           ),
-        ),
-      );
+        );
     }
     return items;
   }
@@ -219,88 +227,99 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
               ),
               GroupButton(
                 options: GroupButtonOptions(),
-                onSelected: (value, index, isSelected) {
-                  if (isSelected) {
-                    nodeListLoaded = false;
-                    slotListLoaded = false;
-                    setState(() {
-                      selectedNodeType = nodeTypeNameConversion[value]!;
-                    });
-                    if (selectedNodeType == "F") {
-                      //getSlotItems();
-                    } else {
-                      getNodeItems();
-                    }
-                  } else {
-                    setState(() {
-                      selectedNodeType = "E";
-                    });
-                    slotListLoaded = true;
-                    nodeListLoaded = true;
-                  }
+                onSelected: (sensorType, index, isSelected) {
+                  selectedSensorType = sensorTypeNameConversion[sensorType]!;
                 },
                 isRadio: true,
-                enableDeselect: true,
+                controller: GroupButtonController(
+                  selectedIndex: 0,
+                ),
+                enableDeselect: false,
+                buttons: ["Gas Sensor", "CO2 Sensor"],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              GroupButton(
+                options: GroupButtonOptions(),
+                onSelected: (nodeType, index, isSelected) {
+                  setState(() {
+                    selectedNodeType = nodeTypeNameConversion[nodeType]!;
+                    nodeTypeSelectedIndex = index;
+                  });
+
+                  //if (isSelected) {
+                  //   nodeListLoaded = false;
+                  //   slotListLoaded = false;
+                  //   setState(() {
+                  //     selectedNodeType = nodeTypeNameConversion[nodeType]!;
+                  //   });
+                  //   if (selectedNodeType == "F") {
+                  //     //getSlotItems();
+                  //   } else {
+                  //     getNodeItems();
+                  //   }
+                  // } else {
+                  //   setState(() {
+                  //     selectedNodeType = "E";
+                  //   });
+                  //   slotListLoaded = true;
+                  //   nodeListLoaded = true;
+                  // }
+                },
+                controller: GroupButtonController(
+                  selectedIndex: nodeTypeSelectedIndex,
+                ),
+                isRadio: true,
+                enableDeselect: false,
                 buttons: ["Fixed Node", "Mobile Node", "Probe Node"],
               ),
-              selectedNodeType != "E"
-                  ? selectedNodeType == "F"
-                      ? Column(
-                          children: [
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: CustomDropdownButton(
-                                value: "0",
-                                items: [
-                                  DropdownMenuItem(
-                                    child: Text(
-                                      "Hi",
-                                    ),
-                                    value: "0",
-                                  ),
-                                ],
-                                onChanged: (value) {},
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: CustomDropdownButton(
-                                value: "0",
-                                items: [
-                                  DropdownMenuItem(
-                                    child: Text(
-                                      "Hi",
-                                    ),
-                                    value: "0",
-                                  ),
-                                ],
-                                onChanged: (value) {},
-                              ),
-                            ),
-                          ],
-                        )
-                      : Padding(
+              selectedNodeType == "F"
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: CustomDropdownButton(
-                            value: nodeListSelectedItem,
-                            items:
-                                nodeListLoaded ? getNodeDropdownItems() : null,
-                            onChanged: (value) {
-                              setState(() {
-                                nodeListSelectedItem = value!;
-                              });
-                            },
+                            value: "0",
+                            items: [
+                              DropdownMenuItem(
+                                child: Text(
+                                  "Hi",
+                                ),
+                                value: "0",
+                              ),
+                            ],
+                            onChanged: (value) {},
                           ),
-                        )
-                  : Container(),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: CustomDropdownButton(
+                            value: "0",
+                            items: [
+                              DropdownMenuItem(
+                                child: Text(
+                                  "Hi",
+                                ),
+                                value: "0",
+                              ),
+                            ],
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ],
+                    )
+                  : NodeTypeDropdowns(
+                      sensorType: selectedSensorType,
+                      nodeType: selectedNodeType,
+                      warehouseID: warehouseListSelectedItem,
+                    )
             ],
           ),
           ElevatedButton(
@@ -310,6 +329,115 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// class FixedNodeDropdowns extends StatefulWidget {
+//   @override
+//   State<FixedNodeDropdowns> createState() => _FixedNodeDropdownsState();
+// }
+//
+// class _FixedNodeDropdownsState extends State<FixedNodeDropdowns> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
+
+class NodeTypeDropdowns extends StatefulWidget {
+  // final DateTime startDate;
+  // final DateTime endDate;
+  final String warehouseID;
+  final String sensorType;
+  final String nodeType;
+  NodeTypeDropdowns(
+      {required this.warehouseID,
+      required this.nodeType,
+      required this.sensorType});
+
+  @override
+  State<NodeTypeDropdowns> createState() => _NodeTypeDropdownsState();
+}
+
+class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
+  String selectedNode = "default";
+  bool isLoaded = false;
+
+  List<DropdownMenuItem<String>> getDropdownItems() {
+    List<DropdownMenuItem<String>> items = [
+      DropdownMenuItem(
+          child: Text(
+            "All Nodes",
+          ),
+          value: "default"),
+    ];
+    for (Map item in itemList) {
+      if (item["slotID"] != null)
+        items.add(
+          DropdownMenuItem(
+            child: Text(
+              item["slotID"],
+            ),
+          ),
+        );
+    }
+    return items;
+  }
+
+  List itemList = [];
+
+  void fetchDropdownItems() async {
+    setState(() {
+      isLoaded = false;
+    });
+
+    Map<String, dynamic> params = {
+      // "typeofnode": "'${widget.nodeType}'",
+      // "sensortype": "'${widget.sensorType}'",
+      // "warehouseID": "'${widget.warehouseID}'",
+      "typeofnode": "'F'",
+      "sensortype": "'G'",
+      "warehouseID": "'NW1001'",
+      "firstDate": "'07-05-2022'",
+      "secondDate": "'31-05-2022'"
+    };
+    print("before");
+    print(params);
+    var dio = Dio();
+    var response = await dio.get(
+      // 'https://mobileapi.n-warehouse.com/api/detailedreport/typeofnode',
+      "https://node-js-new.herokuapp.com/api/detailedreport/typeofnode?warehouseID='NW1001'&typeofnode='F'&sensortype='G'&firstDate='07-05-2022'&secondDate='31-05-2022'",
+    );
+    itemList = response.data;
+    print(response.statusCode);
+
+    setState(() {
+      isLoaded = true;
+    });
+  }
+
+  @override
+  void initState() {
+    print("here?");
+    fetchDropdownItems();
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: CustomDropdownButton(
+        value: selectedNode,
+        items: isLoaded ? getDropdownItems() : null,
+        onChanged: (value) {
+          setState(() {
+            selectedNode = value!;
+          });
+        },
       ),
     );
   }
