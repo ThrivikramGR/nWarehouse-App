@@ -15,6 +15,7 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   String selectedSensorType = "G";
 
   int nodeTypeSelectedIndex = 0;
+  int sensorTypeSelectedIndex = 0;
 
   Map<String, String> nodeTypeNameConversion = {
     "Fixed Node": "F",
@@ -26,11 +27,6 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
     "Gas Sensor": "G",
     "CO2 Sensor": "C",
   };
-
-  bool nodeListLoaded = true;
-  bool slotListLoaded = true;
-  String slotListSelectedItem = "SlotID";
-  String nodeListSelectedItem = "NodeID";
 
   String startDate = DateTime.now().day.toString() +
       "-" +
@@ -47,6 +43,9 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   List warehouseList = [];
   String warehouseListSelectedItem = "default";
 
+  String selectedFixedNodeSlot = "all";
+  String selectedNode = "all";
+
   void getWarehouseList() async {
     var dio = Dio();
     var response = await dio.get(
@@ -56,27 +55,6 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
     setState(() {
       warehouseListLoaded = true;
     });
-  }
-
-  void getNodeItems() async {
-    final queryParameters = {
-      "TypeOfNode": selectedNodeType,
-      'WarehouseID': warehouseListSelectedItem,
-      "StartingDate": startDate,
-      "EndingDate": endDate
-    };
-    var dio = Dio();
-    var response = await dio.get('https://heroku-boy.herokuapp.com/typeofnodes',
-        queryParameters: queryParameters);
-    var arehouseList = response.data;
-
-    setState(() {
-      nodeListLoaded = true;
-    });
-  }
-
-  List<DropdownMenuItem<String>> getNodeDropdownItems() {
-    return [];
   }
 
   List<DropdownMenuItem<String>> getWarehouseDropdownItems() {
@@ -100,6 +78,8 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
     }
     return items;
   }
+
+  bool slotsNodeAvailable = false;
 
   @override
   void initState() {
@@ -167,6 +147,7 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                     setState(() {
                       warehouseListSelectedItem = value!;
                       slotsNodeAvailable = false;
+                      slotChosen = false;
                     });
                   },
                 ),
@@ -191,19 +172,23 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                             children: [
                               Expanded(
                                 child: DateTimePicker(
-                                  type: DateTimePickerType.date,
-                                  dateMask: 'd MMM, yyyy',
-                                  initialValue: DateTime.now().toString(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2100),
-                                  dateLabelText: 'From',
-                                  onChanged: (val) => startDate =
-                                      val.substring(9) +
+                                    type: DateTimePickerType.date,
+                                    dateMask: 'd MMM, yyyy',
+                                    initialValue: DateTime.now().toString(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+                                    dateLabelText: 'From',
+                                    onChanged: (val) {
+                                      startDate = val.substring(8) +
                                           "-" +
                                           val.substring(5, 7) +
                                           "-" +
-                                          val.substring(0, 4),
-                                ),
+                                          val.substring(0, 4);
+                                      setState(() {
+                                        slotsNodeAvailable = false;
+                                        slotChosen = false;
+                                      });
+                                    }),
                               ),
                               SizedBox(
                                 width: 40,
@@ -216,12 +201,17 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                                   firstDate: DateTime(2000),
                                   lastDate: DateTime(2100),
                                   dateLabelText: 'To',
-                                  onChanged: (val) => endDate =
-                                      val.substring(9) +
-                                          "-" +
-                                          val.substring(5, 7) +
-                                          "-" +
-                                          val.substring(0, 4),
+                                  onChanged: (val) {
+                                    endDate = val.substring(8) +
+                                        "-" +
+                                        val.substring(5, 7) +
+                                        "-" +
+                                        val.substring(0, 4);
+                                    setState(() {
+                                      slotsNodeAvailable = false;
+                                      slotChosen = false;
+                                    });
+                                  },
                                 ),
                               ),
                             ],
@@ -233,13 +223,17 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                         GroupButton(
                           options: GroupButtonOptions(),
                           onSelected: (sensorType, index, isSelected) {
-                            selectedSensorType =
-                                sensorTypeNameConversion[sensorType]!;
-                            slotsNodeAvailable = false;
+                            setState(() {
+                              selectedSensorType =
+                                  sensorTypeNameConversion[sensorType]!;
+                              sensorTypeSelectedIndex = index;
+                              slotsNodeAvailable = false;
+                              slotChosen = false;
+                            });
                           },
                           isRadio: true,
                           controller: GroupButtonController(
-                            selectedIndex: 0,
+                            selectedIndex: sensorTypeSelectedIndex,
                           ),
                           enableDeselect: false,
                           buttons: ["Gas Sensor", "CO2 Sensor"],
@@ -255,6 +249,7 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                                   nodeTypeNameConversion[nodeType]!;
                               nodeTypeSelectedIndex = index;
                               slotsNodeAvailable = false;
+                              slotChosen = false;
                             });
                           },
                           controller: GroupButtonController(
@@ -264,16 +259,6 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                           enableDeselect: false,
                           buttons: ["Fixed Node", "Mobile Node", "Probe Node"],
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              slotsNodeAvailable = true;
-                            });
-                          },
-                          child: Text(
-                            "Get Slots/Nodes",
-                          ),
-                        ),
                         slotsNodeAvailable
                             ? selectedNodeType == "F"
                                 ? Column(
@@ -282,33 +267,74 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                                         height: 15,
                                       ),
                                       NodeTypeDropdowns(
+                                        callbackDropdownValue: (String value) {
+                                          selectedFixedNodeSlot = value;
+                                          setState(() {
+                                            slotChosen = false;
+                                          });
+                                        },
                                         sensorType: selectedSensorType,
                                         nodeType: selectedNodeType,
                                         warehouseID: warehouseListSelectedItem,
+                                        title: "Select Slot",
+                                        startDate: startDate,
+                                        endDate: endDate,
                                       ),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      NodeTypeDropdowns(
-                                        sensorType: selectedSensorType,
-                                        nodeType: selectedNodeType,
-                                        warehouseID: warehouseListSelectedItem,
-                                      ),
+                                      slotChosen
+                                          ? FixedNodesNodeDropdown(
+                                              callbackDropdownValue:
+                                                  (String value) =>
+                                                      selectedNode = value,
+                                              sensorType: selectedSensorType,
+                                              nodeType: selectedNodeType,
+                                              warehouseID:
+                                                  warehouseListSelectedItem,
+                                              startDate: startDate,
+                                              endDate: endDate,
+                                              slotID: selectedFixedNodeSlot,
+                                            )
+                                          : ElevatedButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  slotChosen = true;
+                                                });
+                                              },
+                                              child: Text(
+                                                "Get Slots/Nodes",
+                                              ),
+                                            ),
                                     ],
                                   )
                                 : NodeTypeDropdowns(
+                                    callbackDropdownValue: (String value) =>
+                                        selectedNode = value,
                                     sensorType: selectedSensorType,
                                     nodeType: selectedNodeType,
                                     warehouseID: warehouseListSelectedItem,
+                                    title: "Select Node",
+                                    startDate: startDate,
+                                    endDate: endDate,
                                   )
-                            : Container(),
+                            : ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    slotsNodeAvailable = true;
+                                  });
+                                },
+                                child: Text(
+                                  "Get Slots/Nodes",
+                                ),
+                              ),
                       ],
                     )
                   : Container(),
             ],
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: generateReport,
             child: Text(
               "Generate Report",
             ),
@@ -318,37 +344,46 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
     );
   }
 
-  bool slotsNodeAvailable = false;
+  void generateReport() async {
+    // Map payload = {
+    //
+    // };
+    //  var dio = Dio();
+    //  var response = await dio.post(
+    //
+    //    "https://node-js-new.herokuapp.com/api/detailedreport/generatereport",
+    //    data: payload
+    //  );
+    //
+    //  print(response.statusCode);
+    //  print("Successfully Posted");
+  }
+
+  bool slotChosen = false;
 }
 
-// class FixedNodeDropdowns extends StatefulWidget {
-//   @override
-//   State<FixedNodeDropdowns> createState() => _FixedNodeDropdownsState();
-// }
-//
-// class _FixedNodeDropdownsState extends State<FixedNodeDropdowns> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
-
-class NodeTypeDropdowns extends StatefulWidget {
-  // final DateTime startDate;
-  // final DateTime endDate;
+class FixedNodesNodeDropdown extends StatefulWidget {
+  final String startDate;
+  final String endDate;
   final String warehouseID;
   final String sensorType;
   final String nodeType;
-  NodeTypeDropdowns(
+  final String slotID;
+  final Function(String) callbackDropdownValue;
+  FixedNodesNodeDropdown(
       {required this.warehouseID,
       required this.nodeType,
-      required this.sensorType});
+      required this.sensorType,
+      required this.callbackDropdownValue,
+      required this.startDate,
+      required this.endDate,
+      required this.slotID});
 
   @override
-  State<NodeTypeDropdowns> createState() => _NodeTypeDropdownsState();
+  State<FixedNodesNodeDropdown> createState() => _FixedNodesNodeDropdownState();
 }
 
-class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
+class _FixedNodesNodeDropdownState extends State<FixedNodesNodeDropdown> {
   String selectedNode = "default";
   bool isLoaded = false;
   String fetchedNode = "";
@@ -360,6 +395,11 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
             "All Nodes",
           ),
           value: "default"),
+      DropdownMenuItem(
+          child: Text(
+            "None",
+          ),
+          value: "none"),
     ];
 
     for (Map item in itemList) {
@@ -369,6 +409,7 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
             child: Text(
               item["SlotID"],
             ),
+            value: item["SlotID"],
           ),
         );
     }
@@ -382,21 +423,10 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
       isLoaded = false;
     });
 
-    Map<String, dynamic> params = {
-      "typeofnode": "'${widget.nodeType}'",
-      "sensortype": "'${widget.sensorType}'",
-      "warehouseID": "'${widget.warehouseID}'",
-      // "typeofnode": "'F'",
-      // "sensortype": "'G'",
-      // "warehouseID": "'NW1001'",
-      "firstDate": "'07-05-2022'",
-      "secondDate": "'31-05-2022'"
-    };
-
     var dio = Dio();
     var response = await dio.get(
       // 'https://mobileapi.n-warehouse.com/api/detailedreport/typeofnode',
-      "https://node-js-new.herokuapp.com/api/detailedreport/typeofnode?warehouseID='${widget.warehouseID}'&typeofnode='${widget.nodeType}'&sensortype='${widget.sensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'",
+      "https://node-js-new.herokuapp.com/api/detailedreport/fixednodes?warehouseID='${widget.warehouseID}'&typeofnode='${widget.nodeType}'&sensortype='${widget.sensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'",
     );
     itemList = response.data;
 
@@ -406,10 +436,11 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
     fetchedNode = widget.warehouseID;
   }
 
+  void passTheData(String data) => widget.callbackDropdownValue(data);
+
   @override
   void initState() {
     fetchDropdownItems();
-
     super.initState();
   }
 
@@ -451,6 +482,132 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
             onChanged: (value) {
               setState(() {
                 selectedNode = value!;
+                passTheData(value);
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class NodeTypeDropdowns extends StatefulWidget {
+  final String startDate;
+  final String endDate;
+  final String warehouseID;
+  final String sensorType;
+  final String nodeType;
+  final String title;
+  final Function(String) callbackDropdownValue;
+  NodeTypeDropdowns(
+      {required this.warehouseID,
+      required this.nodeType,
+      required this.sensorType,
+      required this.title,
+      required this.callbackDropdownValue,
+      required this.startDate,
+      required this.endDate});
+
+  @override
+  State<NodeTypeDropdowns> createState() => _NodeTypeDropdownsState();
+}
+
+class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
+  String selectedNode = "default";
+  bool isLoaded = false;
+  String fetchedNode = "";
+
+  List<DropdownMenuItem<String>> getDropdownItems() {
+    List<DropdownMenuItem<String>> items = [
+      DropdownMenuItem(
+          child: Text(
+            "All Nodes",
+          ),
+          value: "default"),
+    ];
+
+    for (Map item in itemList) {
+      if (item["SlotID"] != null)
+        items.add(
+          DropdownMenuItem(
+            child: Text(
+              item["SlotID"],
+            ),
+            value: item["SlotID"],
+          ),
+        );
+    }
+    return items;
+  }
+
+  List itemList = [];
+
+  void fetchDropdownItems() async {
+    setState(() {
+      isLoaded = false;
+    });
+
+    var dio = Dio();
+    var response = await dio.get(
+      "https://node-js-new.herokuapp.com/api/detailedreport/typeofnode?warehouseID='${widget.warehouseID}'&typeofnode='${widget.nodeType}'&sensortype='${widget.sensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'",
+    );
+    itemList = response.data;
+
+    setState(() {
+      isLoaded = true;
+    });
+    fetchedNode = widget.warehouseID;
+  }
+
+  void passTheData(String data) => widget.callbackDropdownValue(data);
+
+  @override
+  void initState() {
+    fetchDropdownItems();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.title,
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            isLoaded
+                ? Container()
+                : SizedBox(
+                    height: 15,
+                    width: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: CustomDropdownButton(
+            dropdownColor: Colors.blue,
+            value: selectedNode,
+            items: isLoaded ? getDropdownItems() : null,
+            onChanged: (value) {
+              setState(() {
+                selectedNode = value!;
+                passTheData(value);
               });
             },
           ),
