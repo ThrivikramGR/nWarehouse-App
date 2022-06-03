@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_project/screens/warehouse_flow/node_type_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/alerts_screen.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/report_screen.dart';
+import 'package:iot_project/screens/warehouse_flow/warehouse_slots/generate_report_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/warehouse_profile_screen.dart';
 import 'package:line_icons/line_icons.dart';
 

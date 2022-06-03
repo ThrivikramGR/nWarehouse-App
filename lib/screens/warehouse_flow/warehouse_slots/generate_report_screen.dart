@@ -2,6 +2,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
+import 'package:iot_project/screens/report_screen.dart';
 
 import '../../../backup/dropdown_button.dart';
 
@@ -43,8 +44,8 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   List warehouseList = [];
   String warehouseListSelectedItem = "default";
 
-  String selectedFixedNodeSlot = "all";
-  String selectedNode = "all";
+  String selectedFixedNodeSlot = "SlotID";
+  String selectedNode = "NodeID";
 
   void getWarehouseList() async {
     var dio = Dio();
@@ -95,7 +96,7 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          "Detailed Report",
+          "Generate Report",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -276,7 +277,6 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                                         sensorType: selectedSensorType,
                                         nodeType: selectedNodeType,
                                         warehouseID: warehouseListSelectedItem,
-                                        title: "Select Slot",
                                         startDate: startDate,
                                         endDate: endDate,
                                       ),
@@ -314,7 +314,6 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
                                     sensorType: selectedSensorType,
                                     nodeType: selectedNodeType,
                                     warehouseID: warehouseListSelectedItem,
-                                    title: "Select Node",
                                     startDate: startDate,
                                     endDate: endDate,
                                   )
@@ -345,18 +344,13 @@ class _ChooseDetailedReportState extends State<ChooseDetailedReport> {
   }
 
   void generateReport() async {
-    // Map payload = {
-    //
-    // };
-    //  var dio = Dio();
-    //  var response = await dio.post(
-    //
-    //    "https://node-js-new.herokuapp.com/api/detailedreport/generatereport",
-    //    data: payload
-    //  );
-    //
-    //  print(response.statusCode);
-    //  print("Successfully Posted");
+    var dio = Dio();
+    var response = await dio.get(
+        "https://node-js-new.herokuapp.com/api/detailedreport/generatereport?warehouseID='$warehouseListSelectedItem'&typeofnode='$selectedNodeType'&sensortype='${selectedSensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'&SlotID=${selectedFixedNodeSlot == "SlotID" ? "SlotID" : "'$selectedFixedNodeSlot'"}&NodeID=${selectedNode == "NodeID" ? "NodeID" : "'$selectedNode'"}");
+    print(response.data);
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => ReportScreen(response.data)),
+    );
   }
 
   bool slotChosen = false;
@@ -384,7 +378,7 @@ class FixedNodesNodeDropdown extends StatefulWidget {
 }
 
 class _FixedNodesNodeDropdownState extends State<FixedNodesNodeDropdown> {
-  String selectedNode = "default";
+  String selectedNode = "NodeID";
   bool isLoaded = false;
   String fetchedNode = "";
 
@@ -394,22 +388,22 @@ class _FixedNodesNodeDropdownState extends State<FixedNodesNodeDropdown> {
           child: Text(
             "All Nodes",
           ),
-          value: "default"),
+          value: "NodeID"),
       DropdownMenuItem(
           child: Text(
             "None",
           ),
-          value: "none"),
+          value: "None"),
     ];
 
     for (Map item in itemList) {
-      if (item["SlotID"] != null)
+      if (item["NodeID"] != null)
         items.add(
           DropdownMenuItem(
             child: Text(
-              item["SlotID"],
+              item["NodeID"],
             ),
-            value: item["SlotID"],
+            value: item["NodeID"],
           ),
         );
     }
@@ -425,10 +419,10 @@ class _FixedNodesNodeDropdownState extends State<FixedNodesNodeDropdown> {
 
     var dio = Dio();
     var response = await dio.get(
-      // 'https://mobileapi.n-warehouse.com/api/detailedreport/typeofnode',
-      "https://node-js-new.herokuapp.com/api/detailedreport/fixednodes?warehouseID='${widget.warehouseID}'&typeofnode='${widget.nodeType}'&sensortype='${widget.sensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'",
+      "https://node-js-new.herokuapp.com/api/detailedreport/fixednodes?warehouseID='${widget.warehouseID}'&sensortype='${widget.sensorType}'&firstDate='07-05-2022'&secondDate='31-05-2022'&SlotID=${widget.slotID == "SlotID" ? "SlotID" : "'${widget.slotID}'"}",
     );
     itemList = response.data;
+    print(response.data);
 
     setState(() {
       isLoaded = true;
@@ -498,13 +492,12 @@ class NodeTypeDropdowns extends StatefulWidget {
   final String warehouseID;
   final String sensorType;
   final String nodeType;
-  final String title;
+
   final Function(String) callbackDropdownValue;
   NodeTypeDropdowns(
       {required this.warehouseID,
       required this.nodeType,
       required this.sensorType,
-      required this.title,
       required this.callbackDropdownValue,
       required this.startDate,
       required this.endDate});
@@ -514,27 +507,25 @@ class NodeTypeDropdowns extends StatefulWidget {
 }
 
 class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
-  String selectedNode = "default";
+  late String selectedNode;
   bool isLoaded = false;
   String fetchedNode = "";
 
   List<DropdownMenuItem<String>> getDropdownItems() {
     List<DropdownMenuItem<String>> items = [
       DropdownMenuItem(
-          child: Text(
-            "All Nodes",
-          ),
-          value: "default"),
+          child: Text(widget.nodeType == 'F' ? 'All Slots' : 'All Nodes'),
+          value: widget.nodeType == 'F' ? 'SlotID' : 'NodeID'),
     ];
 
     for (Map item in itemList) {
-      if (item["SlotID"] != null)
+      if (item[widget.nodeType == 'F' ? 'SlotID' : 'NodeID'] != null)
         items.add(
           DropdownMenuItem(
             child: Text(
-              item["SlotID"],
+              item[widget.nodeType == 'F' ? 'SlotID' : 'NodeID'],
             ),
-            value: item["SlotID"],
+            value: item[widget.nodeType == 'F' ? 'SlotID' : 'NodeID'],
           ),
         );
     }
@@ -564,7 +555,9 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
 
   @override
   void initState() {
+    selectedNode = widget.nodeType == 'F' ? 'SlotID' : 'NodeID';
     fetchDropdownItems();
+
     super.initState();
   }
 
@@ -579,7 +572,7 @@ class _NodeTypeDropdownsState extends State<NodeTypeDropdowns> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              widget.title,
+              widget.nodeType == 'F' ? 'Select Slot' : 'Select Node',
             ),
             SizedBox(
               width: 15,
