@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:iot_project/screens/home/graph_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/node_type_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/alerts_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/generate_report_screen.dart';
@@ -27,10 +27,28 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
   }
 
   void getSlots() async {
-    var dio = Dio();
-    var response =
-        await dio.get('http://node-js-new.herokuapp.com/api/warehouses/slots');
-    deserializeSlots(response.data);
+    // var dio = Dio();
+    // var response =
+    //     await dio.get('http://node-js-new.herokuapp.com/api/warehouses/slots');
+
+    deserializeSlots([
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "Slot 1",
+        "SlotStatus": "Good"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "Slot 2",
+        "SlotStatus": "Good"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "Slot 3",
+        "SlotStatus": "degraded"
+      }
+    ]);
+
     setState(() {
       slotsLoaded = true;
     });
@@ -56,7 +74,7 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          widget.warehouseName,
+          "Warehouse 1",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -224,7 +242,7 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
               ),
               padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   slotsLoaded
                       ? Expanded(
@@ -249,6 +267,13 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
                             ),
                           ),
                         ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Image.asset(
+                      "assets/images/nw_bg.png",
+                      scale: 1.5,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -259,25 +284,75 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
   }
 
   List<Widget> getGridViewSlots(BuildContext context) {
-    return List.generate(
-      gridViewChildren.length,
-      (index) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SelectNodeTypeScreen(
-                  warehouseName: widget.warehouseName,
-                  slotID: gridViewChildren[index].slotID,
-                ),
+    List<Widget> children = [
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SelectNodeTypeScreen(
+                warehouseName: widget.warehouseName,
+                slotID: gridViewChildren[0].slotID,
               ),
-            );
-          },
-          child: CustomStatusColorContainer(
-              gridViewChildren: gridViewChildren, index: index),
-        );
-      },
-    );
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 0,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SelectNodeTypeScreen(
+                warehouseName: widget.warehouseName,
+                slotID: gridViewChildren[1].slotID,
+              ),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 1,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => GraphScreen(),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 2,
+        ),
+      ),
+    ];
+    // return List.generate(
+    //   gridViewChildren.length,
+    //   (index) {
+    //     return GestureDetector(
+    //       onTap: () {
+    //         Navigator.of(context).push(
+    //           MaterialPageRoute(
+    //             builder: (context) => SelectNodeTypeScreen(
+    //               warehouseName: widget.warehouseName,
+    //               slotID: gridViewChildren[index].slotID,
+    //             ),
+    //           ),
+    //         );
+    //       },
+    //       child: CustomStatusColorContainer(
+    //         gridViewChildren: gridViewChildren,
+    //         index: index,
+    //       ),
+    //     );
+    //   },
+    // );
+    return children;
   }
 }
 
@@ -352,7 +427,7 @@ class GridViewSlot {
             ),
           ),
           height: 3,
-          width: 25,
+          width: 40,
         ),
       ],
     );

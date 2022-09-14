@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_project/screens/home/home_2.dart';
 import 'package:iot_project/screens/home/home_screen.dart';
 import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
 import 'package:iot_project/screens/home/popup_menu/add_warehouse_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         'screen4': (context) => AddWarehouseScreen(),
         'addUser': (context) => AddUserScreen(),
         'sel': (context) => HomeScreen(),
+        'home2': (context) => HomeScreen2(),
       },
     );
   }

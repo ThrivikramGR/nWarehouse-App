@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
@@ -20,141 +21,57 @@ class _HomeScreenState extends State<HomeScreen> {
   List warehouseList = [];
 
   void fetchWarehouseList() async {
-    // var dio = Dio();
-    // var response = await dio.get(
-    //     'http://node-js-new.herokuapp.com/api/username?username=${widget.username}');
-    // warehouseList = response.data['warehouses'];
-    await Future.delayed(Duration(seconds: 1));
+    var dio = Dio();
+    var response = await dio.get(
+        'http://node-js-new.herokuapp.com/api/username?username=${widget.username}');
+    warehouseList = response.data['warehouses'];
     setState(() {
       warehouseListLoaded = true;
     });
   }
 
-  SnackBar snackBar = SnackBar(
-    content: Text(
-      'Warehouse disabled by Owner',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 15,
-      ),
-    ),
-    backgroundColor: Colors.red,
-  );
-
   List<Widget> getWarehouseGridViewChildren() {
-    List<Widget> children = [
-      CustomInkwellFilledContainer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Warehouse 1",
-              style: TextStyle(
-                fontFamily: "NunitoSans",
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF323232),
-              ),
-            ),
-          ],
-        ),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => WarehouseHomeScreen(
-                warehouseName: "NW1001",
-                username: widget.username!,
-              ),
-            ),
-          );
-        },
-      ),
-      GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-        child: CustomInkwellFilledContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Warehouse 2",
-                style: TextStyle(
-                  fontFamily: "NunitoSans",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF323232),
+    List<Widget> children = [];
+    for (int i = 0; i < warehouseList.length; i++) {
+      //warehouse nullable
+      if (warehouseList[i] != null) {
+        children.add(
+          CustomInkwellFilledContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Warehouse ${i + 1}",
+                  style: TextStyle(
+                    fontFamily: "NunitoSans",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF323232),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          onPressed: null,
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-        child: CustomInkwellFilledContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Warehouse 3",
-                style: TextStyle(
-                  fontFamily: "NunitoSans",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF323232),
+                Text(
+                  warehouseList[i],
+                  style: TextStyle(
+                    fontFamily: "NunitoSans",
+                    color: Color(0xFF92A65F),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => WarehouseHomeScreen(
+                    warehouseName: warehouseList[i],
+                    username: widget.username!,
+                  ),
+                ),
+              );
+            },
           ),
-          onPressed: null,
-        ),
-      ),
-    ];
-    // for (int i = 0; i < warehouseList.length; i++) {
-    //   //warehouse nullable
-    //   if (warehouseList[i] != null) {
-    //     children.add(
-    //       CustomInkwellFilledContainer(
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Text(
-    //               "Warehouse ${i + 1}",
-    //               style: TextStyle(
-    //                 fontFamily: "NunitoSans",
-    //                 fontSize: 20,
-    //                 fontWeight: FontWeight.w700,
-    //                 color: Color(0xFF323232),
-    //               ),
-    //             ),
-    //             Text(
-    //               warehouseList[i],
-    //               style: TextStyle(
-    //                 fontFamily: "NunitoSans",
-    //                 color: Color(0xFF92A65F),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //         onPressed: () {
-    //           Navigator.of(context).push(
-    //             MaterialPageRoute(
-    //               builder: (context) => WarehouseHomeScreen(
-    //                 warehouseName: warehouseList[i],
-    //                 username: widget.username!,
-    //               ),
-    //             ),
-    //           );
-    //         },
-    //       ),
-    //     );
-    //   }
-    // }
-
+        );
+      }
+    }
     return children;
   }
 
@@ -188,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Text(
-                      "Manivannan",
+                      "${widget.username![0].toUpperCase() + widget.username!.substring(1)}.",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: "NunitoSans",
@@ -285,55 +202,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            " Warehouses",
-                            style: TextStyle(
-                              fontFamily: "NunitoSans",
-                              color: Color(0xFF323232),
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          warehouseListLoaded
-                              ? GridView.count(
-                                  padding: EdgeInsets.only(top: 5, bottom: 20),
-                                  physics: BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 2,
-                                  crossAxisSpacing: 11,
-                                  mainAxisSpacing: 15,
-                                  children: getWarehouseGridViewChildren(),
-                                )
-                              : Padding(
-                                  padding: EdgeInsets.only(top: 25),
-                                  child: Center(
-                                    child: SpinKitWave(
-                                      color: Color(0xFF92A65F),
-                                      size: 35.0,
-                                    ),
-                                  ),
-                                ),
-                        ],
+                      SizedBox(
+                        height: 20,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Image.asset(
-                          "assets/images/nw_bg.png",
-                          scale: 1.5,
+                      Text(
+                        " Warehouses",
+                        style: TextStyle(
+                          fontFamily: "NunitoSans",
+                          color: Color(0xFF323232),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      warehouseListLoaded
+                          ? GridView.count(
+                              padding: EdgeInsets.only(top: 5, bottom: 20),
+                              physics: BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              childAspectRatio: 2,
+                              crossAxisSpacing: 11,
+                              mainAxisSpacing: 15,
+                              children: getWarehouseGridViewChildren(),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(top: 25),
+                              child: Center(
+                                child: SpinKitWave(
+                                  color: Color(0xFF92A65F),
+                                  size: 35.0,
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ),
@@ -355,7 +260,7 @@ class CustomInkwellFilledContainer extends StatelessWidget {
   });
 
   final Widget child;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
