@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
 import 'package:iot_project/screens/home/notifications_screen.dart';
+import 'package:iot_project/screens/home/remoteControl_screen.dart';
 import 'package:iot_project/screens/home/user_profile_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/slots_screen.dart';
 import 'package:line_icons/line_icons.dart';
@@ -401,6 +402,36 @@ class _HomeScreenState extends State<HomeScreen> {
                         tag: "userIcon",
                         child: Icon(
                           LineIcons.userCircle,
+                          color: Color(0xFF323232),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        //primary: Color(0xFFDCDE9F),
+                        //primary: Color(0xFFE6E3C0),
+                        primary: Color(0xFFE5EAD9),
+                        //onPrimary: Color(0xFF92A65F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 25,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RemoteControlScreen(),
+                          ),
+                        );
+                      },
+                      child: Hero(
+                        tag: "remote",
+                        child: Icon(
+                          Icons.settings_remote_outlined,
                           color: Color(0xFF323232),
                         ),
                       ),
