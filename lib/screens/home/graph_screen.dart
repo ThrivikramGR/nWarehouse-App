@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GraphScreen extends StatefulWidget {
-  const GraphScreen({Key? key}) : super(key: key);
+  final Color gColor;
+  final String slotName;
+  GraphScreen(this.gColor, this.slotName);
 
   @override
   State<GraphScreen> createState() => _GraphScreenState();
@@ -105,7 +107,7 @@ class _GraphScreenState extends State<GraphScreen> {
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
-          "Slot 3",
+          "${widget.slotName}",
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -131,8 +133,9 @@ class _GraphScreenState extends State<GraphScreen> {
             series: <LineSeries<GraphPoint, String>>[
               LineSeries<GraphPoint, String>(
                 // Bind data source
-                color: Colors.red,
-                dataSource: gp1.reversed.toList(),
+                color: widget.gColor,
+                dataSource:
+                    widget.gColor == Colors.green ? gp1.reversed.toList() : gp1,
                 xValueMapper: (GraphPoint sales, _) => sales.position,
                 yValueMapper: (GraphPoint sales, _) => sales.value,
               ),
@@ -152,9 +155,10 @@ class _GraphScreenState extends State<GraphScreen> {
             ),
             series: <LineSeries<GraphPoint, String>>[
               LineSeries<GraphPoint, String>(
-                color: Colors.red,
+                color: widget.gColor,
                 // Bind data source
-                dataSource: gp2.reversed.toList(),
+                dataSource:
+                    widget.gColor == Colors.green ? gp2.reversed.toList() : gp2,
                 xValueMapper: (GraphPoint sales, _) => sales.position,
                 yValueMapper: (GraphPoint sales, _) => sales.value,
               ),
@@ -174,9 +178,10 @@ class _GraphScreenState extends State<GraphScreen> {
             ),
             series: <LineSeries<GraphPoint, String>>[
               LineSeries<GraphPoint, String>(
-                color: Colors.red,
+                color: widget.gColor,
                 // Bind data source
-                dataSource: gp3.reversed.toList(),
+                dataSource:
+                    widget.gColor == Colors.green ? gp3.reversed.toList() : gp3,
                 xValueMapper: (GraphPoint sales, _) => sales.position,
                 yValueMapper: (GraphPoint sales, _) => sales.value,
               ),

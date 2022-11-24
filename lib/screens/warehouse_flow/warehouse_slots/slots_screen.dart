@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:iot_project/screens/home/graph_screen.dart';
-import 'package:iot_project/screens/warehouse_flow/node_type_screen.dart';
+import 'package:iot_project/screens/node_screen2.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/alerts_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/generate_report_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/warehouse_profile_screen.dart';
@@ -34,17 +33,42 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
     deserializeSlots([
       {
         "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
-        "SlotID": "Slot 1",
+        "SlotID": "S100101",
         "SlotStatus": "Good"
       },
       {
         "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
-        "SlotID": "Slot 2",
+        "SlotID": "S100102",
         "SlotStatus": "Good"
       },
       {
         "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
-        "SlotID": "Slot 3",
+        "SlotID": "S100103",
+        "SlotStatus": "hs"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "S100104",
+        "SlotStatus": "good"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "S100105",
+        "SlotStatus": "good"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "S100106",
+        "SlotStatus": "degraded"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "S100107",
+        "SlotStatus": "degraded"
+      },
+      {
+        "Max(TimeStamp)": "2022-04-29 13:18:50.738920",
+        "SlotID": "S100108",
         "SlotStatus": "degraded"
       }
     ]);
@@ -289,10 +313,7 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => SelectNodeTypeScreen(
-                warehouseName: widget.warehouseName,
-                slotID: gridViewChildren[0].slotID,
-              ),
+              builder: (context) => NodeScreen2(Colors.green, "01"),
             ),
           );
         },
@@ -305,10 +326,7 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => SelectNodeTypeScreen(
-                warehouseName: widget.warehouseName,
-                slotID: gridViewChildren[1].slotID,
-              ),
+              builder: (context) => NodeScreen2(Colors.green, "01"),
             ),
           );
         },
@@ -321,13 +339,78 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => GraphScreen(),
+              builder: (context) => NodeScreen2(Colors.green, "01"),
             ),
           );
         },
         child: CustomStatusColorContainer(
           gridViewChildren: gridViewChildren,
           index: 2,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => NodeScreen2(Colors.green, "01"),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 3,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => NodeScreen2(Colors.green, "01"),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 4,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => NodeScreen2(Colors.green, "01"),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 5,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => NodeScreen2(Colors.green, "02"),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 6,
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => NodeScreen2(Colors.red, "03"),
+            ),
+          );
+        },
+        child: CustomStatusColorContainer(
+          gridViewChildren: gridViewChildren,
+          index: 7,
         ),
       ),
     ];

@@ -69,50 +69,206 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-        child: CustomInkwellFilledContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Warehouse 2",
-                style: TextStyle(
-                  fontFamily: "NunitoSans",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF323232),
-                ),
+      CustomInkwellFilledContainer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Warehouse 2",
+              style: TextStyle(
+                fontFamily: "NunitoSans",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF323232),
               ),
-            ],
-          ),
-          onPressed: null,
+            ),
+          ],
         ),
-      ),
-      GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-        child: CustomInkwellFilledContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Warehouse 3",
-                style: TextStyle(
-                  fontFamily: "NunitoSans",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF323232),
-                ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => WarehouseHomeScreen(
+                warehouseName: "NW1001",
+                username: widget.username!,
               ),
-            ],
-          ),
-          onPressed: null,
-        ),
+            ),
+          );
+        },
       ),
+      CustomInkwellFilledContainer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Warehouse 3",
+              style: TextStyle(
+                fontFamily: "NunitoSans",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF323232),
+              ),
+            ),
+          ],
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => WarehouseHomeScreen(
+                warehouseName: "NW1001",
+                username: widget.username!,
+              ),
+            ),
+          );
+        },
+      ),
+      CustomInkwellFilledContainer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Warehouse 4",
+              style: TextStyle(
+                fontFamily: "NunitoSans",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF323232),
+              ),
+            ),
+          ],
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => WarehouseHomeScreen(
+                warehouseName: "NW1001",
+                username: widget.username!,
+              ),
+            ),
+          );
+        },
+      ),
+      CustomInkwellFilledContainer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Warehouse 5",
+              style: TextStyle(
+                fontFamily: "NunitoSans",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF323232),
+              ),
+            ),
+          ],
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => WarehouseHomeScreen(
+                warehouseName: "NW1001",
+                username: widget.username!,
+              ),
+            ),
+          );
+        },
+      ),
+      CustomInkwellFilledContainer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Warehouse 6",
+              style: TextStyle(
+                fontFamily: "NunitoSans",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF323232),
+              ),
+            ),
+          ],
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => WarehouseHomeScreen(
+                warehouseName: "NW1001",
+                username: widget.username!,
+              ),
+            ),
+          );
+        },
+      ),
+      // CustomInkwellFilledContainer(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Text(
+      //         "Warehouse 7",
+      //         style: TextStyle(
+      //           fontFamily: "NunitoSans",
+      //           fontSize: 20,
+      //           fontWeight: FontWeight.w700,
+      //           color: Color(0xFF323232),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      //   onPressed: () {
+      //     Navigator.of(context).push(
+      //       MaterialPageRoute(
+      //         builder: (context) => WarehouseHomeScreen(
+      //           warehouseName: "NW1001",
+      //           username: widget.username!,
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // ),
+      // GestureDetector(
+      //   onTap: () {
+      //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      //   },
+      //   child: CustomInkwellFilledContainer(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Text(
+      //           "Warehouse 2",
+      //           style: TextStyle(
+      //             fontFamily: "NunitoSans",
+      //             fontSize: 20,
+      //             fontWeight: FontWeight.w700,
+      //             color: Color(0xFF323232),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     onPressed: null,
+      //   ),
+      // ),
+      // GestureDetector(
+      //   onTap: () {
+      //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      //   },
+      //   child: CustomInkwellFilledContainer(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Text(
+      //           "Warehouse 3",
+      //           style: TextStyle(
+      //             fontFamily: "NunitoSans",
+      //             fontSize: 20,
+      //             fontWeight: FontWeight.w700,
+      //             color: Color(0xFF323232),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     onPressed: null,
+      //   ),
+      // ),
     ];
     // for (int i = 0; i < warehouseList.length; i++) {
     //   //warehouse nullable
