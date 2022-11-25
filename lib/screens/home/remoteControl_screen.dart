@@ -14,14 +14,14 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
     while (true) {
       if (await flutterBlue.isOn) {
         setState(() {
-          bleState = BleConState.connecting;
+          bleState = BleConState.searching;
         });
       } else {
         setState(() {
           bleState = BleConState.disconnected;
         });
       }
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(milliseconds: 500));
     }
   }
 
