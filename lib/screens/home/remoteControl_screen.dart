@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
 class RemoteControlScreen extends StatefulWidget {
   @override
@@ -6,6 +7,30 @@ class RemoteControlScreen extends StatefulWidget {
 }
 
 class _RemoteControlScreenState extends State<RemoteControlScreen> {
+  BleConState bleState = BleConState.disconnected;
+
+  void connectBLE() async {
+    FlutterBlue flutterBlue = FlutterBlue.instance;
+    while (true) {
+      if (await flutterBlue.isOn) {
+        setState(() {
+          bleState = BleConState.connecting;
+        });
+      } else {
+        setState(() {
+          bleState = BleConState.disconnected;
+        });
+      }
+      await Future.delayed(Duration(seconds: 2));
+    }
+  }
+
+  @override
+  void initState() {
+    connectBLE();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +83,18 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                   ),
                 ),
                 Text(
-                  //todo: getStatus dynamically
-                  "Connected",
+                  () {
+                    switch (bleState) {
+                      case BleConState.connected:
+                        return "Connected";
+                      case BleConState.connecting:
+                        return "Connecting...";
+                      case BleConState.searching:
+                        return "Searching...";
+                      case BleConState.disconnected:
+                        return "Bluetooth OFF";
+                    }
+                  }(),
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -141,3 +176,5 @@ class ArrowButton extends StatelessWidget {
     );
   }
 }
+
+enum BleConState { connected, connecting, searching, disconnected }
