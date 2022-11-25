@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 
 class RemoteControlScreen extends StatefulWidget {
-  const RemoteControlScreen({Key? key}) : super(key: key);
-
   @override
   State<RemoteControlScreen> createState() => _RemoteControlScreenState();
 }
 
 class _RemoteControlScreenState extends State<RemoteControlScreen> {
-  Map<Direction, bool> pressStateMap = {
-    Direction.UP: false,
-    Direction.DOWN: false,
-    Direction.LEFT: false,
-    Direction.RIGHT: false,
-  };
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,111 +25,119 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
         iconTheme: IconThemeData(
           color: Color(0xFF323232),
         ),
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTapDown: (TapDownDetails val) async {
-                pressStateMap[Direction.LEFT] = true;
-                do {
-                  print("left Pressed");
-                  await Future.delayed(Duration(seconds: 1));
-                } while (pressStateMap[Direction.LEFT] == true);
-              },
-              onTapCancel: () {
-                pressStateMap[Direction.LEFT] = false;
-              },
-              child: InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: EdgeInsets.all(50),
-                  child: Icon(
-                    Icons.arrow_back,
-                  ),
-                ),
-              ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              //todo: implement refresh
+            },
+            icon: Icon(
+              Icons.refresh,
             ),
-            Column(
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 25,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.green.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
-                  onTapDown: (TapDownDetails val) async {
-                    pressStateMap[Direction.UP] = true;
-
-                    do {
-                      print("up Pressed");
-                      await Future.delayed(Duration(seconds: 1));
-                    } while (pressStateMap[Direction.UP] == true);
-                  },
-                  onTapCancel: () {
-                    pressStateMap[Direction.UP] = false;
-                  },
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Icon(
-                        Icons.arrow_upward,
-                      ),
-                    ),
+                Text(
+                  "Status: ",
+                  style: TextStyle(
+                    fontSize: 18,
                   ),
                 ),
-                SizedBox(
-                  height: 200,
-                ),
-                GestureDetector(
-                  onTapDown: (TapDownDetails val) async {
-                    pressStateMap[Direction.DOWN] = true;
-
-                    do {
-                      print("down Pressed");
-                      await Future.delayed(Duration(seconds: 1));
-                    } while (pressStateMap[Direction.DOWN] == true);
-                  },
-                  onTapCancel: () {
-                    pressStateMap[Direction.DOWN] = false;
-                  },
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Icon(
-                        Icons.arrow_downward,
-                      ),
-                    ),
+                Text(
+                  //todo: getStatus dynamically
+                  "Connected",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-            GestureDetector(
-              onTapDown: (TapDownDetails val) async {
-                pressStateMap[Direction.RIGHT] = true;
-
-                do {
-                  print("right Pressed");
-                  await Future.delayed(Duration(seconds: 1));
-                } while (pressStateMap[Direction.RIGHT] == true);
-              },
-              onTapCancel: () {
-                pressStateMap[Direction.RIGHT] = false;
-              },
-              child: InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: EdgeInsets.all(50),
-                  child: Icon(
-                    Icons.arrow_forward,
-                  ),
+          ),
+          SizedBox(
+            height: 80,
+          ),
+          Container(
+            child: Column(
+              children: [
+                ArrowButton(
+                  icon: Icons.arrow_upward,
+                  onPressedCallback: () {
+                    print("up");
+                  },
                 ),
-              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ArrowButton(
+                      icon: Icons.arrow_back,
+                      onPressedCallback: () {
+                        print("left");
+                      },
+                    ),
+                    ArrowButton(
+                      icon: Icons.arrow_forward,
+                      onPressedCallback: () {
+                        print("right");
+                      },
+                    ),
+                  ],
+                ),
+                ArrowButton(
+                  icon: Icons.arrow_downward,
+                  onPressedCallback: () {
+                    print("down");
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
-enum Direction { UP, DOWN, LEFT, RIGHT }
+class ArrowButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onPressedCallback;
+  bool _pressState = false;
+
+  ArrowButton({required this.icon, required this.onPressedCallback});
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (TapDownDetails val) async {
+        _pressState = true;
+        do {
+          onPressedCallback();
+          await Future.delayed(Duration(seconds: 1));
+        } while (_pressState == true);
+      },
+      onTapCancel: () {
+        _pressState = false;
+      },
+      child: InkWell(
+        onTap: () {},
+        child: Padding(
+          padding: EdgeInsets.all(50),
+          child: Icon(icon),
+        ),
+      ),
+    );
+  }
+}
