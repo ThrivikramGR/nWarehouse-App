@@ -32,7 +32,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
         return;
       }
 
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 2));
     }
   }
 
@@ -95,17 +95,23 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
       setState(() {
         bleConState = BleConState.searching;
       });
-      flutterBlue.startScan(timeout: Duration(seconds: 2)).then(
-            (value) => setState(() {
-              bleConState = BleConState.notFound;
-            }),
-          );
+
+      bool found = false;
+
+      flutterBlue.startScan(timeout: Duration(seconds: 2)).then((value) {
+        if (!found) {
+          setState(() {
+            bleConState = BleConState.notFound;
+          });
+        }
+      });
 
       flutterBlue.scanResults.listen((List<ScanResult> results) async {
         for (ScanResult result in results) {
           if (result.device.name == DEVICE_ID) {
             connectBLEDevice(result.device);
             flutterBlue.stopScan();
+            found = true;
             return;
           }
         }
