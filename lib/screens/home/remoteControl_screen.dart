@@ -98,7 +98,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
 
       bool found = false;
 
-      flutterBlue.startScan(timeout: Duration(seconds: 2)).then((value) {
+      flutterBlue.startScan(timeout: Duration(seconds: 4)).then((value) {
         if (!found) {
           setState(() {
             bleConState = BleConState.notFound;
