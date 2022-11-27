@@ -38,7 +38,11 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
 
   Future<void> disconnectDevice() async {
     BluetoothDevice? device = await getConnectedDevice();
-    await device!.disconnect();
+    try {
+      await device!.disconnect();
+    } catch (e) {
+      return;
+    }
   }
 
   Future<BluetoothDevice?> getConnectedDevice() async {
@@ -146,9 +150,8 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        elevation: 0,
         backgroundColor: Color(0xFF92A65F),
         centerTitle: true,
         title: Text(
@@ -163,144 +166,192 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
           color: Color(0xFF323232),
         ),
       ),
-      body: AnimatedContainer(
-        duration: Duration(seconds: 2),
-        curve: Curves.easeIn,
-        child: Column(
-          mainAxisAlignment: bleConState == BleConState.connected
-              ? MainAxisAlignment.start
-              : MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 25, 0, 80),
-              decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Status: ",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    () {
-                      switch (bleConState) {
-                        case BleConState.connected:
-                          return "Connected";
-                        case BleConState.connecting:
-                          return "Connecting...";
-                        case BleConState.searching:
-                          return "Searching...";
-                        case BleConState.off:
-                          return "Bluetooth OFF";
-                        case BleConState.notFound:
-                          return "Device not found";
-                        case BleConState.disconnected:
-                          return "Disconnected";
-                      }
-                    }(),
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+      body: Column(
+        mainAxisAlignment: bleConState == BleConState.connected
+            ? MainAxisAlignment.start
+            : MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 25, 0, 80),
+            decoration: BoxDecoration(
+              color: Colors.green.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(10),
             ),
-            bleConState == BleConState.connected
-                ? Container(
+            padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Status: ",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  () {
+                    switch (bleConState) {
+                      case BleConState.connected:
+                        return "Connected";
+                      case BleConState.connecting:
+                        return "Connecting...";
+                      case BleConState.searching:
+                        return "Searching...";
+                      case BleConState.off:
+                        return "Bluetooth OFF";
+                      case BleConState.notFound:
+                        return "Device not found";
+                      case BleConState.disconnected:
+                        return "Disconnected";
+                    }
+                  }(),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bleConState == BleConState.connected
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Container(
                     child: Column(
                       children: [
                         ArrowButton(
                           icon: Icons.arrow_upward,
                           onPressedCallback: () async {
                             await remoteCharacteristic.write("f".codeUnits);
-                            print("up");
                           },
                         ),
+                        SizedBox(
+                          height: 25,
+                        ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ArrowButton(
                               icon: Icons.arrow_back,
                               onPressedCallback: () async {
                                 await remoteCharacteristic.write("l".codeUnits);
-
-                                print("left");
                               },
                             ),
                             ArrowButton(
                               icon: Icons.arrow_forward,
-                              onPressedCallback: () {
-                                print("right");
+                              onPressedCallback: () async {
+                                await remoteCharacteristic.write("r".codeUnits);
                               },
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 25,
+                        ),
                         ArrowButton(
                           icon: Icons.arrow_downward,
-                          onPressedCallback: () {
-                            print("down");
+                          onPressedCallback: () async {
+                            await remoteCharacteristic.write("b".codeUnits);
                           },
                         ),
                       ],
                     ),
-                  )
-                : Container(),
-            bleConState == BleConState.connected
-                ? TextButton(
-                    onPressed: () {
-                      disconnectDevice();
-                    },
-                    child: Text(
-                      "Disconnect",
-                    ),
-                  )
-                : TextButton(
-                    onPressed: () {
-                      initBLE();
-                    },
-                    child: Text(
-                      "Refresh",
-                    ),
                   ),
-          ],
-        ),
+                )
+              : Container(),
+          SizedBox(
+            height: 50,
+          ),
+          bleConState == BleConState.connected
+              ? TextButton(
+                  onPressed: () {
+                    disconnectDevice();
+                  },
+                  child: Text(
+                    "Disconnect",
+                  ),
+                )
+              : TextButton(
+                  onPressed: () {
+                    initBLE();
+                  },
+                  child: Text(
+                    "Refresh",
+                  ),
+                ),
+        ],
       ),
     );
   }
 }
 
-class ArrowButton extends StatelessWidget {
+class ArrowButton extends StatefulWidget {
   final IconData icon;
   final VoidCallback onPressedCallback;
-  bool _pressState = false;
 
   ArrowButton({required this.icon, required this.onPressedCallback});
+
+  @override
+  State<ArrowButton> createState() => _ArrowButtonState();
+}
+
+class _ArrowButtonState extends State<ArrowButton> {
+  bool pressState = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (TapDownDetails val) async {
-        _pressState = true;
+        setState(() {
+          pressState = true;
+        });
+
         do {
-          onPressedCallback();
+          widget.onPressedCallback();
           await Future.delayed(Duration(seconds: 1));
-        } while (_pressState == true);
+        } while (pressState == true);
       },
       onTapCancel: () {
-        _pressState = false;
+        setState(() {
+          pressState = false;
+        });
       },
-      child: InkWell(
-        onTap: () {},
-        child: Padding(
-          padding: EdgeInsets.all(50),
-          child: Icon(icon),
+      onTapUp: (TapUpDetails val) {
+        setState(() {
+          pressState = false;
+        });
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
+        curve: Curves.linear,
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: pressState ? Colors.grey[400]! : Colors.grey[300]!,
+            width: 0.5,
+          ),
+          boxShadow: pressState
+              ? []
+              : [
+                  BoxShadow(
+                    color: Colors.grey[500]!,
+                    offset: Offset(4, 4),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: Offset(-4, -4),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ],
+        ),
+        child: Icon(
+          widget.icon,
+          size: pressState ? 24 : 25,
         ),
       ),
     );

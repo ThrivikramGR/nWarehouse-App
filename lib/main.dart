@@ -38,9 +38,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//todo: forget password and user not registered: show dialog box "Contact Admins"
-//todo: all dialog boxes change text color to primary color
-//todo: finish up choose detailed report screen
-//todo: extract and backup "backup" directory to ssd
-//todo: change loading spinner of nodes screen to spinkit
-//todo: move local colors to colorConfig
