@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iot_project/screens/home/home_2.dart';
 import 'package:iot_project/screens/home/home_screen.dart';
 import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
@@ -12,6 +13,10 @@ void main() async {
   //inside the try catch block, to suppress exception sometimes as and when
   //flutter initializes firebase twice for some reason
   //try {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   await Firebase.initializeApp();
   //} catch (e) {}
 

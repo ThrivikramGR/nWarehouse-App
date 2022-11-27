@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
 class RemoteControlScreen extends StatefulWidget {
@@ -68,6 +69,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
       }
     }
     trackConnectionState(device);
+    HapticFeedback.heavyImpact();
     setState(() {
       bleConState = BleConState.connected;
     });
@@ -174,8 +176,12 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
           Container(
             margin: EdgeInsets.fromLTRB(0, 25, 0, 80),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.grey[400]!,
+                width: 1,
+              ),
             ),
             padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
             child: Row(
@@ -185,6 +191,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                 Text(
                   "Status: ",
                   style: TextStyle(
+                    fontFamily: "NunitoSans",
                     fontSize: 18,
                   ),
                 ),
@@ -206,6 +213,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                     }
                   }(),
                   style: TextStyle(
+                    fontFamily: "NunitoSans",
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -219,7 +227,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                   child: Container(
                     child: Column(
                       children: [
-                        ArrowButton(
+                        NeuArrowButton(
                           icon: Icons.arrow_upward,
                           onPressedCallback: () async {
                             await remoteCharacteristic.write("f".codeUnits);
@@ -231,13 +239,13 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ArrowButton(
+                            NeuArrowButton(
                               icon: Icons.arrow_back,
                               onPressedCallback: () async {
                                 await remoteCharacteristic.write("l".codeUnits);
                               },
                             ),
-                            ArrowButton(
+                            NeuArrowButton(
                               icon: Icons.arrow_forward,
                               onPressedCallback: () async {
                                 await remoteCharacteristic.write("r".codeUnits);
@@ -248,7 +256,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                         SizedBox(
                           height: 25,
                         ),
-                        ArrowButton(
+                        NeuArrowButton(
                           icon: Icons.arrow_downward,
                           onPressedCallback: () async {
                             await remoteCharacteristic.write("b".codeUnits);
@@ -260,23 +268,46 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
                 )
               : Container(),
           SizedBox(
-            height: 50,
+            height: 80,
           ),
           bleConState == BleConState.connected
-              ? TextButton(
-                  onPressed: () {
-                    disconnectDevice();
-                  },
+              ? NeuTextButton(
                   child: Text(
                     "Disconnect",
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                      fontSize: 18,
+                    ),
+                  ),
+                  onPressed: () {
+                    disconnectDevice();
+
+                    HapticFeedback.heavyImpact();
+                  },
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
                   ),
                 )
-              : TextButton(
-                  onPressed: () {
-                    initBLE();
-                  },
+              : NeuTextButton(
                   child: Text(
                     "Refresh",
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                      fontSize: 18,
+                    ),
+                  ),
+                  onPressed: () {
+                    initBLE();
+                    HapticFeedback.heavyImpact();
+                  },
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
                   ),
                 ),
         ],
@@ -285,37 +316,42 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
   }
 }
 
-class ArrowButton extends StatefulWidget {
+class NeuArrowButton extends StatefulWidget {
   final IconData icon;
   final VoidCallback onPressedCallback;
 
-  ArrowButton({required this.icon, required this.onPressedCallback});
+  NeuArrowButton({required this.icon, required this.onPressedCallback});
 
   @override
-  State<ArrowButton> createState() => _ArrowButtonState();
+  State<NeuArrowButton> createState() => _NeuArrowButtonState();
 }
 
-class _ArrowButtonState extends State<ArrowButton> {
+class _NeuArrowButtonState extends State<NeuArrowButton> {
   bool pressState = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (TapDownDetails val) async {
+        HapticFeedback.lightImpact();
+
         setState(() {
           pressState = true;
         });
 
         do {
           widget.onPressedCallback();
+
           await Future.delayed(Duration(seconds: 1));
         } while (pressState == true);
       },
       onTapCancel: () {
+        HapticFeedback.lightImpact();
         setState(() {
           pressState = false;
         });
       },
       onTapUp: (TapUpDetails val) {
+        HapticFeedback.lightImpact();
         setState(() {
           pressState = false;
         });
@@ -353,6 +389,71 @@ class _ArrowButtonState extends State<ArrowButton> {
           widget.icon,
           size: pressState ? 24 : 25,
         ),
+      ),
+    );
+  }
+}
+
+class NeuTextButton extends StatefulWidget {
+  final Widget child;
+  final VoidCallback onPressed;
+  final EdgeInsetsGeometry? padding;
+  NeuTextButton({required this.child, required this.onPressed, this.padding});
+
+  @override
+  State<NeuTextButton> createState() => _NeuTextButtonState();
+}
+
+class _NeuTextButtonState extends State<NeuTextButton> {
+  bool pressState = false;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (TapDownDetails val) async {
+        setState(() {
+          pressState = true;
+        });
+        widget.onPressed();
+      },
+      onTapCancel: () {
+        setState(() {
+          pressState = false;
+        });
+      },
+      onTapUp: (TapUpDetails val) {
+        setState(() {
+          pressState = false;
+        });
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
+        curve: Curves.linear,
+        padding: widget.padding,
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: pressState ? Colors.grey[400]! : Colors.grey[300]!,
+            width: 0.5,
+          ),
+          boxShadow: pressState
+              ? []
+              : [
+                  BoxShadow(
+                    color: Colors.grey[400]!,
+                    offset: Offset(4, 4),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                  BoxShadow(
+                    color: Colors.white70,
+                    offset: Offset(-4, -4),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ],
+        ),
+        child: widget.child,
       ),
     );
   }
