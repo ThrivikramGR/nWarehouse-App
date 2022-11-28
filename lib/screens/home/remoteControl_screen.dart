@@ -357,8 +357,8 @@ class _NeuArrowButtonState extends State<NeuArrowButton> {
         });
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 100),
-        curve: Curves.linear,
+        duration: Duration(milliseconds: 175),
+        curve: Curves.decelerate,
         height: 100,
         width: 100,
         decoration: BoxDecoration(
