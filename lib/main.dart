@@ -10,17 +10,20 @@ import 'package:iot_project/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //For flutter web initialization, initialize it with firebase options
-  //inside the try catch block, to suppress exception sometimes as and when
-  //flutter initializes firebase twice for some reason
-  //try {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-
-  await Firebase.initializeApp();
-  //} catch (e) {}
-
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyAknzF4xhhtDqTjBDeU2kMDHJAgxUjL1bA",
+      authDomain: "mill-19728.firebaseapp.com",
+      projectId: "mill-19728",
+      storageBucket: "mill-19728.appspot.com",
+      messagingSenderId: "835105755213",
+      appId: "1:835105755213:web:cb6b3ebd505ff44c5acc04",
+      measurementId: "G-4EGRE4MECW",
+    ),
+  );
   runApp(MyApp());
 }
 
