@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "835105755213",
+    "project_id": "mill-19728",
+    "storage_bucket": "mill-19728.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835105755213:android:62ddf7ba1a10d7755acc04",
+        "android_client_info": {
+          "package_name": "com.example.iot_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835105755213-kt526m0rrrgqhjpgb8o5cibs535tiupc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzrB9T_PBZO6o4LIOqFs1XYz5WaFmHqnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835105755213-kt526m0rrrgqhjpgb8o5cibs535tiupc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "835105755213-l15snes2krqe51a1jik3svj0lurs593i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.iotProject"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835105755213:android:f7b14af691c83b225acc04",
+        "android_client_info": {
+          "package_name": "com.nWarehouse.nWareApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835105755213-qk5j9jkuppvlaths04ouoiu0mbo76jsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nWarehouse.nWareApp",
+            "certificate_hash": "bdfbbab6d8ec3ae292ef897f4e346fa83c9ddcf0"
+          }
+        },
+        {
+          "client_id": "835105755213-kt526m0rrrgqhjpgb8o5cibs535tiupc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzrB9T_PBZO6o4LIOqFs1XYz5WaFmHqnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835105755213-kt526m0rrrgqhjpgb8o5cibs535tiupc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "835105755213-l15snes2krqe51a1jik3svj0lurs593i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.iotProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

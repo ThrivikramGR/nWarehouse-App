@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,15 +25,23 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  String getInitialRoute() {
+    if (FirebaseAuth.instance.currentUser == null) {
+      return "/";
+    } else {
+      return "sel";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IoT Project App',
+      title: 'nWarehouse',
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'sel',
+      initialRoute: getInitialRoute(),
       routes: {
         '/': (context) => LoginScreen(),
         'screen4': (context) => AddWarehouseScreen(),
