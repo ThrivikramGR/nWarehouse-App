@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
+import 'package:iot_project/ppm_calibration_page.dart';
 import 'package:iot_project/screens/home/notifications_screen.dart';
 import 'package:iot_project/screens/home/remoteControl_screen.dart';
 import 'package:iot_project/screens/home/user_profile_screen.dart';
@@ -355,6 +356,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PPMCalibrationPage(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "PPM Calibration",
+                  ),
                 ),
                 SizedBox(
                   height: 15,

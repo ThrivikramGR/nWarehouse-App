@@ -1,6 +1,4 @@
 import 'dart:io' show Platform;
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
@@ -39,8 +37,7 @@ class CustomScaffoldElements {
                         ),
                         TextButton(
                           onPressed: () {
-                            FirebaseAuth _auth = FirebaseAuth.instance;
-                            _auth.signOut();
+                            //todo: signout
                             Navigator.pushNamedAndRemoveUntil(
                                 context, "/", (Route<dynamic> route) => false);
                           },
@@ -66,8 +63,7 @@ class CustomScaffoldElements {
                         ),
                         TextButton(
                           onPressed: () {
-                            FirebaseAuth _auth = FirebaseAuth.instance;
-                            _auth.signOut();
+                            //todo: signout
                             Navigator.pushNamedAndRemoveUntil(
                                 context, "/", (Route<dynamic> route) => false);
                           },

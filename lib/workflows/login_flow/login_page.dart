@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,113 +7,21 @@ import 'package:iot_project/screens/home/home_screen.dart';
 import 'package:iot_project/services/color_config.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 enum DialogType { invalidUsername, invalidCredentials }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginPageState extends State<LoginPage> {
   final RoundedLoadingButtonController _btnController =
       RoundedLoadingButtonController();
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/nLogo.png",
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE5EAD9),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                        ),
-                        padding: EdgeInsets.only(
-                          top: 30,
-                          left: 25,
-                          right: 25,
-                          bottom: 15,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Login",
-                              style: TextStyle(
-                                fontFamily: "NunitoSans",
-                                color: Color(0xFF323232),
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Form(
-                              key: _formKey,
-                              autovalidateMode: _autoValidateMode,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: getLoginForm(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    RoundedLoadingButton(
-                      color: Color(0xFF92A65F),
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontFamily: "NunitoSans",
-                          color: Colors.white,
-                        ),
-                      ),
-                      successColor: Colors.green,
-                      controller: _btnController,
-                      onPressed: login,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   String? _userName;
-  late String _password;
+  String? _password;
 
   void showNoUserDialog(DialogType dialogType) {
     if (Platform.isAndroid) {
@@ -299,17 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       SizedBox(
-        height: 15,
-      ),
-      TextButton(
-        onPressed: () {},
-        child: Text(
-          "Forgot Password?",
-          style: TextStyle(
-            fontFamily: "NunitoSans",
-            color: ColorConfig.primaryBlue,
-          ),
-        ),
+        height: 20,
       ),
     ];
   }
@@ -317,8 +216,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     //to dismiss keyboard when button pressed
     FocusScope.of(context).requestFocus(new FocusNode());
-
     if (_validateInputs()) {
+      Response response = await Dio().post(
+          "https://nodeapifordb.vercel.app/api/users/signin",
+          data: {"Username": "MAHA", "password": "Ma12345"});
+      print(response.statusCode);
+      print(response.statusMessage);
     } else {
       buttonErrorReset();
     }
@@ -330,5 +233,106 @@ class _LoginScreenState extends State<LoginScreen> {
       Duration(seconds: 2),
     );
     _btnController.reset();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/nw_bg.png",
+                    ),
+                    SizedBox(
+                      height: 80,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE5EAD9),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(7),
+                          ),
+                        ),
+                        padding: EdgeInsets.only(
+                          top: 15,
+                          left: 25,
+                          right: 25,
+                          bottom: 15,
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Login",
+                              style: TextStyle(
+                                fontFamily: "NunitoSans",
+                                color: Color(0xFF323232),
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Form(
+                              key: _formKey,
+                              autovalidateMode: _autoValidateMode,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: getLoginForm(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    RoundedLoadingButton(
+                      color: Color(0xFF92A65F),
+                      child: Text(
+                        'Sign in',
+                        style: TextStyle(
+                          fontFamily: "NunitoSans",
+                          color: Colors.white,
+                        ),
+                      ),
+                      successColor: Colors.green,
+                      controller: _btnController,
+                      onPressed: login,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Sign up",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
