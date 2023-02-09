@@ -54,24 +54,30 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void signUp(String email, String password, String username) async {
-    Response response =
-        await Dio().post("https://api.n-warehouse.com/api/users/signup", data: {
-      "email": email,
-      "password": password,
-      "username": username,
-    });
+    try {
+      Response response =
+          await Dio().post("https://api.n-warehouse.com/api/users", data: {
+        "email": email,
+        "password": password,
+        "username": username,
+      });
+      if (response.statusCode != 200) {
+        displaySnackBar("Failed to Signup!");
+        return;
+      }
+      if (response.data["success"] != 1) {
+        displaySnackBar("Invalid Email or Password!");
+        return;
+      }
+      displaySnackBar("Sign up successful!",
+          color: Colors.green, durationInSeconds: 3);
+      Navigator.pop(context);
+    } catch (e) {
+      displaySnackBar("Check your connection!");
+    }
     setState(() {
       isLoading = false;
     });
-    if (response.statusCode != 200) {
-      displaySnackBar("Failed to Signup!");
-      return;
-    }
-    if (response.data["success"] != 1) {
-      displaySnackBar("Invalid Email or Password!");
-      return;
-    }
-    Navigator.pushReplacementNamed(context, "sel");
   }
 
   bool visiblePassword = false;
@@ -293,5 +299,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
-//todo: animated fade in for sign in box

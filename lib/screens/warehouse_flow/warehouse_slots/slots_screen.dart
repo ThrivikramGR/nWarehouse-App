@@ -28,7 +28,7 @@ class _WarehouseHomeScreenState extends State<WarehouseHomeScreen> {
   void getSlots() async {
     // var dio = Dio();
     // var response =
-    //     await dio.get('http://node-js-new.herokuapp.com/api/warehouses/slots');
+    //     await dio.get('http://node-js-new.herokuapp.com/api/warehouses/slot10');
 
     deserializeSlots([
       {

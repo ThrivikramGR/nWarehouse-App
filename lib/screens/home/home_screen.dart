@@ -325,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF92A65F),
+      backgroundColor: Color(0xFFFFF3CE),
       appBar: CustomScaffoldElements.getAppBar("nWarehouse", context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -360,22 +360,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 15,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PPMCalibrationPage(),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    "PPM Calibration",
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => PPMCalibrationPage(),
+                //       ),
+                //     );
+                //   },
+                //   child: Text(
+                //     "PPM Calibration",
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 15,
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -393,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       style: ElevatedButton.styleFrom(
                         //primary: Color(0xFFDCDE9F),
-                        primary: Color(0xFFE5EAD9),
+                        primary: Color(0xFFFFF3CE),
                         //onPrimary: Color(0xFF92A65F),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -425,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: ElevatedButton.styleFrom(
                         //primary: Color(0xFFDCDE9F),
                         //primary: Color(0xFFE6E3C0),
-                        primary: Color(0xFFE5EAD9),
+                        primary: Color(0xFFFFF3CE),
                         //onPrimary: Color(0xFF92A65F),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -455,7 +455,41 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: ElevatedButton.styleFrom(
                         //primary: Color(0xFFDCDE9F),
                         //primary: Color(0xFFE6E3C0),
-                        primary: Color(0xFFE5EAD9),
+                        primary: Color(0xFFFFF3CE),
+                        //onPrimary: Color(0xFF92A65F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 25,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RemoteControlScreen(),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Hero(
+                            tag: "remote",
+                            child: Text(
+                              "Calibration",
+                              style: TextStyle(
+                                color: Color(0xFF323232),
+                              ),
+                            )),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        //primary: Color(0xFFDCDE9F),
+                        //primary: Color(0xFFE6E3C0),
+                        primary: Color(0xFFFFF3CE),
                         //onPrimary: Color(0xFF92A65F),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),

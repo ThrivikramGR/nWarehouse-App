@@ -12,7 +12,7 @@ class CustomScaffoldElements {
   static AppBar getAppBar(String title, BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Color(0xFF92A65F),
+      backgroundColor: Color(0xFFFFF3CE),
       leading: Builder(
         builder: (context) {
           return Transform.scale(

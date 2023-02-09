@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:iot_project/screens/home/home_screen.dart';
 import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
 import 'package:iot_project/screens/home/popup_menu/add_warehouse_screen.dart';
+import 'package:iot_project/workflows/home_warehouse/home_page.dart';
 import 'package:iot_project/workflows/login_signup/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,10 +15,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  String getInitialRoute() {
-    return "sel";
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,11 +27,43 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) => InitRoutingPage(),
+        'login': (context) => LoginPage(),
+        'home': (context) => HomePage(),
         'screen4': (context) => AddWarehouseScreen(),
         'addUser': (context) => AddUserScreen(),
-        'sel': (context) => HomeScreen(),
       },
+    );
+  }
+}
+
+class InitRoutingPage extends StatefulWidget {
+  const InitRoutingPage({Key? key}) : super(key: key);
+  @override
+  State<InitRoutingPage> createState() => _InitRoutingPageState();
+}
+
+class _InitRoutingPageState extends State<InitRoutingPage> {
+  Future<void> initRouteNav() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString("email");
+    if (email == null) {
+      Navigator.pushReplacementNamed(context, "login");
+    } else {
+      Navigator.pushReplacementNamed(context, "home");
+    }
+  }
+
+  @override
+  void initState() {
+    initRouteNav();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/workflows/login_signup/signUp_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -49,24 +50,31 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void signIn(String email, String password) async {
-    Response response =
-        await Dio().post("https://api.n-warehouse.com/api/users/login", data: {
-      "email": email,
-      "password": password,
-    });
+    try {
+      Response response = await Dio()
+          .post("https://api.n-warehouse.com/api/users/login", data: {
+        "email": email,
+        "password": password,
+      });
+      if (response.statusCode != 200) {
+        displaySnackBar("Failed to Login!");
+        return;
+      }
+      if (response.data["success"] != 1) {
+        _passwordController.clear();
+        displaySnackBar("Invalid Email or Password!");
+        return;
+      }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("token", response.data["token"]);
+      await prefs.setString("email", email);
+      Navigator.pushReplacementNamed(context, "home");
+    } catch (e) {
+      displaySnackBar("Check your connection!");
+    }
     setState(() {
       isLoading = false;
     });
-    if (response.statusCode != 200) {
-      displaySnackBar("Failed to Login!");
-      return;
-    }
-    if (response.data["success"] != 1) {
-      _passwordController.clear();
-      displaySnackBar("Invalid Email or Password!");
-      return;
-    }
-    Navigator.pushReplacementNamed(context, "sel");
   }
 
   bool visiblePassword = false;
@@ -317,5 +325,3 @@ class CustomLogoNameBanner extends StatelessWidget {
     );
   }
 }
-
-//todo: animated fade in for sign in box
