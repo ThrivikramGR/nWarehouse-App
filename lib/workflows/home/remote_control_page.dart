@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
-class RemoteControlScreen extends StatefulWidget {
+class RemoteControlPage extends StatefulWidget {
   @override
-  State<RemoteControlScreen> createState() => _RemoteControlScreenState();
+  State<RemoteControlPage> createState() => _RemoteControlPageState();
 }
 
-class _RemoteControlScreenState extends State<RemoteControlScreen> {
+class _RemoteControlPageState extends State<RemoteControlPage> {
   static const String DEVICE_ID = "ESP32-BLE-Server";
   static const String SERVICE_UUID = "4822cbbf-e2df-4561-8e7b-5c509df34a4f";
   static const String CHARACTERISTIC_UUID =
@@ -154,7 +154,7 @@ class _RemoteControlScreenState extends State<RemoteControlScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        backgroundColor: Color(0xFF92A65F),
+        backgroundColor: Colors.grey[300],
         centerTitle: true,
         title: Text(
           "Remote Control",

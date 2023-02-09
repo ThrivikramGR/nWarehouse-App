@@ -63,10 +63,16 @@ class _SignUpPageState extends State<SignUpPage> {
       });
       if (response.statusCode != 200) {
         displaySnackBar("Failed to Signup!");
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       if (response.data["success"] != 1) {
         displaySnackBar("Invalid Email or Password!");
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       displaySnackBar("Sign up successful!",

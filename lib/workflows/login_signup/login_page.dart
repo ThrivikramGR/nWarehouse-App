@@ -58,11 +58,18 @@ class _LoginPageState extends State<LoginPage> {
       });
       if (response.statusCode != 200) {
         displaySnackBar("Failed to Login!");
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       if (response.data["success"] != 1) {
         _passwordController.clear();
         displaySnackBar("Invalid Email or Password!");
+        setState(() {
+          isLoading = false;
+        });
+
         return;
       }
       SharedPreferences prefs = await SharedPreferences.getInstance();

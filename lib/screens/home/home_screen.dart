@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iot_project/custom_widgets/scaffold_elements.dart';
-import 'package:iot_project/ppm_calibration_page.dart';
+import 'package:iot_project/workflows/home/ppm_calibration_page.dart';
 import 'package:iot_project/screens/home/notifications_screen.dart';
-import 'package:iot_project/screens/home/remoteControl_screen.dart';
+import 'package:iot_project/workflows/home/remote_control_page.dart';
 import 'package:iot_project/screens/home/user_profile_screen.dart';
 import 'package:iot_project/screens/warehouse_flow/warehouse_slots/slots_screen.dart';
 import 'package:line_icons/line_icons.dart';
@@ -441,7 +441,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RemoteControlScreen(),
+                            builder: (context) => RemoteControlPage(),
                           ),
                         );
                       },
@@ -471,7 +471,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RemoteControlScreen(),
+                            builder: (context) => RemoteControlPage(),
                           ),
                         );
                       },
