@@ -86,6 +86,11 @@ class _NodesPageState extends State<NodesPage> {
       }
     } catch (e) {
       //hardcode in case api fails
+      nodeList.addAll([
+        Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "01"),
+        Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "02"),
+        Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "03"),
+      ]);
     }
 
     setState(() {
