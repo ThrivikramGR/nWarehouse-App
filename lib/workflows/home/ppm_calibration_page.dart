@@ -18,15 +18,15 @@ class _PPMCalibrationPageState extends State<PPMCalibrationPage> {
   List ppmData = [];
   void fetchData() async {
     Dio dio = Dio();
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     timer = Timer.periodic(Duration(seconds: 10), (timer) async {
       Response response = await dio.get(
         "https://api.n-warehouse.com/api/viewdata/dashboarddata",
         options: Options(
           headers: {
             "Content-Type": "application/json",
-            "Authorization":
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXN1bHQiOnsiSUQiOjQsIlVzZXJuYW1lIjoiTUFIQSIsIlBhc3N3b3JkIjoiJDJiJDEwJHI4NlJhY0hBT3hBSmhPWkFkLnBzVHU5dC5zRzVaTU1lai5xVXN4cXBPSkJuVXJMcEpMS2ZhIiwiRW1haWwiOiJzbWFoYWFydW5hY2hhbGFtQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NzU2MjQ0MjgsImV4cCI6MTY3NTYyODAyOH0.Rh0uf1qf1U2nsRhTGYnW-b3C22kakJYjBoyPxbEvSio",
+            "Authorization": "Bearer ${prefs.getString("token")}",
           },
         ),
       );

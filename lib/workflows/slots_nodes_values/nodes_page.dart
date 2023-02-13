@@ -155,7 +155,7 @@ class _NodesPageState extends State<NodesPage> {
                           crossAxisCount: 2,
                           children: List.generate(nodeList.length, (index) {
                             return CustomElevatedButtonWithIdAndStatus(
-                              name: "Slot ${index + 1}",
+                              name: "Node ${index + 1}",
                               id: nodeList[index].nodeID,
                               status: "Good",
                               onTap: nodeList[index].isActive == 1
