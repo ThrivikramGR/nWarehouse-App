@@ -1,13 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:iot_project/screens/node_screen2.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/alerts_screen.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/generate_report_screen.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/warehouse_profile_screen.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:iot_project/workflows/slots_nodes_values/node_values_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../home/home_page.dart';
 
 class NodesPage extends StatefulWidget {
@@ -120,6 +114,18 @@ class _NodesPageState extends State<NodesPage> {
         iconTheme: IconThemeData(
           color: Color(0xFF323232),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).popUntil(
+                (route) => route.isFirst,
+              );
+            },
+            icon: Icon(
+              Icons.home,
+            ),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,12 +171,15 @@ class _NodesPageState extends State<NodesPage> {
                               status: "Good",
                               onTap: nodeList[index].isActive == 1
                                   ? () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => Container(),
-                                      //   ),
-                                      // );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NodeValuesPage(
+                                            nodeID: nodeList[index].nodeID,
+                                            nodeName: "Node ${index + 1}",
+                                          ),
+                                        ),
+                                      );
                                     }
                                   : null,
                             );

@@ -1,14 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:iot_project/screens/node_screen2.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/alerts_screen.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/generate_report_screen.dart';
-import 'package:iot_project/screens/warehouse_flow/warehouse_slots/warehouse_profile_screen.dart';
 import 'package:iot_project/workflows/slots_nodes_values/nodes_page.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../home/home_page.dart';
 
 class SlotsPage extends StatefulWidget {
