@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'hardcodedNodeValues.dart';
 
 class NodeValuesPage extends StatefulWidget {
   final String nodeID;
@@ -32,6 +35,18 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  Map<String, List<String>> nodeTypeParamsMap = {
+    "fixed": ["TGS2620", "TGS2602", "TGS2600"],
+    "CO2": ["CO2", "Temperature", "Humidity"],
+  };
+
+  String nodeType = "fixed";
+
+  List<GraphPoint> graph1Points = [];
+  List<GraphPoint> graph2Points = [];
+  List<GraphPoint> graph3Points = [];
+  List nodeValues = [];
+
   Future<void> fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
@@ -56,25 +71,58 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
           );
         }
         //hardcode in case api fails
-        //todo:
+        nodeValues = hardcodedData;
+        generateGraphPoints();
         setState(() {
           isLoading = false;
         });
         return;
       }
-      //todo:actual
+
+      nodeValues = response.data["data"];
     } catch (e) {
       //hardcode in case api fails
-      //todo:
+      nodeValues = hardcodedData;
+      generateGraphPoints();
+      setState(() {
+        isLoading = false;
+      });
+      return;
     }
-
+    generateGraphPoints();
     setState(() {
       isLoading = false;
     });
   }
 
+  void generateGraphPoints() {
+    for (int i = 0; i < nodeValues.length; i++) {
+      graph1Points.add(
+        GraphPoint(
+          nodeValues[i]["TimeStamp"],
+          double.parse(nodeValues[i][nodeTypeParamsMap[nodeType]![0]]),
+        ),
+      );
+      graph2Points.add(
+        GraphPoint(
+          nodeValues[i]["TimeStamp"],
+          double.parse(nodeValues[i][nodeTypeParamsMap[nodeType]![1]]),
+        ),
+      );
+      graph3Points.add(
+        GraphPoint(
+          nodeValues[i]["TimeStamp"],
+          double.parse(nodeValues[i][nodeTypeParamsMap[nodeType]![2]]),
+        ),
+      );
+    }
+  }
+
+  bool graphView = true;
+
   @override
   void initState() {
+    if (widget.nodeID[3] == "C") nodeType = "CO2";
     fetchData();
     super.initState();
   }
@@ -108,23 +156,404 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 18, top: 15),
-            child: Text(
-              "Node ID: ${widget.nodeID}",
-              style: TextStyle(
-                fontFamily: "NunitoSans",
-                fontSize: 20,
-                color: Color(0xFF323232),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : nodeValues.isEmpty
+                ? Center(
+                    child: Text(
+                      "No data available!",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                  )
+                : ListView(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          "Recent Data",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Card(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Node ID",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                    ),
+                                    Text(
+                                      nodeValues[0]["NodeID"],
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      nodeTypeParamsMap[nodeType]![0],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                    ),
+                                    Text(
+                                      nodeValues[0]
+                                          [nodeTypeParamsMap[nodeType]![0]],
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      nodeTypeParamsMap[nodeType]![1],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                    ),
+                                    Text(
+                                      nodeValues[0]
+                                          [nodeTypeParamsMap[nodeType]![1]],
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      nodeTypeParamsMap[nodeType]![2],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                    ),
+                                    Text(
+                                      nodeValues[0]
+                                          [nodeTypeParamsMap[nodeType]![2]],
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  "Timestamp",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                                Text(
+                                  nodeValues[0]["TimeStamp"],
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "All Data",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  graphView = !graphView;
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    graphView
+                                        ? Icons.table_chart_outlined
+                                        : Icons.show_chart,
+                                  ),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text(
+                                    graphView ? "Data View" : "Graph View",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        children: graphView
+                            ? [
+                                SfCartesianChart(
+                                  title: ChartTitle(
+                                    text: nodeTypeParamsMap[nodeType]![0],
+                                  ),
+                                  // Initialize category axis
+                                  primaryXAxis: CategoryAxis(
+                                    arrangeByIndex: true,
+                                    isVisible: false,
+                                  ),
+                                  series: <LineSeries<GraphPoint, String>>[
+                                    LineSeries<GraphPoint, String>(
+                                      color: Colors.green,
+                                      // Bind data source
+                                      dataSource:
+                                          graph1Points.reversed.toList(),
+                                      xValueMapper: (GraphPoint point, _) =>
+                                          point.x,
+                                      yValueMapper: (GraphPoint point, _) =>
+                                          point.y,
+                                    ),
+                                  ],
+                                ),
+                                SfCartesianChart(
+                                  title: ChartTitle(
+                                    text: nodeTypeParamsMap[nodeType]![1],
+                                  ),
+                                  // Initialize category axis
+                                  primaryXAxis: CategoryAxis(
+                                    arrangeByIndex: true,
+                                    isVisible: false,
+                                  ),
+                                  series: <LineSeries<GraphPoint, String>>[
+                                    LineSeries<GraphPoint, String>(
+                                      color: Colors.green,
+                                      // Bind data source
+                                      dataSource:
+                                          graph2Points.reversed.toList(),
+                                      xValueMapper: (GraphPoint point, _) =>
+                                          point.x,
+                                      yValueMapper: (GraphPoint point, _) =>
+                                          point.y,
+                                    ),
+                                  ],
+                                ),
+                                SfCartesianChart(
+                                  title: ChartTitle(
+                                    text: nodeTypeParamsMap[nodeType]![2],
+                                  ),
+                                  // Initialize category axis
+                                  primaryXAxis: CategoryAxis(
+                                    arrangeByIndex: true,
+                                    isVisible: false,
+                                  ),
+                                  series: <LineSeries<GraphPoint, String>>[
+                                    LineSeries<GraphPoint, String>(
+                                      color: Colors.green,
+                                      // Bind data source
+                                      dataSource:
+                                          graph3Points.reversed.toList(),
+                                      xValueMapper: (GraphPoint point, _) =>
+                                          point.x,
+                                      yValueMapper: (GraphPoint point, _) =>
+                                          point.y,
+                                    ),
+                                  ],
+                                ),
+                              ]
+                            : List.generate(
+                                nodeValues.length,
+                                (index) => Column(
+                                  children: [
+                                    Material(
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 10, horizontal: 10),
+                                        tileColor: Color(0xFF0F7F2F9),
+                                        style: ListTileStyle.list,
+                                        title: Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 10),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "Timestamp:",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey[800],
+                                                  fontSize: 17,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                nodeValues[index]["TimeStamp"],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        subtitle: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  nodeValues[index][
+                                                      nodeTypeParamsMap[
+                                                          nodeType]![0]],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  nodeTypeParamsMap[nodeType]![
+                                                      0],
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[800],
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  nodeValues[index][
+                                                      nodeTypeParamsMap[
+                                                          nodeType]![1]],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  nodeTypeParamsMap[nodeType]![
+                                                      1],
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[800],
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  nodeValues[index][
+                                                      nodeTypeParamsMap[
+                                                          nodeType]![2]],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  nodeTypeParamsMap[nodeType]![
+                                                      2],
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey[800],
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                      height: 0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
       ),
     );
   }
+}
+
+class GraphPoint {
+  final String x;
+  final num y;
+  GraphPoint(this.x, this.y);
 }
