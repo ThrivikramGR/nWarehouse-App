@@ -206,38 +206,35 @@ class _HomePageState extends State<HomePage> {
                 Center(
                   child: isLoading
                       ? CircularProgressIndicator()
-                      : SizedBox(
-                          width: 400,
-                          child: GridView.count(
-                            shrinkWrap: true,
-                            childAspectRatio: 1.6,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 2,
-                            children:
-                                List.generate(warehouseList.length, (index) {
-                              return CustomElevatedButtonWithIdAndStatus(
-                                name: "Warehouse ${index + 1}",
-                                id: warehouseList[index].warehouseID,
-                                status: "Good",
-                                onTap: warehouseList[index].isActive == 1
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => SlotsPage(
-                                              warehouseName:
-                                                  "Warehouse ${index + 1}",
-                                              warehouseID: warehouseList[index]
-                                                  .warehouseID,
-                                            ),
+                      : GridView.count(
+                          shrinkWrap: true,
+                          childAspectRatio: 1.6,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 15,
+                          crossAxisCount: 2,
+                          children:
+                              List.generate(warehouseList.length, (index) {
+                            return CustomElevatedButtonWithIdAndStatus(
+                              name: "Warehouse ${index + 1}",
+                              id: warehouseList[index].warehouseID,
+                              status: "Good",
+                              onTap: warehouseList[index].isActive == 1
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SlotsPage(
+                                            warehouseName:
+                                                "Warehouse ${index + 1}",
+                                            warehouseID: warehouseList[index]
+                                                .warehouseID,
                                           ),
-                                        );
-                                      }
-                                    : null,
-                              );
-                            }),
-                          ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            );
+                          }),
                         ),
                 ),
               ],

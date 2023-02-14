@@ -142,7 +142,9 @@ class _SlotsPageState extends State<SlotsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   isLoading
-                      ? CircularProgressIndicator()
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
                       : GridView.count(
                           shrinkWrap: true,
                           childAspectRatio: 1.6,

@@ -157,7 +157,9 @@ class _NodesPageState extends State<NodesPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   isLoading
-                      ? CircularProgressIndicator()
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
                       : GridView.count(
                           shrinkWrap: true,
                           childAspectRatio: 1.6,
