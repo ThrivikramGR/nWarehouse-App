@@ -372,15 +372,15 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                   title: ChartTitle(
                                     text: nodeTypeParamsMap[nodeType]![0],
                                   ),
-                                  // Initialize category axis
                                   primaryXAxis: CategoryAxis(
                                     arrangeByIndex: true,
                                     isVisible: false,
                                   ),
                                   series: <LineSeries<GraphPoint, String>>[
                                     LineSeries<GraphPoint, String>(
+                                      // markerSettings: MarkerSettings(
+                                      //     isVisible: true, width: 4, height: 4),
                                       color: Colors.green,
-                                      // Bind data source
                                       dataSource:
                                           graph1Points.reversed.toList(),
                                       xValueMapper: (GraphPoint point, _) =>
@@ -388,13 +388,25 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                       yValueMapper: (GraphPoint point, _) =>
                                           point.y,
                                     ),
+                                    // LineSeries<GraphPoint, String>(
+                                    //   width: 1,
+                                    //   color: Colors.red[400],
+                                    //   // Bind data source
+                                    //   dataSource: List.generate(
+                                    //     nodeValues.length,
+                                    //     (index) => GraphPoint("", 160),
+                                    //   ),
+                                    //   xValueMapper: (GraphPoint point, _) =>
+                                    //       point.x,
+                                    //   yValueMapper: (GraphPoint point, _) =>
+                                    //       point.y,
+                                    // ),
                                   ],
                                 ),
                                 SfCartesianChart(
                                   title: ChartTitle(
                                     text: nodeTypeParamsMap[nodeType]![1],
                                   ),
-                                  // Initialize category axis
                                   primaryXAxis: CategoryAxis(
                                     arrangeByIndex: true,
                                     isVisible: false,
@@ -402,21 +414,31 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                   series: <LineSeries<GraphPoint, String>>[
                                     LineSeries<GraphPoint, String>(
                                       color: Colors.green,
-                                      // Bind data source
                                       dataSource:
                                           graph2Points.reversed.toList(),
                                       xValueMapper: (GraphPoint point, _) =>
                                           point.x,
                                       yValueMapper: (GraphPoint point, _) =>
                                           point.y,
-                                    ),
+                                    ), // LineSeries<GraphPoint, String>(
+                                    //   width: 1,
+                                    //   color: Colors.red[400],
+                                    //   // Bind data source
+                                    //   dataSource: List.generate(
+                                    //     nodeValues.length,
+                                    //     (index) => GraphPoint("", 160),
+                                    //   ),
+                                    //   xValueMapper: (GraphPoint point, _) =>
+                                    //       point.x,
+                                    //   yValueMapper: (GraphPoint point, _) =>
+                                    //       point.y,
+                                    // ),
                                   ],
                                 ),
                                 SfCartesianChart(
                                   title: ChartTitle(
                                     text: nodeTypeParamsMap[nodeType]![2],
                                   ),
-                                  // Initialize category axis
                                   primaryXAxis: CategoryAxis(
                                     arrangeByIndex: true,
                                     isVisible: false,
@@ -424,14 +446,25 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                   series: <LineSeries<GraphPoint, String>>[
                                     LineSeries<GraphPoint, String>(
                                       color: Colors.green,
-                                      // Bind data source
                                       dataSource:
                                           graph3Points.reversed.toList(),
                                       xValueMapper: (GraphPoint point, _) =>
                                           point.x,
                                       yValueMapper: (GraphPoint point, _) =>
                                           point.y,
-                                    ),
+                                    ), // LineSeries<GraphPoint, String>(
+                                    //   width: 1,
+                                    //   color: Colors.red[400],
+                                    //   // Bind data source
+                                    //   dataSource: List.generate(
+                                    //     nodeValues.length,
+                                    //     (index) => GraphPoint("", 160),
+                                    //   ),
+                                    //   xValueMapper: (GraphPoint point, _) =>
+                                    //       point.x,
+                                    //   yValueMapper: (GraphPoint point, _) =>
+                                    //       point.y,
+                                    // ),
                                   ],
                                 ),
                               ]
