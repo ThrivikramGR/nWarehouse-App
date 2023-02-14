@@ -11,7 +11,19 @@ class _AlertsPageState extends State<AlertsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-    );
+        appBar: AppBar(
+          title: Text(
+            "Alerts",
+          ),
+        ),
+        body: Center(
+          child: Text(
+            "No alerts available!",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
+          ),
+        ));
   }
 }
