@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,6 +42,8 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
     "CO2": ["CO2", "Temperature", "Humidity"],
   };
 
+  late Timer timer;
+
   String nodeType = "fixed";
 
   List<GraphPoint> graph1Points = [];
@@ -49,49 +53,58 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
 
   Future<void> fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    try {
-      Response response = await Dio().post(
-        "https://api.n-warehouse.com/api/viewdata/databyNodeid",
-        data: {"NodeID": widget.nodeID},
-        options: Options(
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer ${prefs.getString("token")}",
-          },
-        ),
-      );
-      if (response.statusCode != 200 || response.data["success"] != 1) {
-        if (response.data["message"] == "Invalid Token...") {
-          displaySnackBar("Session Expired!");
-          prefs.clear();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            "login",
-            (Route<dynamic> route) => false,
-          );
+    timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+      try {
+        Response response = await Dio().post(
+          "https://api.n-warehouse.com/api/viewdata/databyNodeid",
+          data: {"NodeID": widget.nodeID},
+          options: Options(
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer ${prefs.getString("token")}",
+            },
+          ),
+        );
+        if (response.statusCode != 200 || response.data["success"] != 1) {
+          if (nodeValues.isEmpty) {
+            if (response.data["message"] == "Invalid Token...") {
+              displaySnackBar("Session Expired!");
+              prefs.clear();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "login",
+                (Route<dynamic> route) => false,
+              );
+              //hardcode in case api fails
+              nodeValues = hardcodedData;
+              generateGraphPoints();
+              setState(() {
+                isLoading = false;
+              });
+              return;
+            }
+          }
         }
-        //hardcode in case api fails
-        nodeValues = hardcodedData;
-        generateGraphPoints();
-        setState(() {
-          isLoading = false;
-        });
-        return;
-      }
 
-      nodeValues = response.data["data"];
-    } catch (e) {
-      //hardcode in case api fails
-      nodeValues = hardcodedData;
+        nodeValues = response.data["data"];
+      } catch (e) {
+        if (nodeValues.isEmpty) {
+          //hardcode in case api fails
+          nodeValues = hardcodedData;
+          generateGraphPoints();
+          setState(() {
+            isLoading = false;
+          });
+          return;
+        }
+      }
+      graph1Points.clear();
+      graph2Points.clear();
+      graph3Points.clear();
       generateGraphPoints();
       setState(() {
         isLoading = false;
       });
-      return;
-    }
-    generateGraphPoints();
-    setState(() {
-      isLoading = false;
     });
   }
 
@@ -125,6 +138,12 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
     if (widget.nodeID[3] == "C") nodeType = "CO2";
     fetchData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
