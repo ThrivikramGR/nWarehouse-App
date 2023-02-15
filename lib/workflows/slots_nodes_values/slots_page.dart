@@ -62,6 +62,9 @@ class _SlotsPageState extends State<SlotsPage> {
         slotList.addAll([
           Slot(isActive: 1, slotID: widget.warehouseID + "01"),
           Slot(isActive: 1, slotID: widget.warehouseID + "02"),
+          Slot(isActive: 0, slotID: widget.warehouseID + "03"),
+          Slot(isActive: 0, slotID: widget.warehouseID + "04"),
+          Slot(isActive: 0, slotID: widget.warehouseID + "05"),
         ]);
         setState(() {
           isLoading = false;
@@ -76,11 +79,19 @@ class _SlotsPageState extends State<SlotsPage> {
           ),
         );
       }
+      slotList.addAll([
+        Slot(isActive: 0, slotID: widget.warehouseID + "03"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "04"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "05"),
+      ]);
     } catch (e) {
       //hardcode in case api fails
       slotList.addAll([
         Slot(isActive: 1, slotID: widget.warehouseID + "01"),
         Slot(isActive: 1, slotID: widget.warehouseID + "02"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "03"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "04"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "05"),
       ]);
     }
 
@@ -138,49 +149,52 @@ class _SlotsPageState extends State<SlotsPage> {
                 ),
               ),
               padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : GridView.count(
-                          shrinkWrap: true,
-                          childAspectRatio: 1.6,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 15,
-                          crossAxisCount: 2,
-                          children: List.generate(slotList.length, (index) {
-                            return CustomElevatedButtonWithIdAndStatus(
-                              name: "Slot ${index + 1}",
-                              id: slotList[index].slotID,
-                              status: "Good",
-                              onTap: slotList[index].isActive == 1
-                                  ? () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => NodesPage(
-                                            slotName: "Slot ${index + 1}",
-                                            slotID: slotList[index].slotID,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  : null,
-                            );
-                          }),
-                          //children: getGridViewSlots(context),
-                        ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Image.asset(
-                      "assets/images/nw_bg.png",
-                      scale: 1.5,
+              child: Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Expanded(
+                            child: GridView.count(
+                              childAspectRatio: 1.6,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 15,
+                              crossAxisCount: 2,
+                              children: List.generate(slotList.length, (index) {
+                                return CustomElevatedButtonWithIdAndStatus(
+                                  name: "Slot ${index + 1}",
+                                  id: slotList[index].slotID,
+                                  status: "Good",
+                                  onTap: slotList[index].isActive == 1
+                                      ? () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => NodesPage(
+                                                slotName: "Slot ${index + 1}",
+                                                slotID: slotList[index].slotID,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      : null,
+                                );
+                              }),
+                              //children: getGridViewSlots(context),
+                            ),
+                          ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                      child: Image.asset(
+                        "assets/images/nw_bg.png",
+                        scale: 1.5,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
