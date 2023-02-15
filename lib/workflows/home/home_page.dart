@@ -100,6 +100,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         centerTitle: true,
         title: Image.asset(
           "assets/images/nw_logo.png",
@@ -186,58 +187,60 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
             child: Divider(),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Warehouses",
-                  style: TextStyle(
-                    fontFamily: "NunitoSans",
-                    color: Color(0xFF323232),
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Warehouses",
+                    style: TextStyle(
+                      fontFamily: "NunitoSans",
+                      color: Color(0xFF323232),
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Center(
-                  child: isLoading
-                      ? CircularProgressIndicator()
-                      : GridView.count(
-                          shrinkWrap: true,
-                          childAspectRatio: 1.6,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 15,
-                          crossAxisCount: 2,
-                          children:
-                              List.generate(warehouseList.length, (index) {
-                            return CustomElevatedButtonWithIdAndStatus(
-                              name: "Warehouse ${index + 1}",
-                              id: warehouseList[index].warehouseID,
-                              status: "Good",
-                              onTap: warehouseList[index].isActive == 1
-                                  ? () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SlotsPage(
-                                            warehouseName:
-                                                "Warehouse ${index + 1}",
-                                            warehouseID: warehouseList[index]
-                                                .warehouseID,
+                  SizedBox(
+                    height: 15,
+                  ),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: GridView.count(
+                            padding: EdgeInsets.only(bottom: 25),
+                            childAspectRatio: 1.6,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 15,
+                            crossAxisCount: 2,
+                            children:
+                                List.generate(warehouseList.length, (index) {
+                              return CustomElevatedButtonWithIdAndStatus(
+                                name: "Warehouse ${index + 1}",
+                                id: warehouseList[index].warehouseID,
+                                status: "Good",
+                                onTap: warehouseList[index].isActive == 1
+                                    ? () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => SlotsPage(
+                                              warehouseName:
+                                                  "Warehouse ${index + 1}",
+                                              warehouseID: warehouseList[index]
+                                                  .warehouseID,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    }
-                                  : null,
-                            );
-                          }),
+                                        );
+                                      }
+                                    : null,
+                              );
+                            }),
+                          ),
                         ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -458,6 +461,20 @@ class CustomHomeTopBanner extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 fontSize: 25,
               ),
+            ),
+            Text(
+              "Supported by",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 22,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Image.asset(
+              "assets/images/birac_logo.png",
+              width: 100,
             ),
             SizedBox(
               height: 25,

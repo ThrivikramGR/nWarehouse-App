@@ -81,6 +81,7 @@ flutter:
   assets:
     - assets/images/nw_bg.png
     - assets/images/nw_logo.png
+    - assets/images/birac_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
