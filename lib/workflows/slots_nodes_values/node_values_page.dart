@@ -133,6 +133,31 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
 
   bool graphView = true;
 
+  Text getStatusText() {
+    num avg = (double.parse(nodeValues[1][nodeTypeParamsMap[nodeType]![1]]) +
+            double.parse(nodeValues[2][nodeTypeParamsMap[nodeType]![2]])) /
+        2;
+    if (avg > 2000) {
+      return Text(
+        "Degraded",
+        style: TextStyle(
+          fontSize: 17,
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else {
+      return Text(
+        "Good",
+        style: TextStyle(
+          fontSize: 17,
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
+
   @override
   void initState() {
     if (widget.nodeID[3] == "C") nodeType = "CO2";
@@ -331,6 +356,24 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                   style: TextStyle(
                                     fontSize: 17,
                                   ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Status",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                    ),
+                                    getStatusText(),
+                                  ],
                                 ),
                               ],
                             ),
