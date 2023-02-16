@@ -120,8 +120,8 @@ class _HomePageState extends State<HomePage> {
           ),
           Wrap(
             alignment: WrapAlignment.center,
-            spacing: 20,
-            runSpacing: 20,
+            spacing: 10,
+            runSpacing: 10,
             children: [
               CustomElevatedButtonWithIcon(
                 text: "Alerts",
@@ -150,12 +150,12 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Wrap(
             alignment: WrapAlignment.center,
-            spacing: 20,
-            runSpacing: 20,
+            spacing: 10,
+            runSpacing: 10,
             children: [
               CustomElevatedButtonWithIcon(
                 text: "PPM Calibration",
@@ -406,7 +406,7 @@ class CustomElevatedButtonWithIcon extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 11),
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
