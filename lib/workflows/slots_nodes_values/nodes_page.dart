@@ -153,53 +153,51 @@ class _NodesPageState extends State<NodesPage> {
                 ),
               ),
               padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
-              child: Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    isLoading
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : Expanded(
-                            child: GridView.count(
-                              childAspectRatio: 1.6,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 15,
-                              crossAxisCount: 2,
-                              children: List.generate(nodeList.length, (index) {
-                                return CustomElevatedButtonWithIdAndStatus(
-                                  name: "Node ${index + 1}",
-                                  id: nodeList[index].nodeID,
-                                  status: "Good",
-                                  onTap: nodeList[index].isActive == 1
-                                      ? () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  NodeValuesPage(
-                                                nodeID: nodeList[index].nodeID,
-                                                nodeName: "Node ${index + 1}",
-                                              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Expanded(
+                          child: GridView.count(
+                            childAspectRatio: 1.6,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 15,
+                            crossAxisCount: 2,
+                            children: List.generate(nodeList.length, (index) {
+                              return CustomElevatedButtonWithIdAndStatus(
+                                name: "Node ${index + 1}",
+                                id: nodeList[index].nodeID,
+                                status: "Good",
+                                onTap: nodeList[index].isActive == 1
+                                    ? () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                NodeValuesPage(
+                                              nodeID: nodeList[index].nodeID,
+                                              nodeName: "Node ${index + 1}",
                                             ),
-                                          );
-                                        }
-                                      : null,
-                                );
-                              }),
-                              //children: getGridViewSlots(context),
-                            ),
+                                          ),
+                                        );
+                                      }
+                                    : null,
+                              );
+                            }),
+                            //children: getGridViewSlots(context),
                           ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: Image.asset(
-                        "assets/images/nw_bg.png",
-                        scale: 1.5,
-                      ),
+                        ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Image.asset(
+                      "assets/images/nw_bg.png",
+                      scale: 1.5,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
