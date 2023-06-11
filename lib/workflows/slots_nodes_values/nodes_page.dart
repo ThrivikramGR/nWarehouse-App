@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/workflows/slots_nodes_values/node_values_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../home/home_page.dart';
 
 class NodesPage extends StatefulWidget {
@@ -78,12 +79,32 @@ class _NodesPageState extends State<NodesPage> {
           ),
         );
       }
+      nodeList.addAll([
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "04"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "05"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "06"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "07"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "08"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "09"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "10"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "11"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "12"),
+      ]);
     } catch (e) {
       //hardcode in case api fails
       nodeList.addAll([
         Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "01"),
         Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "02"),
         Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "03"),
+        Node(isActive: 1, nodeID: "NWFG" + widget.slotID.substring(2) + "04"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "05"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "06"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "07"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "08"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "09"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "10"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "11"),
+        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "12"),
       ]);
     }
 
@@ -117,9 +138,8 @@ class _NodesPageState extends State<NodesPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).popUntil(
-                (route) => route.isFirst,
-              );
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "home", (Route<dynamic> route) => false);
             },
             icon: Icon(
               Icons.home,
@@ -162,7 +182,7 @@ class _NodesPageState extends State<NodesPage> {
                         )
                       : Expanded(
                           child: GridView.count(
-                            childAspectRatio: 1.6,
+                            childAspectRatio: 2.3,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 15,
                             crossAxisCount: 2,

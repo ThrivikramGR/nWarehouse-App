@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 14,
-                  vertical: 20,
+                  vertical: 60,
                 ),
                 child: Column(
                   children: [
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Login",
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 35,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -323,7 +323,7 @@ class CustomLogoNameBanner extends StatelessWidget {
             "NWarehouse Pvt. Ltd.",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 50,
               fontWeight: FontWeight.bold,
             ),
           ),

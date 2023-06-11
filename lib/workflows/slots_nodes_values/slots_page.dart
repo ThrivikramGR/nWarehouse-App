@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/workflows/slots_nodes_values/nodes_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../home/home_page.dart';
 
 class SlotsPage extends StatefulWidget {
@@ -83,6 +84,7 @@ class _SlotsPageState extends State<SlotsPage> {
         Slot(isActive: 0, slotID: widget.warehouseID + "03"),
         Slot(isActive: 0, slotID: widget.warehouseID + "04"),
         Slot(isActive: 0, slotID: widget.warehouseID + "05"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "06"),
       ]);
     } catch (e) {
       //hardcode in case api fails
@@ -92,6 +94,7 @@ class _SlotsPageState extends State<SlotsPage> {
         Slot(isActive: 0, slotID: widget.warehouseID + "03"),
         Slot(isActive: 0, slotID: widget.warehouseID + "04"),
         Slot(isActive: 0, slotID: widget.warehouseID + "05"),
+        Slot(isActive: 0, slotID: widget.warehouseID + "06"),
       ]);
     }
 
@@ -158,14 +161,16 @@ class _SlotsPageState extends State<SlotsPage> {
                         )
                       : Expanded(
                           child: GridView.count(
-                            childAspectRatio: 1.6,
+                            childAspectRatio: 2.3,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 15,
                             crossAxisCount: 2,
                             children: List.generate(slotList.length, (index) {
                               return CustomElevatedButtonWithIdAndStatus(
                                 name: "Slot ${index + 1}",
-                                id: slotList[index].slotID,
+                                id: slotList[index].slotID.substring(0, 6) +
+                                    "S" +
+                                    slotList[index].slotID.substring(6),
                                 status: "Good",
                                 onTap: slotList[index].isActive == 1
                                     ? () {

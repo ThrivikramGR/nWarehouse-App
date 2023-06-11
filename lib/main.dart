@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
 import 'package:iot_project/screens/home/popup_menu/add_warehouse_screen.dart';
 import 'package:iot_project/workflows/home/home_page.dart';
-
+import 'package:iot_project/workflows/launch_page.dart';
 import 'package:iot_project/workflows/login_signup/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,13 +26,14 @@ class MyApp extends StatelessWidget {
         fontFamily: "NunitoSans",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "launchPage",
       routes: {
         '/': (context) => InitRoutingPage(),
         'login': (context) => LoginPage(),
         'home': (context) => HomePage(),
         'screen4': (context) => AddWarehouseScreen(),
         'addUser': (context) => AddUserScreen(),
+        'launchPage': (context) => LaunchPage(),
       },
     );
   }

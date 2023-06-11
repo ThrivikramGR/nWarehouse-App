@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gauge_indicator/gauge_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -139,9 +140,9 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
         2;
     if (avg > 2000) {
       return Text(
-        "Degraded",
+        "Take Action",
         style: TextStyle(
-          fontSize: 17,
+          fontSize: 22,
           color: Colors.red,
           fontWeight: FontWeight.bold,
         ),
@@ -150,7 +151,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
       return Text(
         "Good",
         style: TextStyle(
-          fontSize: 17,
+          fontSize: 22,
           color: Colors.green,
           fontWeight: FontWeight.bold,
         ),
@@ -171,13 +172,23 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
     super.dispose();
   }
 
+  double getValue(int pos) {
+    double sum = 0;
+    for (int i = 0;
+        i < (nodeValues.length > 30 ? 30 : nodeValues.length);
+        i++) {
+      sum += double.parse(nodeValues[i][nodeTypeParamsMap[nodeType]![pos]]);
+    }
+    return sum / (nodeValues.length > 30 ? 30 : nodeValues.length);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          widget.nodeName,
+          widget.nodeID,
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -190,9 +201,8 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).popUntil(
-                (route) => route.isFirst,
-              );
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "home", (Route<dynamic> route) => false);
             },
             icon: Icon(
               Icons.home,
@@ -381,7 +391,135 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                width: 200,
+                                child: AnimatedRadialGauge(
+                                  duration: const Duration(seconds: 1),
+                                  curve: Curves.elasticOut,
+                                  value: getValue(0),
+                                  progressBar: GaugeRoundedProgressBar(
+                                    color: Colors.green.shade800,
+                                  ),
+                                  axis: GaugeAxis(
+                                    min: 0,
+                                    max: 3000,
+                                    degrees: 180,
+                                    style: const GaugeAxisStyle(
+                                      thickness: 20,
+                                      background: Color(0xFFDFE2EC),
+                                    ),
+                                    pointer: NeedlePointer(
+                                      size: Size(16, 50),
+                                      borderRadius: 16,
+                                      backgroundColor: Color(0xFF193663),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                getValue(0).toStringAsFixed(0),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                nodeTypeParamsMap[nodeType]![0],
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                width: 200,
+                                child: AnimatedRadialGauge(
+                                  duration: const Duration(seconds: 1),
+                                  curve: Curves.elasticOut,
+                                  value: getValue(1),
+                                  progressBar: GaugeRoundedProgressBar(
+                                    color: Colors.green.shade800,
+                                  ),
+                                  axis: GaugeAxis(
+                                    min: 0,
+                                    max: 3000,
+                                    degrees: 180,
+                                    style: const GaugeAxisStyle(
+                                      thickness: 20,
+                                      background: Color(0xFFDFE2EC),
+                                    ),
+                                    pointer: NeedlePointer(
+                                      size: Size(16, 50),
+                                      borderRadius: 16,
+                                      backgroundColor: Color(0xFF193663),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                getValue(1).toStringAsFixed(0),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                nodeTypeParamsMap[nodeType]![1],
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                width: 200,
+                                child: AnimatedRadialGauge(
+                                  duration: const Duration(seconds: 1),
+                                  curve: Curves.elasticOut,
+                                  value: getValue(2),
+                                  progressBar: GaugeRoundedProgressBar(
+                                    color: Colors.green.shade800,
+                                  ),
+                                  axis: GaugeAxis(
+                                    min: 0,
+                                    max: 3000,
+                                    degrees: 180,
+                                    style: const GaugeAxisStyle(
+                                      thickness: 20,
+                                      background: Color(0xFFDFE2EC),
+                                    ),
+                                    pointer: NeedlePointer(
+                                      size: Size(16, 50),
+                                      borderRadius: 16,
+                                      backgroundColor: Color(0xFF193663),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                getValue(2).toStringAsFixed(0),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                nodeTypeParamsMap[nodeType]![2],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 45,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -395,7 +533,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                 fontSize: 22,
                               ),
                             ),
-                            TextButton(
+                            ElevatedButton(
                               onPressed: () {
                                 setState(() {
                                   graphView = !graphView;
@@ -540,96 +678,103 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                             vertical: 10, horizontal: 10),
                                         tileColor: Color(0xFF0F7F2F9),
                                         style: ListTileStyle.list,
-                                        title: Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 10),
+                                        // title: Padding(
+                                        //   padding:
+                                        //       const EdgeInsets.only(bottom: 10),
+                                        //   child: Row(
+                                        //     children: [
+                                        //       Text(
+                                        //         "Timestamp:",
+                                        //         style: TextStyle(
+                                        //           fontWeight: FontWeight.bold,
+                                        //           color: Colors.grey[800],
+                                        //           fontSize: 17,
+                                        //         ),
+                                        //       ),
+                                        //       SizedBox(
+                                        //         width: 5,
+                                        //       ),
+                                        //       Text(
+                                        //         nodeValues[index]["TimeStamp"],
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        subtitle: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15),
                                           child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Text(
-                                                "Timestamp:",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey[800],
-                                                  fontSize: 17,
-                                                ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    nodeValues[index][
+                                                        nodeTypeParamsMap[
+                                                            nodeType]![0]],
+                                                    style: TextStyle(
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    nodeTypeParamsMap[
+                                                        nodeType]![0],
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.grey[800],
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                width: 5,
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    nodeValues[index][
+                                                        nodeTypeParamsMap[
+                                                            nodeType]![1]],
+                                                    style: TextStyle(
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    nodeTypeParamsMap[
+                                                        nodeType]![1],
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.grey[800],
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                nodeValues[index]["TimeStamp"],
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    nodeValues[index][
+                                                        nodeTypeParamsMap[
+                                                            nodeType]![2]],
+                                                    style: TextStyle(
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    nodeTypeParamsMap[
+                                                        nodeType]![2],
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.grey[800],
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        subtitle: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  nodeValues[index][
-                                                      nodeTypeParamsMap[
-                                                          nodeType]![0]],
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  nodeTypeParamsMap[nodeType]![
-                                                      0],
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.grey[800],
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  nodeValues[index][
-                                                      nodeTypeParamsMap[
-                                                          nodeType]![1]],
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  nodeTypeParamsMap[nodeType]![
-                                                      1],
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.grey[800],
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  nodeValues[index][
-                                                      nodeTypeParamsMap[
-                                                          nodeType]![2]],
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  nodeTypeParamsMap[nodeType]![
-                                                      2],
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.grey[800],
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
                                         ),
                                       ),
                                     ),
