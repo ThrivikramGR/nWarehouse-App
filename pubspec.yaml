@@ -45,7 +45,7 @@ dependencies:
   group_button: ^5.0.1
   syncfusion_flutter_charts: ^20.2.49
   flutter_native_splash: ^2.2.9
-  flutter_blue: ^0.8.0
+  #flutter_blue: ^0.8.0
   shared_preferences: ^2.0.17
   confetti: ^0.7.0
   url_launcher: ^6.0.17

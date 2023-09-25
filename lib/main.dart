@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "NunitoSans",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "launchPage",
+      initialRoute: "home",
       routes: {
         '/': (context) => InitRoutingPage(),
         'login': (context) => LoginPage(),

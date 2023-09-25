@@ -54,7 +54,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
 
   Future<void> fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+    timer = Timer.periodic(Duration(seconds: 3), (timer) async {
       try {
         Response response = await Dio().post(
           "https://api.n-warehouse.com/api/viewdata/databyNodeid",
@@ -281,7 +281,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      nodeTypeParamsMap[nodeType]![0],
+                                      "SV1",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17,
@@ -308,7 +308,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      nodeTypeParamsMap[nodeType]![1],
+                                      "SV2",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17,
@@ -335,7 +335,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      nodeTypeParamsMap[nodeType]![2],
+                                      "SV3",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
@@ -354,19 +354,19 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                     ),
                                   ],
                                 ),
-                                Text(
-                                  "Timestamp",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                                Text(
-                                  nodeValues[0]["TimeStamp"],
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                  ),
-                                ),
+                                // Text(
+                                //   "Timestamp",
+                                //   style: TextStyle(
+                                //     fontWeight: FontWeight.bold,
+                                //     fontSize: 17,
+                                //   ),
+                                // ),
+                                // Text(
+                                //   nodeValues[0]["TimeStamp"],
+                                //   style: TextStyle(
+                                //     fontSize: 17,
+                                //   ),
+                                // ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -432,7 +432,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                 ),
                               ),
                               Text(
-                                nodeTypeParamsMap[nodeType]![0],
+                                "SV1",
                               ),
                             ],
                           ),
@@ -472,7 +472,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                 ),
                               ),
                               Text(
-                                nodeTypeParamsMap[nodeType]![1],
+                                "SV2",
                               ),
                             ],
                           ),
@@ -512,7 +512,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                 ),
                               ),
                               Text(
-                                nodeTypeParamsMap[nodeType]![2],
+                                "SV3",
                               ),
                             ],
                           ),
@@ -570,7 +570,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                             ? [
                                 SfCartesianChart(
                                   title: ChartTitle(
-                                    text: nodeTypeParamsMap[nodeType]![0],
+                                    text: "SV1",
                                   ),
                                   primaryXAxis: CategoryAxis(
                                     arrangeByIndex: true,
@@ -605,7 +605,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                 ),
                                 SfCartesianChart(
                                   title: ChartTitle(
-                                    text: nodeTypeParamsMap[nodeType]![1],
+                                    text: "SV2",
                                   ),
                                   primaryXAxis: CategoryAxis(
                                     arrangeByIndex: true,
@@ -637,7 +637,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                 ),
                                 SfCartesianChart(
                                   title: ChartTitle(
-                                    text: nodeTypeParamsMap[nodeType]![2],
+                                    text: "SV3",
                                   ),
                                   primaryXAxis: CategoryAxis(
                                     arrangeByIndex: true,
@@ -718,8 +718,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    nodeTypeParamsMap[
-                                                        nodeType]![0],
+                                                    "SV1",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -740,8 +739,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    nodeTypeParamsMap[
-                                                        nodeType]![1],
+                                                    "SV2",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -762,8 +760,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    nodeTypeParamsMap[
-                                                        nodeType]![2],
+                                                    "SV3",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,

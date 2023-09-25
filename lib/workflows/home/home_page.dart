@@ -239,21 +239,9 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: Image.asset(
-                    "assets/images/ccamp.png",
-                    width: 200,
-                  ),
-                ),
-                Image.asset(
-                  "assets/images/tbi.png",
-                  width: 300,
-                ),
-              ],
+            child: Image.asset(
+              "assets/images/MHI.png",
+              height: 250,
             ),
           ),
         ],
@@ -497,30 +485,11 @@ class CustomHomeTopBanner extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 25,
             ),
-            Text(
-              "Supported by",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  "assets/images/birac_logo.png",
-                  width: 200,
-                ),
-                Image.asset(
-                  "assets/images/sas2.png",
-                  width: 300,
-                ),
-              ],
+            Image.asset(
+              "assets/images/sastra_landscape.png",
+              width: 400,
             ),
             SizedBox(
               height: 25,
