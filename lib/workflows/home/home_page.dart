@@ -102,146 +102,70 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
         children: [
           CustomHomeTopBanner(),
-          // SizedBox(
-          //   height: 20,
-          // ),
-          // Wrap(
-          //   alignment: WrapAlignment.center,
-          //   spacing: 10,
-          //   runSpacing: 10,
-          //   children: [
-          //     CustomElevatedButtonWithIcon(
-          //       text: "Alerts",
-          //       icon: Icons.notifications_none,
-          //       onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => AlertsPage(),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //     CustomElevatedButtonWithIcon(
-          //       text: "Profile",
-          //       icon: Icons.account_circle_outlined,
-          //       onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => ProfilePage(),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // Wrap(
-          //   alignment: WrapAlignment.center,
-          //   spacing: 10,
-          //   runSpacing: 10,
-          //   children: [
-          //     CustomElevatedButtonWithIcon(
-          //       text: "PPM Calibration",
-          //       icon: Icons.adjust_rounded,
-          //       onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => PPMCalibrationPage(),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //     CustomElevatedButtonWithIcon(
-          //       text: "Robot Remote",
-          //       icon: Icons.settings_remote_outlined,
-          //       onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => RemoteControlPage(),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   ],
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
-          //   child: Divider(),
-          // ),
           SizedBox(
             height: 25,
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Warehouses",
-                    style: TextStyle(
-                      fontFamily: "NunitoSans",
-                      color: Color(0xFF323232),
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500,
-                    ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width < 700 ? 20 : 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Warehouses",
+                  style: TextStyle(
+                    fontFamily: "NunitoSans",
+                    color: Color(0xFF323232),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : Expanded(
-                          child: GridView.count(
-                            padding: EdgeInsets.only(bottom: 25),
-                            childAspectRatio: 2.0,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 2,
-                            children:
-                                List.generate(warehouseList.length, (index) {
-                              return CustomElevatedButtonWithIdAndStatus(
-                                name: "Warehouse ${index + 1}",
-                                id: warehouseList[index].warehouseID,
-                                status: "Good",
-                                onTap: warehouseList[index].isActive == 1
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => SlotsPage(
-                                              warehouseName:
-                                                  "Warehouse ${index + 1}",
-                                              warehouseID: warehouseList[index]
-                                                  .warehouseID,
-                                            ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : Wrap(
+                        spacing: 25,
+                        runSpacing: 25,
+                        children: List.generate(warehouseList.length, (index) {
+                          return SizedBox(
+                            width: 250,
+                            height: 150,
+                            child: CustomElevatedButtonWithIdAndStatus(
+                              name: "Warehouse ${index + 1}",
+                              id: warehouseList[index].warehouseID,
+                              status: "Good",
+                              onTap: warehouseList[index].isActive == 1
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SlotsPage(
+                                            warehouseName:
+                                                "Warehouse ${index + 1}",
+                                            warehouseID: warehouseList[index]
+                                                .warehouseID,
                                           ),
-                                        );
-                                      }
-                                    : null,
-                              );
-                            }),
-                          ),
-                        ),
-                ],
-              ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            ),
+                          );
+                        }),
+                      ),
+              ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(top: 50),
             child: Image.asset(
               "assets/images/MHI.png",
-              height: 250,
+              height: 150,
             ),
           ),
         ],
@@ -332,7 +256,7 @@ class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
           Text(
             name,
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: onTap == null ? Colors.black38 : Colors.white,
             ),
@@ -453,14 +377,14 @@ class CustomHomeTopBanner extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 60,
+              height: 20,
             ),
             Image.asset(
               "assets/images/nw_logo.png",
-              height: 80,
+              height: 40,
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
               "NWarehouse Pvt. Ltd.",
@@ -468,11 +392,11 @@ class CustomHomeTopBanner extends StatelessWidget {
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w700,
-                fontSize: 40,
+                fontSize: 25,
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
               "\"KAAPPAAN\"",
@@ -481,18 +405,18 @@ class CustomHomeTopBanner extends StatelessWidget {
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 3,
-                fontSize: 30,
+                fontSize: 20,
               ),
             ),
             SizedBox(
-              height: 25,
+              height: 15,
             ),
             Image.asset(
               "assets/images/sastra_landscape.png",
-              width: 400,
+              width: 250,
             ),
             SizedBox(
-              height: 25,
+              height: 15,
             ),
           ],
         ),
