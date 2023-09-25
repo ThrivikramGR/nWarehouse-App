@@ -126,8 +126,7 @@ class _SlotsPageState extends State<SlotsPage> {
           color: Color(0xFF323232),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.only(left: 18, top: 15),
@@ -159,14 +158,14 @@ class _SlotsPageState extends State<SlotsPage> {
                       ? Center(
                           child: CircularProgressIndicator(),
                         )
-                      : Expanded(
-                          child: GridView.count(
-                            childAspectRatio: 2.3,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 2,
-                            children: List.generate(slotList.length, (index) {
-                              return CustomElevatedButtonWithIdAndStatus(
+                      : Wrap(
+                          spacing: 25,
+                          runSpacing: 25,
+                          children: List.generate(slotList.length, (index) {
+                            return SizedBox(
+                              width: 250,
+                              height: 150,
+                              child: CustomElevatedButtonWithIdAndStatus(
                                 name: "Slot ${index + 1}",
                                 id: slotList[index].slotID.substring(0, 6) +
                                     "S" +
@@ -185,13 +184,12 @@ class _SlotsPageState extends State<SlotsPage> {
                                         );
                                       }
                                     : null,
-                              );
-                            }),
-                            //children: getGridViewSlots(context),
-                          ),
+                              ),
+                            );
+                          }),
                         ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 20),
+                    padding: EdgeInsets.only(bottom: 20, top: 50),
                     child: Image.asset(
                       "assets/images/nw_bg.png",
                       scale: 1.5,
