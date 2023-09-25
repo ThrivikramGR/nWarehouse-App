@@ -161,62 +161,59 @@ class _NodesPageState extends State<NodesPage> {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    8,
-                  ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8,
                 ),
               ),
-              padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Wrap(
-                          spacing: 25,
-                          runSpacing: 25,
-                          children: List.generate(nodeList.length, (index) {
-                            return SizedBox(
-                              width: 250,
-                              height: 150,
-                              child: CustomElevatedButtonWithIdAndStatus(
-                                name: "Node ${index + 1}",
-                                id: nodeList[index].nodeID,
-                                status: "Good",
-                                onTap: nodeList[index].isActive == 1
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                NodeValuesPage(
-                                              nodeID: nodeList[index].nodeID,
-                                              nodeName: "Node ${index + 1}",
-                                            ),
+            ),
+            padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Wrap(
+                        spacing: 25,
+                        runSpacing: 25,
+                        children: List.generate(nodeList.length, (index) {
+                          return SizedBox(
+                            width: 250,
+                            height: 150,
+                            child: CustomElevatedButtonWithIdAndStatus(
+                              name: "Node ${index + 1}",
+                              id: nodeList[index].nodeID,
+                              status: "Good",
+                              onTap: nodeList[index].isActive == 1
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NodeValuesPage(
+                                            nodeID: nodeList[index].nodeID,
+                                            nodeName: "Node ${index + 1}",
                                           ),
-                                        );
-                                      }
-                                    : null,
-                              ),
-                            );
-                          }),
-                        ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20, top: 50),
-                    child: Image.asset(
-                      "assets/images/nw_bg.png",
-                      scale: 1.5,
-                    ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            ),
+                          );
+                        }),
+                      ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20, top: 50),
+                  child: Image.asset(
+                    "assets/images/nw_bg.png",
+                    scale: 1.5,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

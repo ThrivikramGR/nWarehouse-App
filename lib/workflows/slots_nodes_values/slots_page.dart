@@ -140,63 +140,61 @@ class _SlotsPageState extends State<SlotsPage> {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    8,
-                  ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8,
                 ),
               ),
-              padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Wrap(
-                          spacing: 25,
-                          runSpacing: 25,
-                          children: List.generate(slotList.length, (index) {
-                            return SizedBox(
-                              width: 250,
-                              height: 150,
-                              child: CustomElevatedButtonWithIdAndStatus(
-                                name: "Slot ${index + 1}",
-                                id: slotList[index].slotID.substring(0, 6) +
-                                    "S" +
-                                    slotList[index].slotID.substring(6),
-                                status: "Good",
-                                onTap: slotList[index].isActive == 1
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => NodesPage(
-                                              slotName: "Slot ${index + 1}",
-                                              slotID: slotList[index].slotID,
-                                            ),
+            ),
+            padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Wrap(
+                        spacing: 25,
+                        runSpacing: 25,
+                        children: List.generate(slotList.length, (index) {
+                          return SizedBox(
+                            width: 250,
+                            height: 150,
+                            child: CustomElevatedButtonWithIdAndStatus(
+                              name: "Slot ${index + 1}",
+                              id: slotList[index].slotID.substring(0, 6) +
+                                  "S" +
+                                  slotList[index].slotID.substring(6),
+                              status: "Good",
+                              onTap: slotList[index].isActive == 1
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NodesPage(
+                                            slotName: "Slot ${index + 1}",
+                                            slotID: slotList[index].slotID,
                                           ),
-                                        );
-                                      }
-                                    : null,
-                              ),
-                            );
-                          }),
-                        ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20, top: 50),
-                    child: Image.asset(
-                      "assets/images/nw_bg.png",
-                      scale: 1.5,
-                    ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            ),
+                          );
+                        }),
+                      ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20, top: 50),
+                  child: Image.asset(
+                    "assets/images/nw_bg.png",
+                    scale: 1.5,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
