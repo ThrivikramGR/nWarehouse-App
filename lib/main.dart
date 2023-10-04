@@ -6,7 +6,6 @@ import 'package:iot_project/screens/home/popup_menu/add_warehouse_screen.dart';
 import 'package:iot_project/workflows/home/home_page.dart';
 import 'package:iot_project/workflows/launch_page.dart';
 import 'package:iot_project/workflows/login_signup/login_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 
@@ -53,13 +52,7 @@ class InitRoutingPage extends StatefulWidget {
 
 class _InitRoutingPageState extends State<InitRoutingPage> {
   Future<void> initRouteNav() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? email = prefs.getString("email");
-    if (email == null) {
-      Navigator.pushReplacementNamed(context, "login");
-    } else {
-      Navigator.pushReplacementNamed(context, "home");
-    }
+    Navigator.pushReplacementNamed(context, "home");
   }
 
   @override

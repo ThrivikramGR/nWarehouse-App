@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_project/workflows/slots_nodes_values/slots_page_excel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isLoading = true;
   List<Warehouse> warehouseList = [];
 
   void displaySnackBar(String message,
@@ -31,65 +29,13 @@ class _HomePageState extends State<HomePage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  Future<void> fetchWarehouses() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    try {
-      Response response = await Dio().post(
-        "https://api.n-warehouse.com/api/state/warehouseState",
-        options: Options(
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer ${prefs.getString("token")}",
-          },
-        ),
-      );
-      if (response.statusCode != 200 || response.data["success"] != 1) {
-        if (response.data["message"] == "Invalid Token...") {
-          displaySnackBar("Session Expired!");
-          prefs.clear();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            "login",
-            (Route<dynamic> route) => false,
-          );
-        }
-        //hardcode in case api fails
-        warehouseList.addAll([
-          Warehouse(isActive: 1, warehouseID: "NW1001"),
-          Warehouse(isActive: 1, warehouseID: "NW1002"),
-          Warehouse(isActive: 0, warehouseID: "NW1003"),
-        ]);
-        setState(() {
-          isLoading = false;
-        });
-        return;
-      }
-      for (Map warehouse in response.data["data"]) {
-        warehouseList.add(
-          Warehouse(
-            isActive: warehouse["isActive"],
-            warehouseID: warehouse["idWarehouse"],
-          ),
-        );
-      }
-    } catch (e) {
-      //hardcode in case api fails
-      warehouseList.addAll([
-        Warehouse(isActive: 1, warehouseID: "NW1001"),
-        Warehouse(isActive: 1, warehouseID: "NW1002"),
-        Warehouse(isActive: 1, warehouseID: "NW1003"),
-      ]);
-      warehouseList.add(
-        Warehouse(
-          isActive: 0,
-          warehouseID: "NW1004",
-        ),
-      );
-    }
-
-    setState(() {
-      isLoading = false;
-    });
+  void fetchWarehouses() {
+    warehouseList.addAll([
+      Warehouse(isActive: 1, warehouseID: "NW1001"),
+      Warehouse(isActive: 0, warehouseID: "NW1002"),
+      Warehouse(isActive: 0, warehouseID: "NW1003"),
+      Warehouse(isActive: 0, warehouseID: "NW1004"),
+    ]);
   }
 
   @override
@@ -125,58 +71,55 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 25,
                 ),
-                isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : Wrap(
-                        spacing: 25,
-                        runSpacing: 25,
-                        children: List.generate(warehouseList.length, (index) {
-                          return SizedBox(
-                            width: 250,
-                            height: 150,
-                            child: CustomElevatedButtonWithIdAndStatus(
-                              name: "Warehouse ${index + 1}",
-                              id: warehouseList[index].warehouseID,
-                              status: "Good",
-                              onTap: warehouseList[index].isActive == 1
-                                  ? () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SlotsPageExcel(
-                                            warehouseName:
-                                                "Warehouse ${index + 1}",
-                                            warehouseID: warehouseList[index]
-                                                .warehouseID,
-                                            slotNodesList: {
-                                              "NW10010101": [
-                                                "NWFG10010101",
-                                                "NWFG10010102",
-                                                "NWFG10010103",
-                                                "NWFG10010104",
-                                              ],
-                                              "NW10010102": [
-                                                "NWFG10010205",
-                                                "NWFG10010206",
-                                                "NWFG10010207",
-                                                "NWFG10010212",
-                                              ],
-                                              "NW10010103": [
-                                                "NWFG10010308",
-                                                "NWFG10010309",
-                                                "NWFG10010310",
-                                                "NWFG10010311",
-                                              ],
-                                            },
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  : null,
-                            ),
-                          );
-                        }),
+                Wrap(
+                  spacing: 25,
+                  runSpacing: 25,
+                  children: List.generate(warehouseList.length, (index) {
+                    return SizedBox(
+                      width: 250,
+                      height: 150,
+                      child: CustomElevatedButtonWithIdAndStatus(
+                        name: "Warehouse ${index + 1}",
+                        id: warehouseList[index].warehouseID,
+                        status: "Good",
+                        onTap: warehouseList[index].isActive == 1
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SlotsPageExcel(
+                                      warehouseName: "Warehouse ${index + 1}",
+                                      warehouseID:
+                                          warehouseList[index].warehouseID,
+                                      slotNodesList: {
+                                        "NW10010101": [
+                                          "NWFG10010101",
+                                          "NWFG10010102",
+                                          "NWFG10010103",
+                                          "NWFG10010104",
+                                        ],
+                                        "NW10010102": [
+                                          "NWFG10010205",
+                                          "NWFG10010206",
+                                          "NWFG10010207",
+                                          "NWFG10010212",
+                                        ],
+                                        "NW10010103": [
+                                          "NWFG10010308",
+                                          "NWFG10010309",
+                                          "NWFG10010310",
+                                          "NWFG10010311",
+                                        ],
+                                      },
+                                    ),
+                                  ),
+                                );
+                              }
+                            : null,
                       ),
+                    );
+                  }),
+                ),
               ],
             ),
           ),

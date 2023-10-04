@@ -54,7 +54,7 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
     var table = decoder.tables['Sheet1'];
 
     nodeValues.addAll(table!.rows
-        .sublist(1, table.rows.length > 1000 ? 1000 : table.rows.length));
+        .sublist(1, table.rows.length > 500 ? 500 : table.rows.length));
     generateGraphPoints();
     setState(() {
       loading = false;
