@@ -45,12 +45,16 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
   List<List> nodeValues = [];
 
   void fetchData() async {
-    ByteData data = await rootBundle.load("excel_data/${widget.nodeID}.xlsx");
+    ByteData data =
+        await rootBundle.load("assets/excel_data/${widget.nodeID}.xlsx");
+
     List<int> bytes =
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
     var decoder = SpreadsheetDecoder.decodeBytes(
       bytes,
     );
+
     var table = decoder.tables['Sheet1'];
 
     nodeValues.addAll(table!.rows.reversed
@@ -161,7 +165,9 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: loading
-            ? Center(child: CircularProgressIndicator())
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
             : nodeValues.isEmpty
                 ? Center(
                     child: Text(
