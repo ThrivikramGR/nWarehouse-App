@@ -329,8 +329,8 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Wrap(
+                        alignment: WrapAlignment.spaceEvenly,
                         children: [
                           Column(
                             children: [
