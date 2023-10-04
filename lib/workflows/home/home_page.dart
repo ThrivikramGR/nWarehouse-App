@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:iot_project/workflows/slots_nodes_values/slots_page_excel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../slots_nodes_values/slots_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -144,11 +143,31 @@ class _HomePageState extends State<HomePage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => SlotsPage(
+                                          builder: (context) => SlotsPageExcel(
                                             warehouseName:
                                                 "Warehouse ${index + 1}",
                                             warehouseID: warehouseList[index]
                                                 .warehouseID,
+                                            slotNodesList: {
+                                              "NW10010101": [
+                                                "NWFG10010101",
+                                                "NWFG10010102",
+                                                "NWFG10010103",
+                                                "NWFG10010104",
+                                              ],
+                                              "NW10010102": [
+                                                "NWFG10010205",
+                                                "NWFG10010206",
+                                                "NWFG10010207",
+                                                "NWFG10010212",
+                                              ],
+                                              "NW10010103": [
+                                                "NWFG10010308",
+                                                "NWFG10010309",
+                                                "NWFG10010310",
+                                                "NWFG10010311",
+                                              ],
+                                            },
                                           ),
                                         ),
                                       );
