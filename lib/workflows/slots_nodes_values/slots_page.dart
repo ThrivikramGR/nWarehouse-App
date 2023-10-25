@@ -98,7 +98,7 @@ class _SlotsPageState extends State<SlotsPage> {
         Slot(isActive: 0, slotID: widget.warehouseID + "06"),
       ]);
     }
-
+    await Future.delayed(Duration(milliseconds: 100));
     setState(() {
       isLoading = false;
     });

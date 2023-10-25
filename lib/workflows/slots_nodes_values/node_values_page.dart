@@ -88,6 +88,8 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
         }
 
         nodeValues = response.data["data"];
+        print("Node Values - from API");
+        print(nodeValues.first["TimeStamp"]);
       } catch (e) {
         if (nodeValues.isEmpty) {
           //hardcode in case api fails
@@ -231,7 +233,7 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                       Padding(
                         padding: EdgeInsets.only(left: 20.0),
                         child: Text(
-                          "Recent Data",
+                          "Latest Data",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
@@ -354,37 +356,25 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                                     ),
                                   ],
                                 ),
-                                // Text(
-                                //   "Timestamp",
-                                //   style: TextStyle(
-                                //     fontWeight: FontWeight.bold,
-                                //     fontSize: 17,
-                                //   ),
+
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text(
+                                //       "Status",
+                                //       style: TextStyle(
+                                //         fontWeight: FontWeight.bold,
+                                //         fontSize: 18,
+                                //       ),
+                                //     ),
+                                //     SizedBox(
+                                //       width:
+                                //           MediaQuery.of(context).size.width / 4,
+                                //     ),
+                                //     getStatusText(),
+                                //   ],
                                 // ),
-                                // Text(
-                                //   nodeValues[0]["TimeStamp"],
-                                //   style: TextStyle(
-                                //     fontSize: 17,
-                                //   ),
-                                // ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Status",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                    ),
-                                    getStatusText(),
-                                  ],
-                                ),
                               ],
                             ),
                           ),
@@ -392,6 +382,16 @@ class _NodeValuesPageState extends State<NodeValuesPage> {
                       ),
                       SizedBox(
                         height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.0, top: 5),
+                        child: Text(
+                          "Average",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

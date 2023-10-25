@@ -79,17 +79,18 @@ class _NodesPageState extends State<NodesPage> {
           ),
         );
       }
-      nodeList.addAll([
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "04"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "05"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "06"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "07"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "08"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "09"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "10"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "11"),
-        Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "12"),
-      ]);
+      print("Nodes - from API");
+      // nodeList.addAll([
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "04"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "05"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "06"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "07"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "08"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "09"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "10"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "11"),
+      //   Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "12"),
+      // ]);
     } catch (e) {
       //hardcode in case api fails
       nodeList.addAll([
@@ -107,6 +108,7 @@ class _NodesPageState extends State<NodesPage> {
         Node(isActive: 0, nodeID: "NWFG" + widget.slotID.substring(2) + "12"),
       ]);
     }
+    await Future.delayed(Duration(milliseconds: 100));
 
     setState(() {
       isLoading = false;
@@ -147,8 +149,7 @@ class _NodesPageState extends State<NodesPage> {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.only(left: 18, top: 15),
@@ -162,63 +163,59 @@ class _NodesPageState extends State<NodesPage> {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    8,
-                  ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8,
                 ),
               ),
-              padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Expanded(
-                          child: GridView.count(
-                            childAspectRatio: 2.3,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 2,
-                            children: List.generate(nodeList.length, (index) {
-                              return CustomElevatedButtonWithIdAndStatus(
-                                name: "Node ${index + 1}",
-                                id: nodeList[index].nodeID,
-                                status: "Good",
-                                onTap: nodeList[index].isActive == 1
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                NodeValuesPage(
-                                              nodeID: nodeList[index].nodeID,
-                                              nodeName: "Node ${index + 1}",
-                                            ),
+            ),
+            padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
+            child: Column(
+              children: [
+                isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Wrap(
+                        spacing: 25,
+                        runSpacing: 25,
+                        children: List.generate(nodeList.length, (index) {
+                          return SizedBox(
+                            width: 250,
+                            height: 150,
+                            child: CustomElevatedButtonWithIdAndStatus(
+                              name: "Node ${index + 1}",
+                              id: nodeList[index].nodeID,
+                              status: "Good",
+                              onTap: nodeList[index].isActive == 1
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NodeValuesPage(
+                                            nodeID: nodeList[index].nodeID,
+                                            nodeName: "Node ${index + 1}",
                                           ),
-                                        );
-                                      }
-                                    : null,
-                              );
-                            }),
-                            //children: getGridViewSlots(context),
-                          ),
-                        ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Image.asset(
-                      "assets/images/nw_bg.png",
-                      scale: 1.5,
-                    ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            ),
+                          );
+                        }),
+                        //children: getGridViewSlots(context),
+                      ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20, top: 50),
+                  child: Image.asset(
+                    "assets/images/nw_bg.png",
+                    scale: 1.5,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
