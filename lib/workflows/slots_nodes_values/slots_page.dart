@@ -166,9 +166,7 @@ class _SlotsPageState extends State<SlotsPage> {
                             height: 150,
                             child: CustomElevatedButtonWithIdAndStatus(
                               name: "Slot ${index + 1}",
-                              id: slotList[index].slotID.substring(0, 6) +
-                                  "S" +
-                                  slotList[index].slotID.substring(6),
+                              id: slotList[index].slotID,
                               status: "Good",
                               onTap: slotList[index].isActive == 1
                                   ? () {
