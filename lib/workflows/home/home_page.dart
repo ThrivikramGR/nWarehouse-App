@@ -129,35 +129,40 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 25,
                 ),
-                Wrap(
-                  spacing: 25,
-                  runSpacing: 25,
-                  children: List.generate(warehouseList.length, (index) {
-                    return SizedBox(
-                      width: 250,
-                      height: 150,
-                      child: CustomElevatedButtonWithIdAndStatus(
-                        name: "Warehouse ${index + 1}",
-                        id: warehouseList[index].warehouseID,
-                        status: "Good",
-                        onTap: warehouseList[index].isActive == 1
-                            ? () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SlotsPage(
-                                      warehouseName: "Warehouse ${index + 1}",
-                                      warehouseID:
-                                          warehouseList[index].warehouseID,
-                                    ),
-                                  ),
-                                );
-                              }
-                            : null,
+                isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Wrap(
+                        spacing: 25,
+                        runSpacing: 25,
+                        children: List.generate(warehouseList.length, (index) {
+                          return SizedBox(
+                            width: 250,
+                            height: 150,
+                            child: CustomElevatedButtonWithIdAndStatus(
+                              name: "Warehouse ${index + 1}",
+                              id: warehouseList[index].warehouseID,
+                              status: "Good",
+                              onTap: warehouseList[index].isActive == 1
+                                  ? () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SlotsPage(
+                                            warehouseName:
+                                                "Warehouse ${index + 1}",
+                                            warehouseID: warehouseList[index]
+                                                .warehouseID,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
-                ),
               ],
             ),
           ),
