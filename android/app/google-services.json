@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916725047021",
+    "project_id": "nwarehouse123",
+    "storage_bucket": "nwarehouse123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916725047021:android:c1930e438b49175ee536e4",
+        "android_client_info": {
+          "package_name": "com.nWarehouse.nWareApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdnuNNjtZjdG80MSK_nRj3UszdLx5z8tQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

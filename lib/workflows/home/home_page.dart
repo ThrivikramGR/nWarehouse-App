@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iot_project/workflows/slots_nodes_values/slots_page_excel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -136,51 +135,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class CustomPopupMenuButton extends StatelessWidget {
-  const CustomPopupMenuButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: Icon(
-        Icons.more_vert,
-        color: Colors.black,
-      ),
-      onSelected: (items) async {
-        switch (items) {
-          case 0:
-            SharedPreferences.getInstance().then((value) {
-              value.clear();
-            });
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              "login",
-              (Route<dynamic> route) => false,
-            );
-            break;
-          default:
-            break;
-        }
-      },
-      itemBuilder: (context) {
-        return [
-          PopupMenuItem(
-            value: 0,
-            child: Text(
-              "Logout",
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ];
-      },
-    );
-  }
-}
-
 class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
   const CustomElevatedButtonWithIdAndStatus({
     Key? key,
@@ -246,73 +200,9 @@ class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
                   ),
                 ],
               ),
-              // Column(
-              //   children: [
-              //     Text(
-              //       "Status",
-              //       style: TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.black,
-              //       ),
-              //     ),
-              //     Text(
-              //       warehouseStatus,
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CustomElevatedButtonWithIcon extends StatelessWidget {
-  const CustomElevatedButtonWithIcon({
-    Key? key,
-    required this.text,
-    required this.icon,
-    this.onPressed,
-  }) : super(key: key);
-  final String text;
-  final IconData icon;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        backgroundColor: Color(0xFFFFF3CE),
-      ),
-      onPressed: onPressed,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: Colors.grey[700],
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              text,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -386,64 +276,6 @@ class CustomHomeTopBanner extends StatelessWidget {
     );
   }
 }
-
-// class CustomHomeTopBanner extends StatelessWidget {
-//   const CustomHomeTopBanner({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Material(
-//       color: Colors.transparent,
-//       borderRadius: BorderRadius.vertical(
-//         bottom: Radius.circular(30),
-//       ),
-//       elevation: 5,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           color: Color(0xFFFFF3CE),
-//           borderRadius: BorderRadius.vertical(
-//             bottom: Radius.circular(30),
-//           ),
-//         ),
-//         child: Column(
-//           children: [
-//             SizedBox(
-//               height: 25,
-//             ),
-//             Text(
-//               "NWarehouse Pvt. Ltd.",
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontWeight: FontWeight.w700,
-//                 fontSize: 50,
-//               ),
-//             ),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             Text(
-//               "Supported by",
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontSize: 30,
-//               ),
-//             ),
-//             SizedBox(
-//               height: 5,
-//             ),
-//             Image.asset(
-//               "assets/images/birac_logo.png",
-//               width: 120,
-//             ),
-//             SizedBox(
-//               height: 45,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class Warehouse {
   final String warehouseID;

@@ -20,23 +20,6 @@ class SlotsPageExcel extends StatefulWidget {
 class _SlotsPageExcelState extends State<SlotsPageExcel> {
   List<Slot> slotList = [];
 
-  void displaySnackBar(String message,
-      {Color color = Colors.red, int durationInSeconds = 3}) {
-    SnackBar snackBar = SnackBar(
-      content: Text(
-        message,
-      ),
-      backgroundColor: color,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      duration: Duration(seconds: durationInSeconds),
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
   void fetchSlots() {
     slotList = List.generate(
       widget.slotNodesList.length,

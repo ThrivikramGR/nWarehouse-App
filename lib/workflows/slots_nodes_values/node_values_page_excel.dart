@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gauge_indicator/gauge_indicator.dart';
@@ -45,26 +46,28 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
   List<List> nodeValues = [];
 
   void fetchData() async {
-    ByteData data =
-        await rootBundle.load("assets/excel_data/${widget.nodeID}.xlsx");
+    final storageRef = FirebaseStorage.instance.ref();
+    final excelRef = storageRef.child(widget.nodeID + ".xlsx");
 
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    try {
+      final Uint8List? data = await excelRef.getData();
+      var decoder = SpreadsheetDecoder.decodeBytes(data as List<int>);
 
-    var decoder = SpreadsheetDecoder.decodeBytes(
-      bytes,
-    );
+      var table = decoder.tables['Sheet1'];
 
-    var table = decoder.tables['Sheet1'];
+      nodeValues.addAll(table!.rows.reversed
+          .toList()
+          .sublist(0, table.rows.length > 500 ? 500 : table.rows.length - 1));
 
-    nodeValues.addAll(table!.rows.reversed
-        .toList()
-        .sublist(0, table.rows.length > 500 ? 500 : table.rows.length - 1));
-
-    generateGraphPoints();
-    setState(() {
-      loading = false;
-    });
+      generateGraphPoints();
+      setState(() {
+        loading = false;
+      });
+    } on FirebaseException catch (e) {
+      displaySnackBar("Missing / Incompatible data!");
+      Navigator.pop(context);
+      return;
+    }
   }
 
   void generateGraphPoints() {
@@ -91,31 +94,6 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
   }
 
   bool graphView = true;
-
-  // Text getStatusText() {
-  //   num avg = (double.parse(nodeValues[1][nodeTypeParamsMap[nodeType]![1]]) +
-  //           double.parse(nodeValues[2][nodeTypeParamsMap[nodeType]![2]])) /
-  //       2;
-  //   if (avg > 2000) {
-  //     return Text(
-  //       "Take Action",
-  //       style: TextStyle(
-  //         fontSize: 22,
-  //         color: Colors.red,
-  //         fontWeight: FontWeight.bold,
-  //       ),
-  //     );
-  //   } else {
-  //     return Text(
-  //       "Good",
-  //       style: TextStyle(
-  //         fontSize: 22,
-  //         color: Colors.green,
-  //         fontWeight: FontWeight.bold,
-  //       ),
-  //     );
-  //   }
-  // }
 
   @override
   void initState() {
@@ -303,24 +281,6 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                                     ),
                                   ],
                                 ),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Text(
-                                //       "Status",
-                                //       style: TextStyle(
-                                //         fontWeight: FontWeight.bold,
-                                //         fontSize: 18,
-                                //       ),
-                                //     ),
-                                //     SizedBox(
-                                //       width:
-                                //           MediaQuery.of(context).size.width / 4,
-                                //     ),
-                                //     getStatusText(),
-                                //   ],
-                                // ),
                               ],
                             ),
                           ),
@@ -524,19 +484,6 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                                       yValueMapper: (GraphPoint point, _) =>
                                           point.y,
                                     ),
-                                    // LineSeries<GraphPoint, String>(
-                                    //   width: 1,
-                                    //   color: Colors.red[400],
-                                    //   // Bind data source
-                                    //   dataSource: List.generate(
-                                    //     nodeValues.length,
-                                    //     (index) => GraphPoint("", 160),
-                                    //   ),
-                                    //   xValueMapper: (GraphPoint point, _) =>
-                                    //       point.x,
-                                    //   yValueMapper: (GraphPoint point, _) =>
-                                    //       point.y,
-                                    // ),
                                   ],
                                 ),
                                 SfCartesianChart(
@@ -589,18 +536,6 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                                       yValueMapper: (GraphPoint point, _) =>
                                           point.y,
                                     ), // LineSeries<GraphPoint, String>(
-                                    //   width: 1,
-                                    //   color: Colors.red[400],
-                                    //   // Bind data source
-                                    //   dataSource: List.generate(
-                                    //     nodeValues.length,
-                                    //     (index) => GraphPoint("", 160),
-                                    //   ),
-                                    //   xValueMapper: (GraphPoint point, _) =>
-                                    //       point.x,
-                                    //   yValueMapper: (GraphPoint point, _) =>
-                                    //       point.y,
-                                    // ),
                                   ],
                                 ),
                               ]
@@ -614,28 +549,6 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                                             vertical: 10, horizontal: 10),
                                         tileColor: Color(0xFF0F7F2F9),
                                         style: ListTileStyle.list,
-                                        // title: Padding(
-                                        //   padding:
-                                        //       const EdgeInsets.only(bottom: 10),
-                                        //   child: Row(
-                                        //     children: [
-                                        //       Text(
-                                        //         "Timestamp:",
-                                        //         style: TextStyle(
-                                        //           fontWeight: FontWeight.bold,
-                                        //           color: Colors.grey[800],
-                                        //           fontSize: 17,
-                                        //         ),
-                                        //       ),
-                                        //       SizedBox(
-                                        //         width: 5,
-                                        //       ),
-                                        //       Text(
-                                        //         nodeValues[index]["TimeStamp"],
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // ),
                                         subtitle: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 15),

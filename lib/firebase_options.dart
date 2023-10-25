@@ -21,15 +21,9 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -59,5 +53,22 @@ class DefaultFirebaseOptions {
     projectId: 'nwarehouse123',
     authDomain: 'nwarehouse123.firebaseapp.com',
     storageBucket: 'nwarehouse123.appspot.com',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyCdnuNNjtZjdG80MSK_nRj3UszdLx5z8tQ',
+    appId: '1:916725047021:android:c1930e438b49175ee536e4',
+    messagingSenderId: '916725047021',
+    projectId: 'nwarehouse123',
+    storageBucket: 'nwarehouse123.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAffGqEnhHGM8nKBDqNncqGLuZ28sG2Ino',
+    appId: '1:916725047021:ios:cbf5445cb957131de536e4',
+    messagingSenderId: '916725047021',
+    projectId: 'nwarehouse123',
+    storageBucket: 'nwarehouse123.appspot.com',
+    iosBundleId: 'com.nWarehouse.nWareApp',
   );
 }
