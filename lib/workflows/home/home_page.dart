@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> {
             (Route<dynamic> route) => false,
           );
         }
+
         //hardcode in case api fails
         warehouseList.addAll([
           Warehouse(isActive: 1, warehouseID: "NW1001"),
@@ -65,6 +66,7 @@ class _HomePageState extends State<HomePage> {
         });
         return;
       }
+
       for (Map warehouse in response.data["data"]) {
         warehouseList.add(
           Warehouse(
@@ -73,6 +75,7 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       }
+      print("Warehouses - from API");
     } catch (e) {
       //hardcode in case api fails
       warehouseList.addAll([
@@ -102,10 +105,62 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
         children: [
           CustomHomeTopBanner(),
+          SizedBox(
+            height: 25,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width < 700 ? 20 : 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Warehouses",
+                  style: TextStyle(
+                    fontFamily: "NunitoSans",
+                    color: Color(0xFF323232),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Wrap(
+                  spacing: 25,
+                  runSpacing: 25,
+                  children: List.generate(warehouseList.length, (index) {
+                    return SizedBox(
+                      width: 250,
+                      height: 150,
+                      child: CustomElevatedButtonWithIdAndStatus(
+                        name: "Warehouse ${index + 1}",
+                        id: warehouseList[index].warehouseID,
+                        status: "Good",
+                        onTap: warehouseList[index].isActive == 1
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SlotsPage(
+                                      warehouseName: "Warehouse ${index + 1}",
+                                      warehouseID:
+                                          warehouseList[index].warehouseID,
+                                    ),
+                                  ),
+                                );
+                              }
+                            : null,
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ),
           // SizedBox(
           //   height: 20,
           // ),
@@ -178,70 +233,12 @@ class _HomePageState extends State<HomePage> {
           //   padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
           //   child: Divider(),
           // ),
-          SizedBox(
-            height: 25,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Warehouses",
-                    style: TextStyle(
-                      fontFamily: "NunitoSans",
-                      color: Color(0xFF323232),
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : Expanded(
-                          child: GridView.count(
-                            padding: EdgeInsets.only(bottom: 25),
-                            childAspectRatio: 2.0,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 2,
-                            children:
-                                List.generate(warehouseList.length, (index) {
-                              return CustomElevatedButtonWithIdAndStatus(
-                                name: "Warehouse ${index + 1}",
-                                id: warehouseList[index].warehouseID,
-                                status: "Good",
-                                onTap: warehouseList[index].isActive == 1
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => SlotsPage(
-                                              warehouseName:
-                                                  "Warehouse ${index + 1}",
-                                              warehouseID: warehouseList[index]
-                                                  .warehouseID,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    : null,
-                              );
-                            }),
-                          ),
-                        ),
-                ],
-              ),
-            ),
-          ),
+
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(top: 50),
             child: Image.asset(
               "assets/images/MHI.png",
-              height: 250,
+              height: 150,
             ),
           ),
         ],
@@ -332,7 +329,7 @@ class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
           Text(
             name,
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: onTap == null ? Colors.black38 : Colors.white,
             ),
@@ -385,53 +382,6 @@ class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
   }
 }
 
-class CustomElevatedButtonWithIcon extends StatelessWidget {
-  const CustomElevatedButtonWithIcon({
-    Key? key,
-    required this.text,
-    required this.icon,
-    this.onPressed,
-  }) : super(key: key);
-  final String text;
-  final IconData icon;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        backgroundColor: Color(0xFFFFF3CE),
-      ),
-      onPressed: onPressed,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: Colors.grey[700],
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              text,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class CustomHomeTopBanner extends StatelessWidget {
   const CustomHomeTopBanner({Key? key}) : super(key: key);
 
@@ -453,14 +403,14 @@ class CustomHomeTopBanner extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 60,
+              height: 20,
             ),
             Image.asset(
               "assets/images/nw_logo.png",
-              height: 80,
+              height: 40,
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
               "NWarehouse Pvt. Ltd.",
@@ -468,11 +418,11 @@ class CustomHomeTopBanner extends StatelessWidget {
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w700,
-                fontSize: 40,
+                fontSize: 25,
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
               "\"KAAPPAAN\"",
@@ -481,18 +431,18 @@ class CustomHomeTopBanner extends StatelessWidget {
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 3,
-                fontSize: 30,
+                fontSize: 20,
               ),
             ),
             SizedBox(
-              height: 25,
+              height: 15,
             ),
             Image.asset(
               "assets/images/sastra_landscape.png",
-              width: 400,
+              width: 250,
             ),
             SizedBox(
-              height: 25,
+              height: 15,
             ),
           ],
         ),
@@ -500,64 +450,6 @@ class CustomHomeTopBanner extends StatelessWidget {
     );
   }
 }
-
-// class CustomHomeTopBanner extends StatelessWidget {
-//   const CustomHomeTopBanner({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Material(
-//       color: Colors.transparent,
-//       borderRadius: BorderRadius.vertical(
-//         bottom: Radius.circular(30),
-//       ),
-//       elevation: 5,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           color: Color(0xFFFFF3CE),
-//           borderRadius: BorderRadius.vertical(
-//             bottom: Radius.circular(30),
-//           ),
-//         ),
-//         child: Column(
-//           children: [
-//             SizedBox(
-//               height: 25,
-//             ),
-//             Text(
-//               "NWarehouse Pvt. Ltd.",
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontWeight: FontWeight.w700,
-//                 fontSize: 50,
-//               ),
-//             ),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             Text(
-//               "Supported by",
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontSize: 30,
-//               ),
-//             ),
-//             SizedBox(
-//               height: 5,
-//             ),
-//             Image.asset(
-//               "assets/images/birac_logo.png",
-//               width: 120,
-//             ),
-//             SizedBox(
-//               height: 45,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class Warehouse {
   final String warehouseID;
