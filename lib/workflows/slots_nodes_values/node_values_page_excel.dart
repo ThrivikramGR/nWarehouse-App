@@ -46,24 +46,20 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
   List<List> nodeValues = [];
 
   void fetchData() async {
-    final storageRef = FirebaseStorage.instance.ref();
-    final excelRef = storageRef.child(widget.nodeID + ".xlsx");
-
     try {
+      final storageRef = FirebaseStorage.instance.ref();
+      final excelRef = storageRef.child(widget.nodeID + ".xlsx");
       final Uint8List? data = await excelRef.getData();
       var decoder = SpreadsheetDecoder.decodeBytes(data as List<int>);
-
-      var table = decoder.tables['Sheet1'];
-
-      nodeValues.addAll(table!.rows.reversed
+      SpreadsheetTable table = decoder.tables[decoder.tables.keys.first]!;
+      nodeValues.addAll(table.rows.reversed
           .toList()
           .sublist(0, table.rows.length > 500 ? 500 : table.rows.length - 1));
-
       generateGraphPoints();
       setState(() {
         loading = false;
       });
-    } on FirebaseException catch (e) {
+    } catch (e) {
       displaySnackBar("Missing / Incompatible data!");
       Navigator.pop(context);
       return;
