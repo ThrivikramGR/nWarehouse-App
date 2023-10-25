@@ -1,11 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:iot_project/screens/home/popup_menu/add_user_screen.dart';
-import 'package:iot_project/screens/home/popup_menu/add_warehouse_screen.dart';
 import 'package:iot_project/workflows/home/home_page.dart';
-import 'package:iot_project/workflows/launch_page.dart';
-import 'package:iot_project/workflows/login_signup/login_page.dart';
 
 import 'firebase_options.dart';
 
@@ -31,40 +27,10 @@ class MyApp extends StatelessWidget {
         fontFamily: "NunitoSans",
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "home",
+      initialRoute: "/",
       routes: {
-        '/': (context) => InitRoutingPage(),
-        'login': (context) => LoginPage(),
-        'home': (context) => HomePage(),
-        'screen4': (context) => AddWarehouseScreen(),
-        'addUser': (context) => AddUserScreen(),
-        'launchPage': (context) => LaunchPage(),
+        '/': (context) => HomePage(),
       },
-    );
-  }
-}
-
-class InitRoutingPage extends StatefulWidget {
-  const InitRoutingPage({Key? key}) : super(key: key);
-  @override
-  State<InitRoutingPage> createState() => _InitRoutingPageState();
-}
-
-class _InitRoutingPageState extends State<InitRoutingPage> {
-  Future<void> initRouteNav() async {
-    Navigator.pushReplacementNamed(context, "home");
-  }
-
-  @override
-  void initState() {
-    initRouteNav();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
     );
   }
 }
