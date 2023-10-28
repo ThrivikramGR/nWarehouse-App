@@ -33,6 +33,15 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  String getStatusText() {
+    num avg = (nodeValues[0][3] + nodeValues[0][4]) / 2;
+    if (avg > 2000) {
+      return "Take Action";
+    } else {
+      return "Good";
+    }
+  }
+
   Map<String, List<String>> nodeTypeParamsMap = {
     "fixed": ["TGS2620", "TGS2602", "TGS2600"],
     "CO2": ["CO2", "Temperature", "Humidity"],
@@ -282,6 +291,36 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                             ),
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Status",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                          Text(
+                            "-",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                          Text(
+                            getStatusText(),
+                            style: TextStyle(
+                              fontSize: 26,
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 10,
