@@ -54,7 +54,7 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
       SpreadsheetTable table = decoder.tables[decoder.tables.keys.first]!;
       nodeValues.addAll(table.rows.reversed
           .toList()
-          .sublist(0, table.rows.length > 500 ? 500 : table.rows.length - 1));
+          .sublist(0, table.rows.length > 250 ? 250 : table.rows.length - 1));
       generateGraphPoints();
       setState(() {
         loading = false;
@@ -153,6 +153,7 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                     ),
                   )
                 : ListView(
+                    physics: ClampingScrollPhysics(),
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 20.0),
