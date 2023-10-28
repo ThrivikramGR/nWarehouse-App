@@ -80,7 +80,8 @@ class _HomePageState extends State<HomePage> {
                       child: CustomElevatedButtonWithIdAndStatus(
                         name: "Warehouse ${index + 1}",
                         id: warehouseList[index].warehouseID,
-                        status: "Good",
+                        isActive:
+                            warehouseList[index].isActive == 1 ? true : false,
                         onTap: warehouseList[index].isActive == 1
                             ? () {
                                 Navigator.push(
@@ -114,7 +115,10 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 );
                               }
-                            : null,
+                            : () {
+                                displaySnackBar(
+                                    "Not Authorized to access warehouse!");
+                              },
                       ),
                     );
                   }),
@@ -139,13 +143,13 @@ class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
   const CustomElevatedButtonWithIdAndStatus({
     Key? key,
     required this.name,
+    required this.isActive,
     required this.id,
-    required this.status,
     this.onTap,
   }) : super(key: key);
   final String name;
   final String id;
-  final String status;
+  final bool isActive;
   final VoidCallback? onTap;
 
   @override
@@ -155,12 +159,12 @@ class CustomElevatedButtonWithIdAndStatus extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        backgroundColor: Colors.green.shade800,
+        backgroundColor: isActive ? Colors.green.shade800 : Color(0xFFFFB935),
         foregroundColor: Color(0xFF92A65F),
         side: BorderSide(
           style: BorderStyle.solid,
           color: Color(0xFF92A65F),
-          width: 1,
+          width: isActive ? 1 : 0,
         ),
         elevation: 0,
         padding: EdgeInsets.symmetric(vertical: 15),

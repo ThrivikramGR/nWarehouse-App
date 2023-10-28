@@ -88,7 +88,7 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
                       child: CustomElevatedButtonWithIdAndStatus(
                         name: "Slot ${index + 1}",
                         id: slotList[index].slotID,
-                        status: "Good",
+                        isActive: true,
                         onTap: slotList[index].isActive == 1
                             ? () {
                                 Navigator.push(

@@ -99,7 +99,6 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
                       child: CustomElevatedButtonWithIdAndStatus(
                         name: "Node ${index + 1}",
                         id: nodeList[index].nodeID,
-                        status: "Good",
                         onTap: nodeList[index].isActive == 1
                             ? () {
                                 Navigator.push(
@@ -112,6 +111,7 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
                                 );
                               }
                             : null,
+                        isActive: true,
                       ),
                     );
                   }),
