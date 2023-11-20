@@ -37,42 +37,45 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.slotName,
-          style: TextStyle(
-            fontFamily: "NunitoSans",
-            color: Color(0xFF323232),
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        iconTheme: IconThemeData(
-          color: Color(0xFF323232),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, "home", (Route<dynamic> route) => false);
-            },
-            icon: Icon(
-              Icons.home,
-            ),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text(
+      //     widget.slotName,
+      //     style: TextStyle(
+      //       fontFamily: "NunitoSans",
+      //       color: Color(0xFF323232),
+      //       fontWeight: FontWeight.w700,
+      //     ),
+      //   ),
+      //   iconTheme: IconThemeData(
+      //     color: Color(0xFF323232),
+      //   ),
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () {
+      //         Navigator.pushNamedAndRemoveUntil(
+      //             context, "home", (Route<dynamic> route) => false);
+      //       },
+      //       icon: Icon(
+      //         Icons.home,
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: ListView(
         children: [
+          CustomHomeTopBanner(),
           Padding(
-            padding: EdgeInsets.only(left: 18, top: 15),
-            child: Text(
-              "Nodes",
-              style: TextStyle(
-                fontFamily: "NunitoSans",
-                fontSize: 25,
-                color: Color(0xFF323232),
-                fontWeight: FontWeight.w900,
+            padding: const EdgeInsets.only(top: 25, bottom: 20),
+            child: Center(
+              child: Text(
+                widget.slotName + " - Nodes",
+                style: TextStyle(
+                  fontFamily: "NunitoSans",
+                  fontSize: 25,
+                  color: Color(0xFF323232),
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -117,10 +120,10 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
                   }),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20, top: 50),
+                  padding: const EdgeInsets.only(top: 30, bottom: 10),
                   child: Image.asset(
-                    "assets/images/nw_bg.png",
-                    scale: 1.5,
+                    "assets/images/ccamp_logo.jpg",
+                    height: 100,
                   ),
                 ),
               ],

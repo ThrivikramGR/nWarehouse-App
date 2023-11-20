@@ -37,31 +37,35 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.warehouseName,
-          style: TextStyle(
-            fontFamily: "NunitoSans",
-            color: Color(0xFF323232),
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        iconTheme: IconThemeData(
-          color: Color(0xFF323232),
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Color(0xFFFFF3CE),
+      //   centerTitle: true,
+      //   title: Text(
+      //     widget.warehouseName,
+      //     style: TextStyle(
+      //       fontFamily: "NunitoSans",
+      //       color: Color(0xFF323232),
+      //       fontWeight: FontWeight.w700,
+      //     ),
+      //   ),
+      //   iconTheme: IconThemeData(
+      //     color: Color(0xFF323232),
+      //   ),
+      // ),
       body: ListView(
         children: [
+          CustomHomeTopBanner(),
           Padding(
-            padding: EdgeInsets.only(left: 18, top: 15),
-            child: Text(
-              "Slots",
-              style: TextStyle(
-                fontFamily: "NunitoSans",
-                fontSize: 25,
-                color: Color(0xFF323232),
-                fontWeight: FontWeight.w900,
+            padding: const EdgeInsets.only(top: 25, bottom: 20),
+            child: Center(
+              child: Text(
+                widget.warehouseName + " - Slots",
+                style: TextStyle(
+                  fontFamily: "NunitoSans",
+                  fontSize: 25,
+                  color: Color(0xFF323232),
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -109,10 +113,10 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
                   }),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20, top: 50),
+                  padding: const EdgeInsets.only(top: 30, bottom: 10),
                   child: Image.asset(
-                    "assets/images/nw_bg.png",
-                    scale: 1.5,
+                    "assets/images/ccamp_logo.jpg",
+                    height: 100,
                   ),
                 ),
               ],

@@ -127,10 +127,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 30, bottom: 10),
             child: Image.asset(
-              "assets/images/MHI.png",
-              height: 150,
+              "assets/images/ccamp_logo.jpg",
+              height: 100,
             ),
           ),
         ],
@@ -235,9 +235,32 @@ class CustomHomeTopBanner extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+            Text(
+              "IoT Device for Rapid Quality Assessment\nfor Food Grains in Godown",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 22,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "BIRAC/CCAMP0949/BIG-14/19",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 22,
+                color: Colors.blue[800],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Image.asset(
               "assets/images/nw_logo.png",
-              height: 40,
+              height: 70,
             ),
             SizedBox(
               height: 10,
@@ -267,9 +290,22 @@ class CustomHomeTopBanner extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Image.asset(
-              "assets/images/sastra_landscape.png",
-              width: 250,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset(
+                  "assets/images/birac_logo.png",
+                  width: 100,
+                ),
+                Image.asset(
+                  "assets/images/sastra_landscape.png",
+                  width: 250,
+                ),
+                Image.asset(
+                  "assets/images/big_logo.png",
+                  width: 100,
+                ),
+              ],
             ),
             SizedBox(
               height: 15,
