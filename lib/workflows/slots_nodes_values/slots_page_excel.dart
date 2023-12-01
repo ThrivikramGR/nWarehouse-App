@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iot_project/workflows/slots_nodes_values/nodes_page_excel.dart';
 
 import '../home/home_page.dart';
+import 'nodes_page_excel.dart';
 
 class SlotsPageExcel extends StatefulWidget {
   final String warehouseID;
@@ -26,6 +26,7 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
       (index) =>
           Slot(isActive: 1, slotID: widget.slotNodesList.keys.toList()[index]),
     );
+    slotList.add(Slot(isActive: 0, slotID: "NW10010104"));
   }
 
   @override
@@ -56,10 +57,10 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
         children: [
           CustomHomeTopBanner(),
           Padding(
-            padding: const EdgeInsets.only(top: 25, bottom: 20),
+            padding: const EdgeInsets.only(top: 15, bottom: 20),
             child: Center(
               child: Text(
-                widget.warehouseName + " - Slots",
+                "Warehouse ID#" + " - Slot Details",
                 style: TextStyle(
                   fontFamily: "NunitoSans",
                   fontSize: 25,
@@ -78,7 +79,7 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
                 ),
               ),
             ),
-            padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
+            padding: EdgeInsets.fromLTRB(18, 0, 18, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -90,7 +91,7 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
                       width: 250,
                       height: 150,
                       child: CustomElevatedButtonWithIdAndStatus(
-                        name: "Slot ${index + 1}",
+                        name: "Slot",
                         id: slotList[index].slotID,
                         isActive: true,
                         onTap: slotList[index].isActive == 1
@@ -112,13 +113,10 @@ class _SlotsPageExcelState extends State<SlotsPageExcel> {
                     );
                   }),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 10),
-                  child: Image.asset(
-                    "assets/images/ccamp_logo.jpg",
-                    height: 100,
-                  ),
+                SizedBox(
+                  height: 20,
                 ),
+                Footer(),
               ],
             ),
           ),

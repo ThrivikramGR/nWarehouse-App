@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../slots_nodes_values/slots_page_excel.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -49,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           CustomHomeTopBanner(),
           SizedBox(
-            height: 35,
+            height: 20,
           ),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -59,172 +61,186 @@ class _HomePageState extends State<HomePage> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 60,
+                  height: 0,
                 ),
                 Text(
-                  "IoT Device for Rapid Quality Assessment\nfor Food Grains in Godown",
-                  textAlign: TextAlign.center,
+                  "Warehouse ID with Details",
                   style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 30,
+                    fontFamily: "NunitoSans",
+                    color: Color(0xFF323232),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 SizedBox(
-                  height: 75,
+                  height: 25,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade700,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  height: 200,
-                  width: 800,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Click here",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.pink,
-                            fontStyle: FontStyle.italic,
-                            letterSpacing: 3,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Warehouse Food Grain Quality Analysis",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    letterSpacing: 3,
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.bold,
+                Wrap(
+                  spacing: 25,
+                  runSpacing: 25,
+                  children: List.generate(warehouseList.length, (index) {
+                    return SizedBox(
+                      width: 250,
+                      height: 150,
+                      child: CustomElevatedButtonWithIdAndStatus(
+                        name: "Warehouse ${index + 1}",
+                        id: warehouseList[index].warehouseID,
+                        isActive:
+                            warehouseList[index].isActive == 1 ? true : false,
+                        onTap: warehouseList[index].isActive == 1
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SlotsPageExcel(
+                                      warehouseName: "Warehouse ${index + 1}",
+                                      warehouseID:
+                                          warehouseList[index].warehouseID,
+                                      slotNodesList: {
+                                        "NW10010101": [
+                                          "NWFG10010101",
+                                          "NWFG10010102",
+                                          "NWFG10010103",
+                                          "NWFG10010104",
+                                        ],
+                                        "NW10010102": [
+                                          "NWFG10010205",
+                                          "NWFG10010206",
+                                          "NWFG10010207",
+                                          "NWFG10010212",
+                                        ],
+                                        "NW10010103": [
+                                          "NWFG10010308",
+                                          "NWFG10010309",
+                                          "NWFG10010310",
+                                          "NWFG10010311",
+                                        ],
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                // Text(
-                //   "Warehouse ID with Details",
-                //   style: TextStyle(
-                //     fontFamily: "NunitoSans",
-                //     color: Color(0xFF323232),
-                //     fontSize: 25,
-                //     fontWeight: FontWeight.w800,
-                //   ),
-                // ),
-                SizedBox(
-                  height: 50,
-                ),
-                Divider(
-                  thickness: 2,
+                                );
+                              }
+                            : () {
+                                displaySnackBar(
+                                    "Not Authorized to access warehouse!");
+                              },
+                      ),
+                    );
+                  }),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
-                Text(
-                  "Supported By",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                // Wrap(
-                //   spacing: 25,
-                //   runSpacing: 25,
-                //   children: List.generate(warehouseList.length, (index) {
-                //     return SizedBox(
-                //       width: 250,
-                //       height: 150,
-                //       child: CustomElevatedButtonWithIdAndStatus(
-                //         name: "Warehouse ${index + 1}",
-                //         id: warehouseList[index].warehouseID,
-                //         isActive:
-                //             warehouseList[index].isActive == 1 ? true : false,
-                //         onTap: warehouseList[index].isActive == 1
-                //             ? () {
-                //                 Navigator.push(
-                //                   context,
-                //                   MaterialPageRoute(
-                //                     builder: (context) => SlotsPageExcel(
-                //                       warehouseName: "Warehouse ${index + 1}",
-                //                       warehouseID:
-                //                           warehouseList[index].warehouseID,
-                //                       slotNodesList: {
-                //                         "NW10010101": [
-                //                           "NWFG10010101",
-                //                           "NWFG10010102",
-                //                           "NWFG10010103",
-                //                           "NWFG10010104",
-                //                         ],
-                //                         "NW10010102": [
-                //                           "NWFG10010205",
-                //                           "NWFG10010206",
-                //                           "NWFG10010207",
-                //                           "NWFG10010212",
-                //                         ],
-                //                         "NW10010103": [
-                //                           "NWFG10010308",
-                //                           "NWFG10010309",
-                //                           "NWFG10010310",
-                //                           "NWFG10010311",
-                //                         ],
-                //                       },
-                //                     ),
-                //                   ),
-                //                 );
-                //               }
-                //             : () {
-                //                 displaySnackBar(
-                //                     "Not Authorized to access warehouse!");
-                //               },
-                //       ),
-                //     );
-                //   }),
-                // ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15, bottom: 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  "assets/images/birac_logo.png",
-                  width: 100,
-                ),
-                Image.asset(
-                  "assets/images/sastra_landscape.png",
-                  width: 250,
-                ),
-                Image.asset(
-                  "assets/images/big_logo.png",
-                  width: 100,
-                ),
-                Image.asset(
-                  "assets/images/ccamp_logo.jpg",
-                  height: 85,
-                ),
+                Footer(),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Divider(
+          indent: 25,
+          thickness: 2,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "\"A Grain Conserved is as good as a Grain Created\"",
+          style: TextStyle(
+            color: Colors.green,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFFFF3CE),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              Text(
+                "NWarehouse Pvt. Ltd., Plot No: 11,12 - MASS Nivas, 4th Street, Gandhi Salai,",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "Trichy, Tamil Nadu, India",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.link,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "n-warehouse.com",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.email_outlined,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("nwarehouse2020@gmail.com"),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.phone,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "6380089868",
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -365,17 +381,17 @@ class CustomHomeTopBanner extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            // Text(
-            //   "IoT Device for Rapid Quality Assessment\nfor Food Grains in Godown",
-            //   textAlign: TextAlign.center,
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.w700,
-            //     fontSize: 22,
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 25,
-            // ),
+            Text(
+              "IoT Device for Rapid Quality Assessment\nfor Food Grains in Godown",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 22,
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
           ],
         ),
       ),

@@ -26,6 +26,40 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
         nodeID: widget.nodesList[index],
       ),
     );
+    nodeList.addAll([
+      Node(
+        isActive: 0,
+        nodeID: "NWFG10010105",
+      ),
+      Node(
+        isActive: 1,
+        nodeID: "NWFG10010106",
+      ),
+      Node(
+        isActive: 0,
+        nodeID: "NWFG10010107",
+      ),
+      Node(
+        isActive: 0,
+        nodeID: "NWFG10010108",
+      ),
+      Node(
+        isActive: 2,
+        nodeID: "NWFG10010109",
+      ),
+      Node(
+        isActive: 0,
+        nodeID: "NWFG10010110",
+      ),
+      Node(
+        isActive: 1,
+        nodeID: "NWFG10010111",
+      ),
+      Node(
+        isActive: 0,
+        nodeID: "NWFG10010112",
+      ),
+    ]);
   }
 
   @override
@@ -69,7 +103,7 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
             padding: const EdgeInsets.only(top: 25, bottom: 20),
             child: Center(
               child: Text(
-                widget.slotName + " - Nodes",
+                "Warehouse ID# - " + "Slot ID#" + " - Node Details",
                 style: TextStyle(
                   fontFamily: "NunitoSans",
                   fontSize: 25,
@@ -88,7 +122,7 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
                 ),
               ),
             ),
-            padding: EdgeInsets.fromLTRB(18, 15, 18, 10),
+            padding: EdgeInsets.fromLTRB(18, 0, 18, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -97,13 +131,14 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
                   runSpacing: 25,
                   children: List.generate(nodeList.length, (index) {
                     return SizedBox(
-                      width: 250,
-                      height: 150,
-                      child: CustomElevatedButtonWithIdAndStatus(
-                        name: "Node ${index + 1}",
+                      width: 140,
+                      height: 85,
+                      child: CustomElevatedButtonWithIdAndStatusNode(
+                        name: "Node Details",
                         id: nodeList[index].nodeID,
-                        onTap: nodeList[index].isActive == 1
-                            ? () {
+                        onTap: nodeList[index].isActive == 0
+                            ? null
+                            : () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -112,22 +147,91 @@ class _NodesPageExcelState extends State<NodesPageExcel> {
                                     ),
                                   ),
                                 );
-                              }
-                            : null,
-                        isActive: true,
+                              },
+                        isActive: (index == 8) ? false : true,
                       ),
                     );
                   }),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 10),
-                  child: Image.asset(
-                    "assets/images/ccamp_logo.jpg",
-                    height: 100,
-                  ),
+                SizedBox(
+                  height: 20,
                 ),
+                Footer(),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomElevatedButtonWithIdAndStatusNode extends StatelessWidget {
+  const CustomElevatedButtonWithIdAndStatusNode({
+    Key? key,
+    required this.name,
+    required this.isActive,
+    required this.id,
+    this.onTap,
+  }) : super(key: key);
+  final String name;
+  final String id;
+  final bool isActive;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        backgroundColor: isActive ? Colors.green.shade800 : Color(0xFFFFB935),
+        foregroundColor: Color(0xFF92A65F),
+        side: BorderSide(
+          style: BorderStyle.solid,
+          color: Color(0xFF92A65F),
+          width: isActive ? 1 : 0,
+        ),
+        elevation: 0,
+        padding: EdgeInsets.symmetric(vertical: 15),
+      ),
+      onPressed: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+              color: onTap == null ? Colors.black38 : Colors.white,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    "ID",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: onTap == null ? Colors.black38 : Colors.white,
+                    ),
+                  ),
+                  Text(
+                    id,
+                    style: TextStyle(
+                      color: onTap == null ? Colors.black38 : Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

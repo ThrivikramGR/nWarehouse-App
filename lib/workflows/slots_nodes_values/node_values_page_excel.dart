@@ -123,7 +123,7 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          widget.nodeID,
+          "Node Details - " + widget.nodeID,
           style: TextStyle(
             fontFamily: "NunitoSans",
             color: Color(0xFF323232),
@@ -299,7 +299,7 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Status",
+                            "Overall Status",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 22,
@@ -312,13 +312,23 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                               fontSize: 22,
                             ),
                           ),
-                          Text(
-                            getStatusText(),
-                            style: TextStyle(
-                              fontSize: 26,
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                getStatusText(),
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                " / Normal / Alert",
+                                style: TextStyle(
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -500,27 +510,30 @@ class _NodeValuesPageExcelState extends State<NodeValuesPageExcel> {
                       Column(
                         children: graphView
                             ? [
-                                SfCartesianChart(
-                                  title: ChartTitle(
-                                    text: "SV1",
-                                  ),
-                                  primaryXAxis: CategoryAxis(
-                                    arrangeByIndex: true,
-                                    isVisible: false,
-                                  ),
-                                  series: <LineSeries<GraphPoint, String>>[
-                                    LineSeries<GraphPoint, String>(
-                                      // markerSettings: MarkerSettings(
-                                      //     isVisible: true, width: 4, height: 4),
-                                      color: Colors.green,
-                                      dataSource:
-                                          graph1Points.reversed.toList(),
-                                      xValueMapper: (GraphPoint point, _) =>
-                                          point.x,
-                                      yValueMapper: (GraphPoint point, _) =>
-                                          point.y,
+                                SizedBox(
+                                  height: 235,
+                                  child: SfCartesianChart(
+                                    title: ChartTitle(
+                                      text: "SV1",
                                     ),
-                                  ],
+                                    primaryXAxis: CategoryAxis(
+                                      arrangeByIndex: true,
+                                      isVisible: false,
+                                    ),
+                                    series: <LineSeries<GraphPoint, String>>[
+                                      LineSeries<GraphPoint, String>(
+                                        // markerSettings: MarkerSettings(
+                                        //     isVisible: true, width: 4, height: 4),
+                                        color: Colors.green,
+                                        dataSource:
+                                            graph1Points.reversed.toList(),
+                                        xValueMapper: (GraphPoint point, _) =>
+                                            point.x,
+                                        yValueMapper: (GraphPoint point, _) =>
+                                            point.y,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 SfCartesianChart(
                                   title: ChartTitle(
